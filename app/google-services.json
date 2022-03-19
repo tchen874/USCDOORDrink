@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "487350184761",
+    "project_id": "uscdoordrink-f518a",
+    "storage_bucket": "uscdoordrink-f518a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487350184761:android:b1f1411a1efbf106da96e8",
+        "android_client_info": {
+          "package_name": "com.example.uscdoordrink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487350184761-s3dat91k96s68rlfn73csae3n5p5msde.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZiqS7qJDkPpystWFZxfhVW10p-xYlAms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487350184761-s3dat91k96s68rlfn73csae3n5p5msde.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
