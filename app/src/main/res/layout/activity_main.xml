@@ -6,27 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/CreateAccountButtom"
-        android:layout_width="130dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
-        android:text="No Account?"
-        android:textColor="#9F9B9B"
-        android:textSize="8sp"
-        app:layout_constraintStart_toEndOf="@+id/ForgotPasswordButtom"
+    <TextView
+        android:id="@+id/forgotPassword2"
+        android:layout_width="122dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/forgot_password"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="288dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="44dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
+        android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -34,27 +32,29 @@
     <EditText
         android:id="@+id/editTextTextPassword"
         android:layout_width="287dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="28dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:textColorHint="#757575"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="142dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginStart="134dp"
+        android:layout_marginTop="62dp"
         android:layout_marginEnd="135dp"
-        android:layout_marginBottom="260dp"
-        android:text="Log In"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/log_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotPassword2" />
 
     <TextView
         android:id="@+id/textView"
@@ -63,21 +63,19 @@
         android:layout_height="41dp"
         android:layout_marginStart="109dp"
         android:layout_marginTop="132dp"
-        android:text="USCDoorDrink"
+        android:text="@string/uscdoordrink"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ForgotPasswordButtom"
-        android:layout_width="144dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
-        android:text="Forgot Password?"
-        android:textColor="#9F9B9B"
-        android:textSize="8sp"
-        app:layout_constraintStart_toStartOf="parent"
+    <TextView
+        android:id="@+id/noAccount"
+        android:layout_width="122dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/no_account"
+        app:layout_constraintStart_toEndOf="@+id/forgotPassword2"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

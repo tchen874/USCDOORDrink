@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">USCDoorDrink</string>
+    <string name="uscdoordrink">USCDoorDrink</string>
+<!--    <string name="uscdoordrink">USCDoorDrink</string>-->
+    <string name="email">Email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="no_account">No Account?</string>
+<!--    <string name="email">Email</string>-->
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+<!--    <string name="uscdoordrink">USCDoorDrink</string>-->
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="name">Name</string>
+<!--    <string name="email">Email</string>-->
+<!--    <string name="password">Password</string>-->
+    <string name="merchant">Merchant?</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
