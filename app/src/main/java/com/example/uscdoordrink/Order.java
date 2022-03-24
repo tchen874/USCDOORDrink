@@ -10,11 +10,11 @@ public class Order {
     private ArrayList<Drink> orderDrinks = new ArrayList<Drink>();
     //? TODO
     private Customer cus;
-    private Seller sel;
+    private Merchant sel;
     private Location custLoc;
     private double caffTotal; /// cafeine in mg/d
 
-    public Order(ArrayList<Drink> drinks, Customer customer, Seller seller, Location loc, double caff){
+    public Order(ArrayList<Drink> drinks, Customer customer, Merchant seller, Location loc, double caff){
         this.orderDrinks = drinks;
         this.cus = customer;
         this.sel = seller;
@@ -40,11 +40,11 @@ public class Order {
         this.cus = cus;
     }
 
-    public Seller getSel() {
+    public Merchant getSel() {
         return sel;
     }
 
-    public void setSel(Seller sel) {
+    public void setSel(Merchant sel) {
         this.sel = sel;
     }
 
@@ -73,7 +73,9 @@ public class Order {
 //
 //            Toast toast = Toast.makeText(context, text, duration);
 //            toast.show();
+            return true;
         }
+        return false;
     }
 
     //add drink to cart, increase caffeine total. if caffeine > 400, warn! only add if user continues past? TODO
