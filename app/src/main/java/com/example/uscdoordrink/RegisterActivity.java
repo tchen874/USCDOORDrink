@@ -1,5 +1,6 @@
 package com.example.uscdoordrink;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,11 @@ import android.view.View;
 import android.widget.*;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.signupButton3:
                 registerUser();
                 
-                
         }
     }
 
@@ -58,9 +62,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String name = this.name.getText().toString().trim();
         String email = this.email.getText().toString().trim();
         String password = this.email.getText().toString().trim();
-
+        Boolean isMerchant = this.isMerchant.isChecked();
         // check to validate input
-
         // Check to see if the email is in the email pattern
         if(Patterns.EMAIL_ADDRESS.matcher(email).matches() == false)
         {
@@ -68,22 +71,71 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             this.email.requestFocus();
             return;
         }
+        if(email.isEmpty() == true)
+        {
+            this.email.setError("Email cannot be empty!");
+            this.email.requestFocus();
+            return;
+        }
+        // Check to see if password edit textField is empty or not
+        if(password.isEmpty() == true)
+        {
+            this.password.setError("Password cannot be empty!");
+            this.password.requestFocus();
+            return;
+        }
 
         // Check to see if name edit textField is empty or not
         if(name.isEmpty() == true)
         {
-            this.name.setError("Name is not valid!");
+            this.name.setError("Name icannot be empty!");
             this.name.requestFocus();
             return;
         }
 
-        // Check to see if password edit textField is empty or not
-        if(password.isEmpty() == true)
+        if (password.length() < 8)
         {
-            this.password.setError("Password is not valid!");
+            this.password.setError("Password should be 8 characters!");
             this.password.requestFocus();
             return;
         }
+
+        // add the information into firebase
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    User user = new User(name, email, isMerchant);
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
+                            {
+                                Toast.makeText(RegisterActivity.this, "User registered successful", Toast.LENGTH_LONG).show();
+
+                                // Direct to Map view
+                                startActivity(new Intent(RegisterActivity.this, mapViewActivity.class));
+
+
+                            }
+                            else
+                            {
+                                Toast.makeText(RegisterActivity.this, "Unable to Register!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(RegisterActivity.this, "Unable to Register!", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
 
 
 

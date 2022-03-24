@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCDoorDrink">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mapViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
