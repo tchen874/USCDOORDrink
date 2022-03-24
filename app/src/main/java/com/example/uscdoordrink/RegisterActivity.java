@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(RegisterActivity.this, "User registered successful", Toast.LENGTH_LONG).show();
 
                                 // Direct to Map view
-                                startActivity(new Intent(RegisterActivity.this, mapViewActivity.class));
+                                startActivity(new Intent(RegisterActivity.this, mapView.class));
 
 
                             }
