@@ -9,20 +9,17 @@ public class Merchant extends User {
     private ArrayList<Order> currOrders;
 
     static void createMerchAccount() {
-
     }
 
     static void createStore() {
-
     }
 
     static void viewAccount() {
-
     }
 
     static void viewHistory() {
-
     }
+
 
 
 }
