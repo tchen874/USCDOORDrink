@@ -12,26 +12,15 @@ public class User {
     private List<String> merchant;
     public Boolean isMerchant;
 
-    //should we add a photo to user profiles?
-    private String photo=null;
-    public User()
-    {
+
+    public User() {
         merchant = new ArrayList<String>();
     }
 
-    public User(String name, String email, Boolean isMerchant)
-    {
+    public User(String name, String email, Boolean isMerchant) {
         this.name = name;
         this.email = email;
         this.isMerchant = isMerchant;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getUserName() {
