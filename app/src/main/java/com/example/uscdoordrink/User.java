@@ -5,18 +5,16 @@ public class User {
 
     public String name;
     public String email;
-    public Boolean isMerchant;
 
     public User()
     {
 
     }
 
-    public User(String name, String email, Boolean isMerchant)
+    public User(String name, String email)
     {
         this.name = name;
         this.email = email;
-        this.isMerchant = isMerchant;
     }
 
 }

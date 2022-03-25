@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.*;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.content.*;
 
@@ -14,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -52,6 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // Use to dismiss the keyboard when not inputting
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
     @Override
     public void onClick(View v)
     {
@@ -113,8 +128,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    // To the map view page
-                    startActivity(new Intent(MainActivity.this, mapView.class));
+                    // To the map view page if is user
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+                    ref.addValueEventListener(new ValueEventListener() {
+                        Boolean isUser = false;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot s : snapshot.getChildren())
+                            {
+                                if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                                {
+                                    startActivity(new Intent(MainActivity.this, mapView.class));
+                                    isUser = true;
+                                    break;
+                                }
+                            }
+                            if(!isUser)
+                            {
+                                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
                 else
                 {

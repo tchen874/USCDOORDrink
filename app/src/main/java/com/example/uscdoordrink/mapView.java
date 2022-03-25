@@ -1,5 +1,6 @@
 package com.example.uscdoordrink;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -249,9 +250,11 @@ public class mapView extends AppCompatActivity
      * @param menu The options menu.
      * @return Boolean.
      */
+    @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.current_place_menu, menu);
+        getMenuInflater().inflate(R.layout.activity_mapview, menu);
+//        getMenuInflater().inflate(R.layout.activity_mapview, menu);
         return true;
     }
 
