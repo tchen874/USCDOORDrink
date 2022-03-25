@@ -12,7 +12,7 @@ public class Order {
     private Customer cus;
     private Merchant sel;
     private Location custLoc;
-    private double caffTotal; /// cafeine in mg/d
+    private double caffTotal; /// caffeine in mg/d
 
     public Order(ArrayList<Drink> drinks, Customer customer, Merchant seller, Location loc, double caff){
         this.orderDrinks = drinks;
@@ -88,7 +88,7 @@ public class Order {
         this.orderDrinks.remove(drink);
     }
 
-    //start order? TODO
+    //start order? TODO start timer until delivery using route time
     public void placeOrder(){
 
     }

@@ -188,9 +188,9 @@ public class mapView extends AppCompatActivity
             // below line is use to add marker to each location of our array list.
             this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
             // below lin is use to zoom our camera on map.
-            this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
+            //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
             // below line is use to move our camera to the specific location.
-            this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
+            //this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
         }
 
 //        // Use a custom info window adapter to handle multiple lines of text in the
