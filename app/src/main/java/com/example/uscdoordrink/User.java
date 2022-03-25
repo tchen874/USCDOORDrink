@@ -12,7 +12,6 @@ public class User {
     private List<String> merchant;
     public Boolean isMerchant;
 
-
     public User() {
         merchant = new ArrayList<String>();
     }
