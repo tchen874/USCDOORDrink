@@ -14,7 +14,6 @@ public class User {
 
     //should we add a photo to user profiles?
     private String photo=null;
-
     public User()
     {
         merchant = new ArrayList<String>();
@@ -62,4 +61,10 @@ public class User {
         this.merchant = merchant;
     }
 
+    static void viewAccount(){
+        //TODO
+    }
+    static void viewHistory(){
+        //TODO
+    }
 }
