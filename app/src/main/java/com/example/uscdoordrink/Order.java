@@ -90,6 +90,7 @@ public class Order {
 
     //start order? TODO start timer until delivery using route time
     public void placeOrder(){
+    //push to the database
 
     }
 
