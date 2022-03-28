@@ -181,6 +181,13 @@ public class mapView extends AppCompatActivity
 
     }
 
+//    public void addLocationfromFirebase(String address)
+//    {
+//        LatLng loc = getLocationFromAddress(this, address);
+////        locationArrayList()
+//
+//    }
+
     /**
      * Manipulates the map when it's available.
      * This callback is triggered when the map is ready to be used.
@@ -511,6 +518,9 @@ public class mapView extends AppCompatActivity
 
     }
 
+
+
+    // For navigation purpose
     public void UserClickMenu(View view)
     {
         System.out.println("Why this is mot");
