@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,7 +83,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
 //        final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
 
         // TODO: Change the uid into current user uid
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -207,7 +208,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         // Store the menu on firebaseDatabase
         //TODO: Covert the path to the current user!!!!
 //        FirebaseDatabase.getInstance().getReference("Merchants/nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu").removeValue();
-        FirebaseDatabase.getInstance().getReference("Merchants/nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
                 .setValue(listOfDrinkList);
         //TODO: Change back to user id
 //        FirebaseDatabase.getInstance().getReference("Merchants/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
