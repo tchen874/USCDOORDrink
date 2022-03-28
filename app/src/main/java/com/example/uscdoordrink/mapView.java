@@ -1,8 +1,10 @@
 package com.example.uscdoordrink;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -21,6 +23,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -52,6 +57,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 //import android.Manifest;
 //import android.annotation.SuppressLint;
@@ -93,6 +99,7 @@ import com.google.android.gms.common.api.Status;
 public class mapView extends AppCompatActivity
         implements OnMapReadyCallback {
 
+    DrawerLayout drawerLayout;
     private static final String TAG = mapView.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -134,6 +141,7 @@ public class mapView extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -142,6 +150,7 @@ public class mapView extends AppCompatActivity
 
         // view map
         setContentView(R.layout.activity_mapview);
+
 
         // [START_EXCLUDE silent]
         Places.initialize(getApplicationContext(), "AIzaSyCWDouECJGV1idsJfVU7lMf4Nj22_nUzIo");
@@ -154,7 +163,7 @@ public class mapView extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
+        drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
 
@@ -530,6 +539,63 @@ public class mapView extends AppCompatActivity
         }
         return p1;
 
+    }
+
+    public void UserClickMenu(View view)
+    {
+        System.out.println("Why this is mot");
+        UserNavigationActivity.openDrawer(drawerLayout);
+    }
+
+    public void UserClickLogo(View view){
+        UserNavigationActivity.closeDrawer(drawerLayout);
+    }
+
+
+
+    public void UserClickViewMap(View view)
+    {
+        recreate();
+    }
+
+    public void UserClickProfile(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+    }
+
+    public void ClickLogout(View view)
+    {
+        logout(this);
+    }
+    public static void logout(Activity activity)
+    {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                activity.finishAffinity();
+                FirebaseAuth.getInstance().signOut();
+                activity.startActivity(new Intent(activity, MainActivity.class));
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
 

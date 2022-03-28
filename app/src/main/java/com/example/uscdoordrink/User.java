@@ -10,16 +10,14 @@ public class User {
     public String username;
     public String email;
     private List<String> merchant;
-    public Boolean isMerchant;
 
     public User() {
         merchant = new ArrayList<String>();
     }
 
-    public User(String name, String email, Boolean isMerchant) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
-        this.isMerchant = isMerchant;
     }
 
     public String getUserName() {

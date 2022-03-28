@@ -66,5 +66,4 @@ public class DrinkListAdapter extends ArrayAdapter<Menu> {
     }
 }
 
-}
 

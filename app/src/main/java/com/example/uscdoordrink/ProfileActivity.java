@@ -76,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()){
             case R.id.updateButton:
-                System.out.println("update profile");
+//                System.out.println("update profile");
                 update();
                 break;
         }
@@ -85,12 +85,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     // Load the profile information from database to view
     private void loadView()
     {
-        final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
-
         // TODO: Change the uid into current user uid
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("KwI7QB3InRNMI59wyCdoHVTNuLG2");
-
-
 
         //Set name
         ref.addValueEventListener(new ValueEventListener() {
@@ -274,8 +270,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void ClickOrderHistory(View view)
     {
         MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
-
-
     }
     public void ClickProfile(View view)
     {

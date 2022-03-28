@@ -139,8 +139,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 {
                                     Toast.makeText(RegisterActivity.this, "Merchant registered successful", Toast.LENGTH_LONG).show();
 
-                                    // Direct to Map view
-                                    startActivity(new Intent(RegisterActivity.this, MerchantMenuActivity.class));
+                                    // Direct to merchant view
+                                    startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
 
 
                                 }
@@ -180,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             }
                                             if(!isUser)
                                             {
-                                                startActivity(new Intent(RegisterActivity.this, MerchantMenuActivity.class));
+                                                startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
 
                                             }
                                         }

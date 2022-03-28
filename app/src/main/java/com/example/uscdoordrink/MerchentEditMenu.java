@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +83,8 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
 
         // TODO: Change the uid into current user uid
+        //FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("KwI7QB3InRNMI59wyCdoHVTNuLG2").child("menu");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
