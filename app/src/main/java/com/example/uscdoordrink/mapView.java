@@ -148,35 +148,42 @@ public class mapView extends AppCompatActivity
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Merchants");
 
-        LatLng sydney = new LatLng(-34, 151);
-        LatLng brisbane = new LatLng(-27.470125, 153.021072);
-        //shoreline amphitheatre: One Amphitheatre Pkwy, Mountain View, CA 94043
-        //LatLng address = getLocationFromAddress(this, yourAddressString(eg. "Street Number, Street, Suburb, State, Postcode");
-        //    mMap.addMarker(new MarkerOptions().position(address).title("Marker in Sydney"));
-        //    mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
-        LatLng shoreAmp = getLocationFromAddress(this, "One Amphitheatre Pkwy, Mountain View, CA 94043");
-        locationArrayList.add(sydney);
-        locationArrayList.add(brisbane);
-        locationArrayList.add(shoreAmp);
+//        LatLng sydney = new LatLng(-34, 151);
+//        LatLng brisbane = new LatLng(-27.470125, 153.021072);
+//        //shoreline amphitheatre: One Amphitheatre Pkwy, Mountain View, CA 94043
+//        //LatLng address = getLocationFromAddress(this, yourAddressString(eg. "Street Number, Street, Suburb, State, Postcode");
+//        //    mMap.addMarker(new MarkerOptions().position(address).title("Marker in Sydney"));
+//        //    mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
+//        LatLng shoreAmp = getLocationFromAddress(this, "One Amphitheatre Pkwy, Mountain View, CA 94043");
+//        locationArrayList.add(sydney);
+//        locationArrayList.add(brisbane);
+//        locationArrayList.add(shoreAmp);
+//        LatLng home = getLocationFromAddress(this, "3131 S Hoover St, Los Angeles, California, 90089");
+//        locationArrayList.add(home);
 
-
+        //get addresses from database and place down markers
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants");
-        ref.addValueEventListener(new ValueEventListener() {
+        ValueEventListener postlistener= new ValueEventListener() {
+
+            //ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> iterChild = snapshot.getChildren();
-                for (DataSnapshot s: snapshot.getChildren()) {
-                    LatLng loc = getLocationFromAddress(this, s.child("address").getValue(String.class));
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
                 }
+                //called here since ondatachange is called after onmapready initially is!!!!!!!
+                onMapReady(map);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-
+        //});
+        };
+        ref.addValueEventListener(postlistener);
 
 
     }
@@ -197,6 +204,10 @@ public class mapView extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
+        System.out.println("here locationarraylist onmapready");
+        for(LatLng temp : locationArrayList){
+            System.out.println("temp onmapready: " + temp);
+        }
 
         //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
