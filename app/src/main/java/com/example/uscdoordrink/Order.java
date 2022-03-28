@@ -88,7 +88,7 @@ public class Order {
         this.orderDrinks.remove(drink);
     }
 
-    //start order? TODO
+    //start order? TODO start timer until delivery using route time
     public void placeOrder(){
     //push to the database
 
