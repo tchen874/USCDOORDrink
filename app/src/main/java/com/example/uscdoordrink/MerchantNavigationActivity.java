@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
+//import androidx.navigation.ui.NavigationUI;
 
 import android.app.Activity;
 import android.app.AlertDialog;

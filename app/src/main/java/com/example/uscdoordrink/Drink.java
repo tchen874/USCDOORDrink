@@ -9,24 +9,24 @@ import java.lang.Object.*;
 
 
 public class Drink {
-    public String drinkName;
+    public String name;
     private double price;
     private double caffeine;
 
     public Drink(){}
     public Drink(String name, double price, double caffeine){
-        this.drinkName = name;
+        this.name = name;
         this.price = price;
         this.caffeine = caffeine;
     }
 
     //getters and setters
 
-    public String getDrinkName() {
-        return drinkName;
+    public String getName() {
+        return name;
     }
-    public void setDrinkName(String drinkName) {
-        this.drinkName = drinkName;
+    public void setName(String drinkName) {
+        this.name = drinkName;
     }
     public double getPrice() {
         return price;
@@ -44,7 +44,7 @@ public class Drink {
     // Helper function
     @Override
     public java.lang.String toString() {
-        return "drinkName='" + drinkName + '\'' +
+        return "drinkName='" + name + '\'' +
                 ", price=" + price +
                 ", caffeine=" + caffeine +
                 '}';
@@ -57,7 +57,7 @@ public class Drink {
         for(int i = 0; i < drinkList.size(); i++)
         {
             ArrayList<String> temp = new ArrayList<String>();
-            temp.add(drinkList.get(i).getDrinkName());
+            temp.add(drinkList.get(i).getName());
             temp.add(String.valueOf(drinkList.get(i).getPrice()));
             temp.add(String.valueOf(drinkList.get(i).getCaffeine()));
             result.add(temp);
