@@ -15,9 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.USCDoorDrink">
-<!--        <activity-->
-<!--            android:name=".MerchantNavigationActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".MerchentEditMenu"
+            android:exported="false" />
+        <activity
+            android:name=".merchantOrderHistoryActivity"
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".MerchantNavigationActivity" -->
+        <!-- android:exported="false" /> -->
         <!-- <activity -->
         <!-- android:name=".MerchantMenuActivity" -->
         <!-- android:exported="true" /> -->
@@ -37,31 +42,19 @@
             android:required="false" />
 
         <activity
-            android:name=".MenuActivity"
+            android:name=".MerchantNavigationActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-
-        <activity
-            android:name=".MerchantNavigationActivity"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-
-
         <activity
             android:name=".MerchantMenuActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -71,7 +64,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".mapView"
             android:exported="true"

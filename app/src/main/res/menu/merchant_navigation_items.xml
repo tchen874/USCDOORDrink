@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/Menu"
+        android:id="@+id/menuMerchantFragment"
         android:icon="@drawable/ic_menu"
         android:title="Menu" />
     <item
-        android:id="@+id/Merchant_History"
+        android:id="@+id/historyMerchantFragment"
         android:icon="@drawable/ic_history"
         android:title="History" />
     <item
-        android:id="@+id/Merchant_Profile"
+        android:id="@+id/profileMerchantFragment"
         android:icon="@drawable/ic_account"
         android:title="Profile" />
 </menu>
