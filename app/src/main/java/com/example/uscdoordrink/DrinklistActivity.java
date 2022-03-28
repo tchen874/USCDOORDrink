@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.database.FirebaseListOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -33,9 +34,9 @@ public class DrinklistActivity extends AppCompatActivity {
 
         //find list view
         lv = (ListView) findViewById(R.id.listViewDrinks);
-
+        // FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current id
         //query reference to values in database
-        Query query = FirebaseDatabase.getInstance().getReference().child("Merchants");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseListOptions<Drink> options = new FirebaseListOptions.Builder<Drink>()
                 .setLayout(R.layout.single_drink_view)
                 .setQuery(query, Drink.class).build();
@@ -45,13 +46,13 @@ public class DrinklistActivity extends AppCompatActivity {
             //populate the view with values
             protected void populateView(View v, Object model, int position){
                 //get textview and values we want
-                TextView drinkName = v.findViewById(R.id.drinkName);
+                TextView name = v.findViewById(R.id.name);
                 TextView price = v.findViewById(R.id.price);
                 TextView caffeine = v.findViewById(R.id.caffeine);
 
                 //cast model and create instance of drink class
                 Drink drink = (Drink) model;
-                drinkName.setText("drink name " + drink.getDrinkName().toString());
+                name.setText("Drink name: " + drink.getName().toString());
                 price.setText("Price: " + Double.toString(drink.getPrice()));
                 caffeine.setText("Caffeine: " + Double.toString(drink.getCaffeine()));
 
@@ -67,6 +68,7 @@ public class DrinklistActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        System.out.println("here");
         adapter.startListening();
     }
 
