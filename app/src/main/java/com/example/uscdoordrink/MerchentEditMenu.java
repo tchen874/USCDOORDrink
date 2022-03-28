@@ -23,7 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MerchentEditMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -185,7 +187,28 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
             drinksList.add(d);
         }
         Drink d = new Drink();
+//        Map<String, String> mDrinkMap = new HashMap<>();
+//        HashMap<String,String> imageDUrlString = new HashMap<>();
+//        DatabaseReference dbRefLicenseDoc = FirebaseDatabase.getInstance().getReference();
+//
+//        dbRefLicenseDoc.child(FirebaseAuth.getInstance().getUid()).child("imageDownloadUrl");
+//        for (int i = 0; i < arrayuri.size(); i++) {
+//            imageDUrlString.put( dbRefLicenseDoc.push().getKey(),arrayuri.get(i).toString());
+//        }
+//
+//        dbRefLicenseDoc.updateChildren(map);
         List<ArrayList<String>> listOfDrinkList = d.DrinkToList(drinksList);
+
+        HashMap<String,String> drinkMap = new HashMap<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu");
+        for(ArrayList<String> innerDrinkList : listOfDrinkList){
+            for(String s : innerDrinkList){
+                drinkMap.put(ref.push().getKey(), s);
+            }
+        }
+
+
+
         // Store the menu on firebaseDatabase
         //TODO: Covert the path to the current user!!!!
         FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")

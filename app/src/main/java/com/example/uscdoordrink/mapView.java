@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -48,6 +49,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -58,40 +60,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-
-//import android.Manifest;
-//import android.annotation.SuppressLint;
-//import android.content.Intent;
-//import android.location.Address;
-//import android.location.Geocoder;
-//import android.location.LocationManager;
-//import android.net.Uri;
-//import android.provider.Settings;
-//import android.widget.EditText;
-//import android.widget.ImageView;
-//import android.widget.Toast;
-//import androidx.annotation.NonNull;
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
-//import com.google.android.gms.common.ConnectionResult;
-//import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.android.gms.location.FusedLocationProviderClient;
-//import com.google.android.gms.maps.CameraUpdate;
-//import com.google.android.gms.maps.CameraUpdateFactory;
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.OnMapReadyCallback;
-//import com.google.android.gms.maps.SupportMapFragment;
-//import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.MarkerOptions;
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.android.material.floatingactionbutton.FloatingActionButton;
-//import com.karumi.dexter.Dexter;
-//import com.karumi.dexter.PermissionToken;
-//import com.karumi.dexter.listener.PermissionDeniedResponse;
-//import com.karumi.dexter.listener.PermissionGrantedResponse;
-//import com.karumi.dexter.listener.PermissionRequest;
-//import com.karumi.dexter.listener.single.PermissionListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 //code from google maps tutorial https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
@@ -152,7 +126,7 @@ public class mapView extends AppCompatActivity
         setContentView(R.layout.activity_mapview);
 
 
-        // [START_EXCLUDE silent]
+
         Places.initialize(getApplicationContext(), "AIzaSyCWDouECJGV1idsJfVU7lMf4Nj22_nUzIo");
         placesClient = Places.createClient(this);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -168,6 +142,12 @@ public class mapView extends AppCompatActivity
         locationArrayList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
+        //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
+
+
+
+        Query query = FirebaseDatabase.getInstance().getReference().child("Merchants");
+
         LatLng sydney = new LatLng(-34, 151);
         LatLng brisbane = new LatLng(-27.470125, 153.021072);
         //shoreline amphitheatre: One Amphitheatre Pkwy, Mountain View, CA 94043
@@ -178,6 +158,24 @@ public class mapView extends AppCompatActivity
         locationArrayList.add(sydney);
         locationArrayList.add(brisbane);
         locationArrayList.add(shoreAmp);
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> iterChild = snapshot.getChildren();
+                for (DataSnapshot s: snapshot.getChildren()) {
+                    LatLng loc = getLocationFromAddress(this, s.child("address").getValue(String.class));
+                    locationArrayList.add(loc);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -203,36 +201,8 @@ public class mapView extends AppCompatActivity
             //this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
         }
 
-//        // Use a custom info window adapter to handle multiple lines of text in the
-//        // info window contents.
-//        //inflate the layout and load the info window content:
-//        this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-//
-//            @Override
-//            // Return null here, so that getInfoContents() is called next.
-//            public View getInfoWindow(Marker arg0) {
-//                return null;
-//            }
-//
-//            @Override
-//            public View getInfoContents(Marker marker) {
-//                // Inflate the layouts for the info window, title and snippet.
-//                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-//                        (FrameLayout) findViewById(R.id.map), false);
-//
-//                TextView title = infoWindow.findViewById(R.id.title);
-//                title.setText(marker.getTitle());
-//
-//                TextView snippet = infoWindow.findViewById(R.id.snippet);
-//                snippet.setText(marker.getSnippet());
-//
-//                return infoWindow;
-//            }
-//        });
-        // [END map_current_place_set_info_window_adapter]
-        // Prompt the user for permission.
+
         getLocationPermission();
-        // [END_EXCLUDE]
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
         //moves to current location of device on map!
@@ -552,7 +522,6 @@ public class mapView extends AppCompatActivity
     }
 
 
-
     public void UserClickViewMap(View view)
     {
         recreate();
@@ -598,237 +567,5 @@ public class mapView extends AppCompatActivity
         UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
-
-
-
 }
 
-
-
-//
-//public class mapView extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-//
-//    boolean isPermissionGranted;
-//    GoogleMap mGoogleMap;
-//    private FusedLocationProviderClient mLocationClient;
-//    FloatingActionButton locButton;
-//    private int GPS_REQUEST_CODE = 9001;
-//    EditText locSearch;
-//    ImageView searchIcon;
-//    //set layout as content view
-//
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        // Retrieve the content view that renders the map.
-//        setContentView(R.layout.activity_mapview);
-//        //get button and search from xml
-//        locButton = findViewById(R.id.locButton);
-//        locSearch = findViewById(R.id.et_search);
-//        searchIcon = findViewById(R.id.search_icon);
-//        //check if we have location permission
-//        checkMyPermission();
-//        initMap();
-//        mLocationClient = new FusedLocationProviderClient(this);
-//        //when click button get location
-//        locButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getCurrLoc();
-//            }
-//        });
-//
-//
-//        searchIcon.setOnClickListener(this::geoLocate);
-//    }
-//
-//    //locate place
-//    private void geoLocate(View view) {
-//         String locationName = locSearch.getText().toString();
-//
-//         //geocoder turns address into coordinates
-//        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-//        try {
-//            List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
-//            //if not empty
-//            if(addressList.size()>0){
-//                //get index 0
-//                Address address = addressList.get(0);
-//                gotoLocation(address.getLatitude(), address.getLongitude()); // go to place
-//                //add marker
-//                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())));
-//                //locality
-//                Toast.makeText(this, address.getLocality(),Toast.LENGTH_SHORT).show();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    //initialize map fragment
-//    private void initMap() {
-//        if(isPermissionGranted){
-//            //map only initialized if gps is enabled
-//            if(isGPSenabled()){
-//                //get handle to fragment and register the callback
-//                SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-//                supportMapFragment.getMapAsync(this);//map callback
-//            }
-//
-//        }
-//    }
-//
-//    //check if gps lcoation is enabled
-//    private boolean isGPSenabled(){
-//        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//        boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        //if gps enabled
-//        if (providerEnable){ //return
-//            return true;
-//        } else { //else alert box
-//            AlertDialog locAlert = new AlertDialog.Builder(this).setTitle("GPS permission")
-//                    .setMessage("GPS is required for this app to work. Please enable GPS")
-//                    .setPositiveButton("Yes", ((dialogInterface, i) -> {
-//                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                    startActivityForResult(intent,GPS_REQUEST_CODE);
-//                }))
-//                .setCancelable(false)
-//                .show();
-//        }
-//        return false;
-//    }
-//
-//    //get current location
-//    @SuppressLint("MissingPermission")
-//    private void getCurrLoc() {
-//        mLocationClient.getLastLocation().addOnCompleteListener(task -> {
-//            //if we successfully click
-//            if (task.isSuccessful()){
-//                Location location = task.getResult();
-//                gotoLocation(location.getLatitude(), location.getLongitude());
-//            }
-//        });
-//    }
-//
-//    //go to location from given coordinates
-//    private void gotoLocation(double latitude, double longitude) {
-//        LatLng latLng = new LatLng(latitude, longitude);
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 18);
-//        mGoogleMap.moveCamera(cameraUpdate);
-//        mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//    }
-//
-////        locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
-////            @Override
-////            public void onComplete(@NonNull Task<Location> task) {
-////                if (task.isSuccessful()) {
-////                    // Set the map's camera position to the current location of the device.
-////                    lastKnownLocation = task.getResult();
-////                    if (lastKnownLocation != null) {
-////                        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-////                                new LatLng(lastKnownLocation.getLatitude(),
-////                                        lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-////                    }
-////                } else {
-////                    Log.d(TAG, "Current location is null. Using defaults.");
-////                    Log.e(TAG, "Exception: %s", task.getException());
-////                    map.moveCamera(CameraUpdateFactory
-////                            .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
-////                    map.getUiSettings().setMyLocationButtonEnabled(false);
-////                }
-////            }
-////        });
-//
-//
-//
-//
-//    //handle to googlemap object
-//    //supress since we already handle permission :)
-//    @SuppressLint("MissingPermission")
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-////        googleMap.addMarker(new MarkerOptions()
-////                .position(new LatLng(0, 0))
-////                .title("Marker"));
-//        mGoogleMap = googleMap;
-//        mGoogleMap.setMyLocationEnabled(true);
-//
-//    }
-////    @Override
-////    public void onMapReady(GoogleMap googleMap) {
-////        LatLng sydney = new LatLng(-33.852, 151.211);
-////        googleMap.addMarker(new MarkerOptions()
-////                .position(sydney)
-////                .title("Marker in Sydney"));
-////
-////        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-////    }
-//
-//
-//    // permission checks with dexter library
-//    private void checkMyPermission(){
-//        Dexter.withContext(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
-//            @Override
-//            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
-//                //Toast.makeText(context: MainActivity.this, text: "Permission Granteed", Toast.LENGTH_SHORT).show();
-//                // if granted, toast saying it's granted
-//                Toast.makeText(mapView.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-//                isPermissionGranted = true;
-//            }
-//
-//            @Override
-//            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-//                Intent intent = new Intent();
-//                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//                //Uri uri = Uri.fromParts(scheme:"package", getPackageName(), fragment:"");
-//                Uri uri = Uri.fromParts("package", getPackageName(), "");
-//                intent.setData(uri);
-//                startActivity(intent);
-//
-//            }
-//
-//            @Override
-//            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-//                //if user doesn't agree or disagree, keep on asking
-//                permissionToken.continuePermissionRequest();
-//            }
-//        }).check();
-//
-//
-//    }
-//
-//
-//    @Override
-//    public void onConnected(@Nullable Bundle bundle) {
-//
-//    }
-//
-//    @Override
-//    public void onConnectionSuspended(int i) {
-//
-//    }
-//
-//    @Override
-//    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-//
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == GPS_REQUEST_CODE){
-//            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//
-//            boolean providerEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//
-//            if(providerEnable){
-//                Toast.makeText(this, "GPS is enabled", Toast.LENGTH_SHORT).show();
-//            } else{
-//                Toast.makeText(this, "GPS is not enabled", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-//}
