@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,27 +79,44 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
     // Load the drinks in the menu from database to view
     private void loadView()
     {
-        final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
+//        final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
 
         // TODO: Change the uid into current user uid
-        //FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                int count = 0;
                 for (DataSnapshot s : snapshot.getChildren()) {
-                    List<String> st = (List<String>) s.getValue();
+                    if(count >= drinksList.size())
+                    {
+                        List<String> st = (List<String>) s.getValue();
+                        final View MenuView = getLayoutInflater().inflate(R.layout.activity_merchant_menu,null,false);
 
-                    EditText drinkName = (EditText)MenuView.findViewById(R.id.edit_drink_name);
-                    EditText drinkPrice = (EditText)MenuView.findViewById(R.id.edit_price);
-                    EditText drinkCaffeine = (EditText)MenuView.findViewById(R.id.edit_caffeine);
 
-                    drinkName.setText(st.get(0).toString());
-                    drinkPrice.setText(st.get(1).toString());
-                    drinkCaffeine.setText(st.get(2).toString());
-                    layoutList.addView(MenuView);
+                        EditText drinkName = (EditText)MenuView.findViewById(R.id.edit_drink_name);
+                        EditText drinkPrice = (EditText)MenuView.findViewById(R.id.edit_price);
+                        EditText drinkCaffeine = (EditText)MenuView.findViewById(R.id.edit_caffeine);
+                        ImageView imageClose = (ImageView)MenuView.findViewById(R.id.image_remove);
+                        imageClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                System.out.println("in here");
+                                removeView(MenuView);
+                            }
+                        });
+
+
+                        drinkName.setText(st.get(0).toString());
+                        drinkPrice.setText(st.get(1).toString());
+                        drinkCaffeine.setText(st.get(2).toString());
+                        layoutList.addView(MenuView);
+
+                    }
+                    else
+                    {
+                        count++;
+                    }
 
                 }
             }
@@ -140,6 +156,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
     }
     private void update(){
 
+        int ordiginalSize = drinksList.size();
         drinksList.clear();
         for(int i = 0; i < layoutList.getChildCount(); i++)
         {
@@ -186,9 +203,11 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         }
         Drink d = new Drink();
         List<ArrayList<String>> listOfDrinkList = d.DrinkToList(drinksList);
+        System.out.println("drink size=" + listOfDrinkList.size());
         // Store the menu on firebaseDatabase
         //TODO: Covert the path to the current user!!!!
-        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
+//        FirebaseDatabase.getInstance().getReference("Merchants/nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu").removeValue();
+        FirebaseDatabase.getInstance().getReference("Merchants/nRd94qH2L4cDKMtGbYVDfsUkED83").child("menu")
                 .setValue(listOfDrinkList);
         //TODO: Change back to user id
 //        FirebaseDatabase.getInstance().getReference("Merchants/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
