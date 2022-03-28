@@ -6,8 +6,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+//import androidx.navigation.NavController;
+//import androidx.navigation.Navigation;
 //import androidx.navigation.ui.NavigationUI;
 
 import android.app.Activity;
