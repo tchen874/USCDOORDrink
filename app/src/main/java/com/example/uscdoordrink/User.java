@@ -7,7 +7,6 @@ import java.util.List;
 public class User {
 
     public String name;
-    public String username;
     public String email;
     private List<String> merchant;
 
@@ -20,9 +19,6 @@ public class User {
         this.email = email;
     }
 
-    public String getUserName() {
-        return username;
-    }
     public String getname() {
         return name;
     }

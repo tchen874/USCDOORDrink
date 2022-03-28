@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.signupButton3:
                 registerUser();
+                break;
                 
         }
     }
@@ -130,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if(isMerchant)
                     {
                         User user = new User(name, email);
+                        System.out.println("Creting merchant account");
                         FirebaseDatabase.getInstance().getReference("Merchants")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private void loadView()
     {
         // TODO: Change the uid into current user uid
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("KwI7QB3InRNMI59wyCdoHVTNuLG2");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         //Set name
         ref.addValueEventListener(new ValueEventListener() {
@@ -210,7 +210,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //FirebaseDatabase.getInstance().getReference("Merchants/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
         ////                .setValue(d.DrinkToList(drinksList));
 
-        FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("name")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("name")
                 .setValue(name).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -222,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
-        FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("storeName")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("storeName")
                 .setValue(storeName).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -233,7 +233,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
-        FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("phoneNumber")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("phoneNumber")
                 .setValue(phone).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -244,7 +244,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
-        FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("address")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("address")
                 .setValue(address).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

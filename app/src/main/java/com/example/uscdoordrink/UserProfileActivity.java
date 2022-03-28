@@ -210,6 +210,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         UserNavigationActivity.redirectActivity(this, mapView.class);
 
     }
+    public void UserClickAboutUs(View view)
+    {
+        recreate();
+    }
 
     public void UserClickProfile(View view)
     {

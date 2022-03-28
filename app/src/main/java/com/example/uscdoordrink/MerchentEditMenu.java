@@ -85,7 +85,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         // TODO: Change the uid into current user uid
         //FirebaseAuth.getInstance().getCurrentUser().getUid();
         //
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child("KwI7QB3InRNMI59wyCdoHVTNuLG2").child("menu");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -188,7 +188,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         List<ArrayList<String>> listOfDrinkList = d.DrinkToList(drinksList);
         // Store the menu on firebaseDatabase
         //TODO: Covert the path to the current user!!!!
-        FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("menu")
+        FirebaseDatabase.getInstance().getReference("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
                 .setValue(listOfDrinkList);
         //TODO: Change back to user id
 //        FirebaseDatabase.getInstance().getReference("Merchants/" + FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu")
