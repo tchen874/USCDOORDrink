@@ -146,7 +146,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                             if(!isUser)
                             {
-                                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+                                startActivity(new Intent(MainActivity.this, MerchantNavigationActivity.class));
+
 
                             }
                         }

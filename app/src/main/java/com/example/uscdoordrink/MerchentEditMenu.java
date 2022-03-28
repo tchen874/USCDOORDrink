@@ -2,24 +2,19 @@ package com.example.uscdoordrink;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,27 +24,29 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class MerchentEditMenu extends AppCompatActivity implements View.OnClickListener{
+
+    DrawerLayout drawerLayout;
 
     LinearLayout layoutList;
     Button addButton;
     Button updateButton;
 
     ArrayList<Drink> drinksList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menuview);
+        setContentView(R.layout.activity_merchent_edit_menu);
 
-        layoutList = findViewById(R.id.layout_list);
+        drawerLayout = findViewById(R.id.drawer_layour);
+        layoutList = findViewById(R.id.menu_layout_list);
         addButton = findViewById(R.id.button_add);
         addButton.setOnClickListener(this);
 
         updateButton = findViewById(R.id.button_update);
         updateButton.setOnClickListener(this);
         loadView();
-
-//        activity_menuview.scrollToPosition(items.size() - 1);
     }
     // Use to dismiss the keyboard when not inputting
     @Override
@@ -67,7 +64,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
 
             case R.id.button_add:
-
                 addView();
 
                 break;
@@ -136,13 +132,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     private void removeView(View view){
 
-//        System.out.println("id========= " + view.toString());
         //drinksList.remove(view.getId());
         layoutList.removeView(view);
     }
     private void update(){
 
-        System.out.println("=========" + layoutList.getChildCount());
         drinksList.clear();
         for(int i = 0; i < layoutList.getChildCount(); i++)
         {
@@ -151,12 +145,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             String drinkPrice = ((EditText)view.findViewById(R.id.edit_price)).getText().toString().trim();
             String drinkCaffeine = ((EditText)view.findViewById(R.id.edit_caffeine)).getText().toString().trim();
 
-            System.out.println("=========:" + drinkName + ":" + drinkPrice + ":"+ drinkCaffeine);
             // check to see if user enterd all the requirement field
             if(drinkName.isEmpty() || drinkPrice.isEmpty() || drinkCaffeine.isEmpty())
             {
-                System.out.println("UPDATED");
-                Toast.makeText(MenuActivity.this, "Fields cannot be empty", Toast.LENGTH_LONG).show();
+                Toast.makeText(MerchentEditMenu.this, "Fields cannot be empty", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -168,7 +160,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             catch(NumberFormatException e)
             {
                 //not a double
-                Toast.makeText(MenuActivity.this, "Price fields needs to be number", Toast.LENGTH_LONG).show();
+                Toast.makeText(MerchentEditMenu.this, "Price fields needs to be number", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -180,7 +172,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             catch(NumberFormatException e)
             {
                 //not a double
-                Toast.makeText(MenuActivity.this, "Caffeine fields needs to be number", Toast.LENGTH_LONG).show();
+                Toast.makeText(MerchentEditMenu.this, "Caffeine fields needs to be number", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -192,6 +184,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Drink d = new Drink();
         List<ArrayList<String>> listOfDrinkList = d.DrinkToList(drinksList);
         // Store the menu on firebaseDatabase
+        //TODO: Covert the path to the current user!!!!
         FirebaseDatabase.getInstance().getReference("Merchants/KwI7QB3InRNMI59wyCdoHVTNuLG2").child("menu")
                 .setValue(listOfDrinkList);
         //TODO: Change back to user id
@@ -199,4 +192,40 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 //                .setValue(d.DrinkToList(drinksList));
 
     }
+
+    public void ClickMenu(View view)
+    {
+        MerchantNavigationActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view)
+    {
+        MerchantNavigationActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickOrderHistory(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
+    }
+    public void ClickProfile(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
+
+    }
+
+    public void ClickEditMenu(View view)
+    {
+        recreate();
+    }
+    public void ClickLogout(View view)
+    {
+        MerchantNavigationActivity.logout(this);
+    }
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        MerchantNavigationActivity.closeDrawer(drawerLayout);
+    }
+
 }

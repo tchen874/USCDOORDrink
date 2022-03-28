@@ -9,10 +9,8 @@ import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.IgnoreExtraProperties;
 
 public class Store {
-    private String storeID;
     public String storeName;
     private ArrayList<Order> storeOrders = new ArrayList<Order>();
-    private Location storeLoc;
     private String storePhone;
     private String storeAddress;
     private Menu storeMenu;
@@ -23,25 +21,15 @@ public class Store {
 
     }
 
-    public Store(String id, String name, ArrayList orders, Location loc, String phone, String address, Menu menu ){
-        this.storeID = id;
+    public Store(String name, ArrayList orders, String phone, String address, Menu menu ){
         this.storeName = name;
         this.storeOrders = orders;
-        this.storeLoc = loc;
         this.storePhone = phone;
         this.storeAddress = address;
         this.storeMenu = menu;
-
     }
 
     //getters and setters
-    public String getStoreID(){
-        return storeID;
-    }
-
-    public void setStoreID(String id){
-        this.storeID = id;
-    }
 
     public String getStoreName(){
         return storeName;
@@ -57,14 +45,6 @@ public class Store {
 
     public void setStoreOrders(ArrayList orders){
         this.storeOrders = orders;
-    }
-
-    public Location getStoreLoc(){
-        return storeLoc;
-    }
-
-    public void setStoreLoc(Location loc){
-        this.storeLoc = loc;
     }
 
     public String getStorePhone(){
