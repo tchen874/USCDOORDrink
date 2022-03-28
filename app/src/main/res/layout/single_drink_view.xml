@@ -1,41 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:padding="2dp"
-    app:cardElevation="3dp">
+    android:layout_margin="10dp"
+    android:padding="20dp"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/drinkName"/>
 
-        <!--Image view for displaying our image-->
-        <ImageView
-            android:id="@+id/listViewPic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:background="@color/white"
-            android:backgroundTint="@color/white"
-            android:padding="3dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/price"/>
 
-        <!--Text view for displaying our text -->
-        <TextView
-            android:id="@+id/listViewText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
-            android:layout_toEndOf="@id/listViewPic"
-            android:padding="3dp"
-            android:text="Category Text"
-            android:textAlignment="center"
-            android:textColor="@color/black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/caffeine"/>
 
-    </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+
+</LinearLayout>
+
+<!--<androidx.cardview.widget.CardView-->
+<!--    android:id="@+id/singledrinkview"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_margin="4dp"-->
+<!--    android:padding="2dp"-->
+<!--    app:cardElevation="3dp">-->
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+
+<!--&lt;!&ndash;        &lt;!&ndash;Image view for displaying our image&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;            android:id="@+id/listViewPic"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="100dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="100dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_margin="8dp"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:backgroundTint="@color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:padding="3dp" />&ndash;&gt;-->
+
+<!--        &lt;!&ndash;Text view for displaying our text &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/listViewText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:padding="3dp"-->
+<!--            android:text="Category Text"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/black" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--</androidx.cardview.widget.CardView>-->
