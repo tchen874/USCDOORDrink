@@ -115,6 +115,8 @@ public class mapView extends AppCompatActivity
 
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
+    //array list for store names
+    private ArrayList<String> nameArrayList;
 
     private ArrayList<String> MerchantUidList;
     // For click marker
@@ -154,6 +156,7 @@ public class mapView extends AppCompatActivity
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
+        nameArrayList = new ArrayList<>();
         MerchantUidList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
@@ -187,8 +190,12 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
+                    System.out.println("address here!! " + s.child("address").getValue(String.class));
+                    nameArrayList.add(s.child("name").getValue(String.class));
+                    //System.out.println("name here!! " + s.child("name").getValue(String.class));
 //                    System.out.println("Prink uid" + s.getKey());
                     MerchantUidList.add(s.getKey());
+                    System.out.println("MerchantUIDLIST: " + s.getKey());
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
@@ -238,7 +245,6 @@ public class mapView extends AppCompatActivity
      * This callback is triggered when the map is ready to be used.
      */
     //implement onmapready interface
-    //implement onmapready interface
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -254,15 +260,16 @@ public class mapView extends AppCompatActivity
             this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
 
         }
-
         //System.out.println("mapview currentmerchantuid: " + currentMerchantUid);
         this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
         {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
                 for (int i = 0; i < locationArrayList.size(); i++) {
-                    if(marker.getTitle() == nameArrayList.get(i)){
-                        //if(locationArrayList.get(i).getTitle().equal(merchantName)){
+                    System.out.println("inside for loop at " + i);
+                    if(marker.getTitle().equals(nameArrayList.get(i))){
+                        System.out.println("inside if statement!");
+                    //if(locationArrayList.get(i).getTitle().equal(merchantName)){
                         String currentMerchantUid = MerchantUidList.get(i);
                         String merchantName = marker.getTitle();
                         User_store userStore = new User_store(s);
@@ -277,19 +284,28 @@ public class mapView extends AppCompatActivity
                 return false;
             }
         });
+
+
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
+
+        //click listener so it goes to store activity view when we click!
+//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(@NonNull Marker marker) {
+//                //when marker is clicked, we go to activity
+//                System.out.println("clicked marker!");
+//                String title = marker.getTitle();
+//                System.out.println("marker title: " + title);
+//                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
+//                return false;
+//            }
+//        });
+
     }
-
-
-
-
-
-
-
     public Store getStore()
     {
         return s;
