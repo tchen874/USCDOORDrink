@@ -110,6 +110,8 @@ public class mapView extends AppCompatActivity
 
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
+    //arraylist for location names
+    private ArrayList<String> namesArrayList;
 
     // [START maps_current_place_on_create]
     @Override
@@ -140,6 +142,7 @@ public class mapView extends AppCompatActivity
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
+        namesArrayList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
         //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
@@ -172,6 +175,7 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
+                    namesArrayList.add(s.child("name").getValue(String.class));
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
@@ -229,6 +233,8 @@ public class mapView extends AppCompatActivity
             public boolean onMarkerClick(@NonNull Marker marker) {
                 //when marker is clicked, we go to activity
                 System.out.println("clicked marker!");
+                String title = marker.getTitle();
+                System.out.println("marker title: " + title);
                 Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
                 return false;
             }
