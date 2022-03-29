@@ -115,6 +115,8 @@ public class mapView extends AppCompatActivity
 
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
+    //array list for store names
+    private ArrayList<String> nameArrayList;
 
     private ArrayList<String> MerchantUidList;
     // For click marker
@@ -154,6 +156,7 @@ public class mapView extends AppCompatActivity
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
+        nameArrayList = new ArrayList<>();
         MerchantUidList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
@@ -187,8 +190,12 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
+                    System.out.println("address here!! " + s.child("address").getValue(String.class));
+                    nameArrayList.add(s.child("name").getValue(String.class));
+                    //System.out.println("name here!! " + s.child("name").getValue(String.class));
 //                    System.out.println("Prink uid" + s.getKey());
                     MerchantUidList.add(s.getKey());
+                    System.out.println("MerchantUIDLIST: " + s.getKey());
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
@@ -250,29 +257,33 @@ public class mapView extends AppCompatActivity
         //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
             // below line is use to add marker to each location of our array list.
-            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
-            String currentMerchantUid = MerchantUidList.get(i);
-            this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-            {
+            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
 
-                @Override
-                public boolean onMarkerClick(@NonNull Marker marker) {
-//                    s.setStoreUID(currentMerchantUid);
-                    User_store userStore = new User_store(s);
-                    System.out.println("ENETER");
-                    Intent intent = new Intent(mapView.this, userStore.getClass());
-                    System.out.println("ENETER2");
-                    startActivity(intent);
-                    System.out.println("ENETER3");
-                    return true;
-                }
-            });
-
-            // below lin is use to zoom our camera on map.
-            //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
-            // below line is use to move our camera to the specific location.
-            //this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
         }
+        //System.out.println("mapview currentmerchantuid: " + currentMerchantUid);
+        this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                for (int i = 0; i < locationArrayList.size(); i++) {
+                    System.out.println("inside for loop at " + i);
+                    if(marker.getTitle().equals(nameArrayList.get(i))){
+                        System.out.println("inside if statement!");
+                    //if(locationArrayList.get(i).getTitle().equal(merchantName)){
+                        String currentMerchantUid = MerchantUidList.get(i);
+                        String merchantName = marker.getTitle();
+                        User_store userStore = new User_store(s);
+                        Intent intent = new Intent(mapView.this, userStore.getClass());
+                        intent.putExtra("UID_STRING", currentMerchantUid);
+                        intent.putExtra("STORE_NAME", merchantName);
+                        System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
+                        startActivity(intent);
+                    }
+
+                }
+                return false;
+            }
+        });
 
 
         getLocationPermission();
@@ -280,6 +291,19 @@ public class mapView extends AppCompatActivity
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
+
+        //click listener so it goes to store activity view when we click!
+//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(@NonNull Marker marker) {
+//                //when marker is clicked, we go to activity
+//                System.out.println("clicked marker!");
+//                String title = marker.getTitle();
+//                System.out.println("marker title: " + title);
+//                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
+//                return false;
+//            }
+//        });
 
     }
     public Store getStore()
