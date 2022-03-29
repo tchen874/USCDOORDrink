@@ -204,15 +204,11 @@ public class mapView extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        System.out.println("here locationarraylist onmapready");
-        for(LatLng temp : locationArrayList){
-            System.out.println("temp onmapready: " + temp);
-        }
-
-        //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
-            // below line is use to add marker to each location of our array list.
+            //add marker to each location on our array list.
             this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
+
+
             // below lin is use to zoom our camera on map.
             //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
             // below line is use to move our camera to the specific location.
@@ -225,7 +221,49 @@ public class mapView extends AppCompatActivity
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
+
+        //click listener so it goes to store activity view when we click!
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                //when marker is clicked, we go to activity
+                System.out.println("clicked marker!");
+                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
+                return false;
+            }
+        });
+//
+//
+
+
+//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
+//            public boolean onMarkerClick(Marker marker) {
+//                String title = marker.getTitle();
+//                {
+//                    for (int i = 0; i < venueList.size();) {
+//                        //getting the selected venue
+//                        Venue venue = venueList.get(i);
+//                        //creating an intent
+//
+//                        Intent intent = new Intent(getApplicationContext(), viewbeverageActivity.class);
+//
+//                        //putting venue name and id to intent
+//                        intent.putExtra(VENUE_ID, venue.getVenueId());
+//                        intent.putExtra(VENUE_NAME, venue.getVenueName());
+//
+//                        //starting the activity with intent
+//                        startActivity(intent);
+//
+//                    }
+//                    return false;
+//                }
+//            }
+//        });
+
     }
+
+
+
 
 
     /**

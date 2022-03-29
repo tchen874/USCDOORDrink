@@ -84,7 +84,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
 
         // TODO: Change the uid into current user uid
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("menu");
-        ref.addValueEventListener(new ValueEventListener() {
+        reEf.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int count = 0;
