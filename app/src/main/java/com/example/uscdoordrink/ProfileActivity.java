@@ -280,6 +280,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     {
         MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
     }
+    public void ClickViewMap(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, mapView.class);
+    }
     public void ClickLogout(View view)
     {
         MerchantNavigationActivity.logout(this);

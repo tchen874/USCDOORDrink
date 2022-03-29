@@ -561,7 +561,10 @@ public class mapView extends AppCompatActivity
         UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
-
+    public void MerchantClickViewMap(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, mapView.class);
+    }
 
     public void UserClickViewMap(View view)
     {
@@ -572,6 +575,36 @@ public class mapView extends AppCompatActivity
     {
         UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
     }
+
+
+    public void ClickMenu(View view)
+    {
+        MerchantNavigationActivity.openDrawer(drawerLayout);
+    }
+
+    public void ClickLogo(View view)
+    {
+        MerchantNavigationActivity.closeDrawer(drawerLayout);
+    }
+
+    public void ClickOrderHistory(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
+    }
+    public void ClickProfile(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
+
+    }
+
+    public void ClickEditMenu(View view)
+    {
+        recreate();
+    }
+//    public void ClickLogout(View view)
+//    {
+//        MerchantNavigationActivity.logout(this);
+//    }
 
     public void ClickLogout(View view)
     {

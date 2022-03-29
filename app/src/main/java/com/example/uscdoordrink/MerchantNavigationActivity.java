@@ -47,8 +47,15 @@ public class MerchantNavigationActivity extends AppCompatActivity {
 
     }
 
-    public void ClickLogo(View view){
+
+    public void ClickLogo(View view)
+    {
         closeDrawer(drawerLayout);
+    }
+
+    public void MerchantClickViewMap(View view)
+    {
+        redirectActivity(this, mapView.class);
     }
 
     public static void closeDrawer(DrawerLayout drawerLayout)

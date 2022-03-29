@@ -226,6 +226,10 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
         MerchantNavigationActivity.closeDrawer(drawerLayout);
     }
 
+    public void ClickViewMap(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, mapView.class);
+    }
     public void ClickOrderHistory(View view)
     {
         MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
