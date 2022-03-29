@@ -529,8 +529,6 @@ public class mapView extends AppCompatActivity
 
     }
 
-
-
     // For navigation purpose
     public void UserClickMenu(View view)
     {
@@ -538,11 +536,10 @@ public class mapView extends AppCompatActivity
         UserNavigationActivity.openDrawer(drawerLayout);
     }
 
+
     public void UserClickLogo(View view){
         UserNavigationActivity.closeDrawer(drawerLayout);
     }
-
-
 
 
     public void UserClickProfile(View view)
@@ -554,6 +551,19 @@ public class mapView extends AppCompatActivity
     {
         logout(this);
     }
+    public void UserClickOrderHistory(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
+    }
+    public void UserClickAboutUs(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+    }
+    public void UserClickViewMap(View view)
+    {
+        recreate();
+    }
+
     public static void logout(Activity activity)
     {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);

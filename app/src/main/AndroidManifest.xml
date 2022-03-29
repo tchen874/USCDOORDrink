@@ -15,14 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCDoorDrink">
         <activity
+            android:name=".UserOrderHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".Merchant_map_view"
-            android:exported="false" >
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".User_store"
@@ -75,13 +77,12 @@
 
         <activity
             android:name=".MerchantNavigationActivity"
-            android:exported="true" >
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"

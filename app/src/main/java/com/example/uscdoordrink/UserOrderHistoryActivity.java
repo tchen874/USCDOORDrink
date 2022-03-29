@@ -1,11 +1,9 @@
 package com.example.uscdoordrink;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,77 +11,54 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserNavigationActivity extends AppCompatActivity {
+public class UserOrderHistoryActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_navigation);
+        setContentView(R.layout.activity_user_order_history);
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 
+    // For navigation purpose
     public void UserClickMenu(View view)
     {
-        openDrawer(drawerLayout);
+        System.out.println("Why this is mot");
+        UserNavigationActivity.openDrawer(drawerLayout);
     }
 
-    public static void openDrawer(DrawerLayout drawerLayout)
-    {
-        // open the drawer layout
-        drawerLayout.openDrawer(GravityCompat.START);
-
-    }
 
     public void UserClickLogo(View view){
-        closeDrawer(drawerLayout);
+        UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
-    public static void closeDrawer(DrawerLayout drawerLayout)
-    {
-        // If the drawer is open, then close it
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-    }
-
-    public void UserClickViewMap(View view)
-    {
-        redirectActivity(this, mapView.class);
-    }
-//    public void UserClickViewStore(View view)
-//    {
-//        redirectActivity(this, class);
-//    }
-//
-//    public void UserClickDeliveryProgress(View view)
-//    {
-//        redirectActivity(this, class);
-//    }
-//
-    public void UserClickOrderHistory(View view)
-    {
-        redirectActivity(this, UserOrderHistoryActivity.class);
-    }
-
-    public void UserClickAboutUs(View view)
-    {
-        redirectActivity(this, UserAboutUsActivity.class);
-    }
 
     public void UserClickProfile(View view)
     {
-        redirectActivity(this, UserProfileActivity.class);
+        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
     }
 
     public void ClickLogout(View view)
     {
         logout(this);
     }
+    public void UserClickOrderHistory(View view)
+    {
+        recreate();
+    }
+    public void UserClickAboutUs(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+    }
+    public void UserClickViewMap(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, mapView.class);
+    }
+
     public static void logout(Activity activity)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
         builder.setTitle("Logout");
         builder.setMessage("Are you sure you want to log out?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -104,18 +79,12 @@ public class UserNavigationActivity extends AppCompatActivity {
 
         builder.show();
     }
-    public static void redirectActivity(Activity activity, Class aclass)
-    {
-        Intent intent = new Intent(activity, aclass);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
-    }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        closeDrawer(drawerLayout);
+        UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
 }
