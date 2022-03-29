@@ -79,6 +79,11 @@ public class UserOrderHistoryActivity extends AppCompatActivity {
 
         builder.show();
     }
+    public void UserClickDeliveryProgress(View view)
+    {
+        recreate();
+
+    }
 
     @Override
     protected void onPause()

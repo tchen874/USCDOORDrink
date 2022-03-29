@@ -57,11 +57,11 @@ public class UserNavigationActivity extends AppCompatActivity {
 //        redirectActivity(this, class);
 //    }
 //
-//    public void UserClickDeliveryProgress(View view)
-//    {
-//        redirectActivity(this, class);
-//    }
-//
+    public void UserClickDeliveryProgress(View view)
+    {
+        redirectActivity(this, UserDeliveryProgress.class);
+    }
+
     public void UserClickOrderHistory(View view)
     {
         redirectActivity(this, UserOrderHistoryActivity.class);

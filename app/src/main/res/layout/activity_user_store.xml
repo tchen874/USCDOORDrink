@@ -5,17 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout"
-    tools:context=".UserAboutUsActivity">
-
+    tools:context=".User_store">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include
-            layout="@layout/main_toolbar"/>
-    </LinearLayout>
+            layout="@layout/user_tool_bar"/>
 
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".MerchantMenuActivity">
+                <TextView
+                    android:id="@+id/userStoreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store Name"
+                    android:textSize="20sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/userStoreAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/userStorePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Menu"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <LinearLayout
+                    android:id="@+id/drink_layout_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+
+                <Button
+                    android:id="@+id/Checkout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="Checkout"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    ></Button>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="300dp"
@@ -25,7 +95,10 @@
 
         <include layout="@layout/user_nav_drawer" />
 
+
     </RelativeLayout>
+
+
 
 
 
