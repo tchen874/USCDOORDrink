@@ -16,13 +16,31 @@
         <include
             layout="@layout/main_toolbar"/>
 
-        <TextView
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Welcome to USCDoorDrink Merchant"-->
+<!--            android:textSize="50sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:gravity="center"/>-->
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Welcome to USCDoorDrink Merchant"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:layout_height="677dp"
+
+            app:cameraTilt="30"
+            app:cameraZoom="10"
+
+            app:mapType="normal"
+
+            app:uiCompass="true"
+            app:uiRotateGestures="true"
+            app:uiScrollGestures="true"
+            app:uiTiltGestures="true"
+            app:uiZoomControls="true"
+            app:uiZoomGestures="true"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
     </LinearLayout>
 
     <RelativeLayout

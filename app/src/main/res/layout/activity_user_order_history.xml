@@ -5,42 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout"
-    tools:context=".UserAboutUsActivity">
-
-    <TextView
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:text="About US:"
-        android:textSize="40dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="50dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="USCDoorDrink is a unique app that enables customers to specifically order coffee and tea drinks!"
-        android:textSize="20dp"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="120dp"/>
+    tools:context=".merchantOrderHistoryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include
-            layout="@layout/main_toolbar"/>
-    </LinearLayout>
+            layout="@layout/user_tool_bar"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="User Order History"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/white">
+        <include
+            layout="@layout/user_nav_drawer"/>
 
-        <include layout="@layout/user_nav_drawer" />
 
     </RelativeLayout>
+
+
 
 
 

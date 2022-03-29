@@ -70,11 +70,11 @@ import com.google.firebase.database.ValueEventListener;
 
 //code from google maps tutorial https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
 
-public class mapView extends AppCompatActivity
+public class Merchant_map_view extends AppCompatActivity
         implements OnMapReadyCallback {
 
     DrawerLayout drawerLayout;
-    private static final String TAG = mapView.class.getSimpleName();
+    private static final String TAG = Merchant_map_view.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
 
@@ -123,7 +123,7 @@ public class mapView extends AppCompatActivity
         }
 
         // view map
-        setContentView(R.layout.activity_mapview);
+        setContentView(R.layout.activity_merchant_map_view);
 
 
 
@@ -134,10 +134,10 @@ public class mapView extends AppCompatActivity
         // Build the map
         // get SupportMapFragment and request notification when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.merchantmap);
         mapFragment.getMapAsync(this);
 
-        drawerLayout = findViewById(R.id.user_drawer_layout);
+        drawerLayout = findViewById(R.id.merchant_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
 
@@ -181,7 +181,7 @@ public class mapView extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        //});
+            //});
         };
         ref.addValueEventListener(postlistener);
 
@@ -204,11 +204,15 @@ public class mapView extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
+        System.out.println("here locationarraylist onmapready");
+        for(LatLng temp : locationArrayList){
+            System.out.println("temp onmapready: " + temp);
+        }
+
+        //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
-            //add marker to each location on our array list.
+            // below line is use to add marker to each location of our array list.
             this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
-
-
             // below lin is use to zoom our camera on map.
             //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
             // below line is use to move our camera to the specific location.
@@ -221,49 +225,7 @@ public class mapView extends AppCompatActivity
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
-
-        //click listener so it goes to store activity view when we click!
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                //when marker is clicked, we go to activity
-                System.out.println("clicked marker!");
-                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
-                return false;
-            }
-        });
-//
-//
-
-
-//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
-//            public boolean onMarkerClick(Marker marker) {
-//                String title = marker.getTitle();
-//                {
-//                    for (int i = 0; i < venueList.size();) {
-//                        //getting the selected venue
-//                        Venue venue = venueList.get(i);
-//                        //creating an intent
-//
-//                        Intent intent = new Intent(getApplicationContext(), viewbeverageActivity.class);
-//
-//                        //putting venue name and id to intent
-//                        intent.putExtra(VENUE_ID, venue.getVenueId());
-//                        intent.putExtra(VENUE_NAME, venue.getVenueName());
-//
-//                        //starting the activity with intent
-//                        startActivity(intent);
-//
-//                    }
-//                    return false;
-//                }
-//            }
-//        });
-
     }
-
-
-
 
 
     /**
@@ -288,7 +250,7 @@ public class mapView extends AppCompatActivity
     @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.layout.activity_mapview, menu);
+        getMenuInflater().inflate(R.layout.activity_merchant_map_view, menu);
 //        getMenuInflater().inflate(R.layout.activity_mapview, menu);
         return true;
     }
@@ -454,7 +416,7 @@ public class mapView extends AppCompatActivity
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        mapView.this.openPlacesDialog();
+                        Merchant_map_view.this.openPlacesDialog();
                     }
                     else {
                         Log.e(TAG, "Exception: %s", task.getException());
@@ -567,71 +529,50 @@ public class mapView extends AppCompatActivity
 
     }
 
+
+
     // For navigation purpose
-    public void UserClickMenu(View view)
+    public void ClickMenu(View view)
     {
-        System.out.println("Why this is mot");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        MerchantNavigationActivity.openDrawer(drawerLayout);
     }
 
-
-    public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+    public void ClickLogo(View view)
+    {
+        MerchantNavigationActivity.closeDrawer(drawerLayout);
     }
 
-
-    public void UserClickProfile(View view)
+    public void ClickOrderHistory(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        recreate();
+
+    }
+
+    public void ClickProfile(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
+
+    }
+
+    public void ClickEditMenu(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
+    }
+    public void ClickViewMap(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, Merchant_map_view.class);
+
     }
 
     public void ClickLogout(View view)
     {
-        logout(this);
+        MerchantNavigationActivity.logout(this);
     }
-    public void UserClickOrderHistory(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
-    }
-    public void UserClickAboutUs(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
-    }
-    public void UserClickViewMap(View view)
-    {
-        recreate();
-    }
-
-    public static void logout(Activity activity)
-    {
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to log out?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                activity.finishAffinity();
-                FirebaseAuth.getInstance().signOut();
-                activity.startActivity(new Intent(activity, MainActivity.class));
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
     @Override
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        MerchantNavigationActivity.closeDrawer(drawerLayout);
     }
 
 }
-

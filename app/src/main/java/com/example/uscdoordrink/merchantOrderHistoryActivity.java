@@ -32,6 +32,7 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
         recreate();
 
     }
+
     public void ClickProfile(View view)
     {
         MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
@@ -42,6 +43,12 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
     {
         MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
     }
+    public void ClickViewMap(View view)
+    {
+        MerchantNavigationActivity.redirectActivity(this, Merchant_map_view.class);
+
+    }
+
     public void ClickLogout(View view)
     {
         MerchantNavigationActivity.logout(this);
