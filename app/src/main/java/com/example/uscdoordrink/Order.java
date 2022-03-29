@@ -14,6 +14,9 @@ public class Order {
     private Location custLoc;
     private double caffTotal; /// caffeine in mg/d
 
+
+    public Order(){
+    }
     public Order(ArrayList<Drink> drinks, Customer customer, Merchant seller, Location loc, double caff){
         this.orderDrinks = drinks;
         this.cus = customer;
