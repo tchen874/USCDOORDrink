@@ -238,6 +238,7 @@ public class mapView extends AppCompatActivity
      * This callback is triggered when the map is ready to be used.
      */
     //implement onmapready interface
+    //implement onmapready interface
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -250,38 +251,45 @@ public class mapView extends AppCompatActivity
         //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
             // below line is use to add marker to each location of our array list.
-            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
-            String currentMerchantUid = MerchantUidList.get(i);
-            this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
-            {
+            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
 
-                @Override
-                public boolean onMarkerClick(@NonNull Marker marker) {
-//                    s.setStoreUID(currentMerchantUid);
-                    User_store userStore = new User_store(s);
-                    System.out.println("ENETER");
-                    Intent intent = new Intent(mapView.this, userStore.getClass());
-                    System.out.println("ENETER2");
-                    startActivity(intent);
-                    System.out.println("ENETER3");
-                    return true;
-                }
-            });
-
-            // below lin is use to zoom our camera on map.
-            //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
-            // below line is use to move our camera to the specific location.
-            //this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
         }
 
+        //System.out.println("mapview currentmerchantuid: " + currentMerchantUid);
+        this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+            @Override
+            public boolean onMarkerClick(@NonNull Marker marker) {
+                for (int i = 0; i < locationArrayList.size(); i++) {
+                    if(marker.getTitle() == nameArrayList.get(i)){
+                        //if(locationArrayList.get(i).getTitle().equal(merchantName)){
+                        String currentMerchantUid = MerchantUidList.get(i);
+                        String merchantName = marker.getTitle();
+                        User_store userStore = new User_store(s);
+                        Intent intent = new Intent(mapView.this, userStore.getClass());
+                        intent.putExtra("UID_STRING", currentMerchantUid);
+                        intent.putExtra("STORE_NAME", merchantName);
+                        System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
+                        startActivity(intent);
+                    }
 
+                }
+                return false;
+            }
+        });
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
-
     }
+
+
+
+
+
+
+
     public Store getStore()
     {
         return s;
