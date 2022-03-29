@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +68,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import android.os.Handler;
+
 
 
 //code from google maps tutorial https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
@@ -94,6 +98,7 @@ public class mapView extends AppCompatActivity
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
+    private Store s;
 
     // Keys for storing activity state.
     // [START maps_current_place_state_keys]
@@ -111,6 +116,15 @@ public class mapView extends AppCompatActivity
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
 
+    private ArrayList<String> MerchantUidList;
+    // For click marker
+    boolean doubleBackToExitPressedOnce = false;
+
+
+//    public mapView(Store store)
+//    {
+//        this.s = store;
+//    }
     // [START maps_current_place_on_create]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +154,7 @@ public class mapView extends AppCompatActivity
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
+        MerchantUidList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
         //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
@@ -172,6 +187,8 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
+//                    System.out.println("Prink uid" + s.getKey());
+                    MerchantUidList.add(s.getKey());
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
@@ -187,6 +204,27 @@ public class mapView extends AppCompatActivity
 
 
     }
+
+//    @Override
+//    public boolean onMarkerClick(Marker marker) {
+//        System.out.println("Marker got clicked");
+//        if (doubleBackToExitPressedOnce) {
+//            Intent intent = new Intent(mapView.this, ProfileActivity.class);
+//            startActivity(intent);
+//
+//        } else {
+//            this.doubleBackToExitPressedOnce = true;
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doubleBackToExitPressedOnce = false;
+//                }
+//            }, 2000);
+//        }
+//        return false;
+//    }
+
 
 //    public void addLocationfromFirebase(String address)
 //    {
@@ -213,6 +251,23 @@ public class mapView extends AppCompatActivity
         for (int i = 0; i < locationArrayList.size(); i++) {
             // below line is use to add marker to each location of our array list.
             this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
+            String currentMerchantUid = MerchantUidList.get(i);
+            this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+            {
+
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+//                    s.setStoreUID(currentMerchantUid);
+                    User_store userStore = new User_store(s);
+                    System.out.println("ENETER");
+                    Intent intent = new Intent(mapView.this, userStore.getClass());
+                    System.out.println("ENETER2");
+                    startActivity(intent);
+                    System.out.println("ENETER3");
+                    return true;
+                }
+            });
+
             // below lin is use to zoom our camera on map.
             //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
             // below line is use to move our camera to the specific location.
@@ -225,6 +280,11 @@ public class mapView extends AppCompatActivity
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
+
+    }
+    public Store getStore()
+    {
+        return s;
     }
 
 
@@ -562,6 +622,10 @@ public class mapView extends AppCompatActivity
     public void UserClickViewMap(View view)
     {
         recreate();
+    }
+    public void UserClickDeliveryProgress(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
     }
 
     public static void logout(Activity activity)

@@ -14,10 +14,12 @@ public class Store {
     private String storePhone;
     private String storeAddress;
     private Menu storeMenu;
+    private String currentStoreUid;
 
     //addOrder(), viewMenu()
 
-    public Store(){
+    public Store(String currentStoreUid){
+        this.currentStoreUid = currentStoreUid;
 
     }
 
@@ -30,6 +32,14 @@ public class Store {
     }
 
     //getters and setters
+    public String getStoreUID(){
+        return currentStoreUid;
+    }
+    public void setStoreUID(String currentStoreUid)
+    {
+        this.currentStoreUid = currentStoreUid;
+
+    }
 
     public String getStoreName(){
         return storeName;

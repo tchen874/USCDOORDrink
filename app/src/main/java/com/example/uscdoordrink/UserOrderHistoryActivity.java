@@ -55,6 +55,10 @@ public class UserOrderHistoryActivity extends AppCompatActivity {
     {
         UserNavigationActivity.redirectActivity(this, mapView.class);
     }
+    public void UserClickDeliveryProgress(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
+    }
 
     public static void logout(Activity activity)
     {

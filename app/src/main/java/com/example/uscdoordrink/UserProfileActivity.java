@@ -214,6 +214,16 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     {
         recreate();
     }
+    public void UserClickOrderHistory(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
+
+    }
+
+    public void UserClickDeliveryProgress(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
+    }
 
     public void UserClickProfile(View view)
     {

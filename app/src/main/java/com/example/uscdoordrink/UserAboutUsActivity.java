@@ -52,6 +52,10 @@ public class UserAboutUsActivity extends AppCompatActivity {
     {
         UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
     }
+    public void UserClickDeliveryProgress(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
+    }
 
     public void ClickLogout(View view)
     {
