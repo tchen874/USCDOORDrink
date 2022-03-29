@@ -8,7 +8,7 @@ If you already have an account, log in.
 If you've forgotten your password, click "Forgot Password?". This prompts you to enter your email, and sends an email to that email address to reset the password.
 Click outside the keyboard or the down arrow in the lower left corner to lower the keyboard if necessary. 
 
-#once you've logged in
+# once you've logged in
 On the upper left corner, there is a button that opens up a menu of options.
 
 # merchant view:
@@ -18,6 +18,7 @@ View Map takes the user to a map view. Click the target button on the upper righ
 The markers may take a moment to load. Please be patient!
 If necessary, there are zoom in and zoom out controls on the lower right.
 Merchant addresses in the database are automatically set as markers to the map.
+Clicking the marker lets the user view the store's name, address, phone number, and menu.
 
 ### edit menu
 this button enables merchants to add, update, and delete their menu items.
@@ -44,6 +45,7 @@ View Map takes the user to a map view. Click the target button on the upper righ
 The markers may take a moment to load. Please be patient!
 If necessary, there are zoom in and zoom out controls on the lower right.
 Merchant addresses in the database are automatically set as markers to the map.
+Clicking the marker lets the user view the store's name, address, phone number, and menu.
 
 ### stores
 
