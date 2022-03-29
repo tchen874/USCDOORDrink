@@ -1,23 +1,22 @@
 package com.example.uscdoordrink;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserDeliveryProgress extends AppCompatActivity {
-
+public class UserDeliveryProgress  extends AppCompatActivity {
     DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_delivery_progress);
+        setContentView(R.layout.activity_user_order_history);
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 
@@ -48,17 +47,18 @@ public class UserDeliveryProgress extends AppCompatActivity {
         UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
 
     }
+    public void UserClickDeliveryProgress(View view)
+    {
+        recreate();
+
+    }
     public void UserClickAboutUs(View view)
     {
         UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickViewMap(View view)
     {
-        UserNavigationActivity.redirectActivity(this, mapView.class);
-    }
-    public void UserClickDeliveryProgress(View view)
-    {
-        recreate();
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
     }
 
     public static void logout(Activity activity)
@@ -93,3 +93,4 @@ public class UserDeliveryProgress extends AppCompatActivity {
     }
 
 }
+
