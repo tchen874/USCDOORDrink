@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +68,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import android.os.Handler;
+
 
 
 //code from google maps tutorial https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
@@ -94,6 +98,7 @@ public class mapView extends AppCompatActivity
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
+    private Store s;
 
     // Keys for storing activity state.
     // [START maps_current_place_state_keys]
@@ -110,9 +115,18 @@ public class mapView extends AppCompatActivity
 
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
-    //arraylist for location names
-    private ArrayList<String> namesArrayList;
+    //array list for store names
+    private ArrayList<String> nameArrayList;
 
+    private ArrayList<String> MerchantUidList;
+    // For click marker
+    boolean doubleBackToExitPressedOnce = false;
+
+
+//    public mapView(Store store)
+//    {
+//        this.s = store;
+//    }
     // [START maps_current_place_on_create]
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +156,8 @@ public class mapView extends AppCompatActivity
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
-        namesArrayList = new ArrayList<>();
+        nameArrayList = new ArrayList<>();
+        MerchantUidList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
         //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
@@ -175,7 +190,12 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
                     locationArrayList.add(loc);
-                    namesArrayList.add(s.child("name").getValue(String.class));
+                    System.out.println("address here!! " + s.child("address").getValue(String.class));
+                    nameArrayList.add(s.child("name").getValue(String.class));
+                    //System.out.println("name here!! " + s.child("name").getValue(String.class));
+//                    System.out.println("Prink uid" + s.getKey());
+                    MerchantUidList.add(s.getKey());
+                    System.out.println("MerchantUIDLIST: " + s.getKey());
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
@@ -191,6 +211,27 @@ public class mapView extends AppCompatActivity
 
 
     }
+
+//    @Override
+//    public boolean onMarkerClick(Marker marker) {
+//        System.out.println("Marker got clicked");
+//        if (doubleBackToExitPressedOnce) {
+//            Intent intent = new Intent(mapView.this, ProfileActivity.class);
+//            startActivity(intent);
+//
+//        } else {
+//            this.doubleBackToExitPressedOnce = true;
+//
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    doubleBackToExitPressedOnce = false;
+//                }
+//            }, 2000);
+//        }
+//        return false;
+//    }
+
 
 //    public void addLocationfromFirebase(String address)
 //    {
@@ -208,10 +249,34 @@ public class mapView extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
 
-        for (int i = 0; i < locationArrayList.size(); i++) {
-            //add marker to each location on our array list.
-            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
+        System.out.println("here locationarraylist onmapready");
+        for(LatLng temp : locationArrayList){
+            System.out.println("temp onmapready: " + temp);
+        }
 
+        //EXAMPLE ADDING A MARKER - TODO THE REST!!
+        for (int i = 0; i < locationArrayList.size(); i++) {
+            // below line is use to add marker to each location of our array list.
+            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
+            String currentMerchantUid = MerchantUidList.get(i);
+            String merchantName = nameArrayList.get(i);
+            System.out.println("mapview currentmerchantuid: " + currentMerchantUid);
+            this.map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+            {
+
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+
+                    User_store userStore = new User_store(s);
+
+                    Intent intent = new Intent(mapView.this, userStore.getClass());
+                    intent.putExtra("UID_STRING", currentMerchantUid);
+                    intent.putExtra("STORE_NAME", merchantName);
+                    startActivity(intent);
+
+                    return true;
+                }
+            });
 
             // below lin is use to zoom our camera on map.
             //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
@@ -226,51 +291,24 @@ public class mapView extends AppCompatActivity
         //moves to current location of device on map!
         getDeviceLocation();
 
-
         //click listener so it goes to store activity view when we click!
-        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                //when marker is clicked, we go to activity
-                System.out.println("clicked marker!");
-                String title = marker.getTitle();
-                System.out.println("marker title: " + title);
-                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
-                return false;
-            }
-        });
-//
-//
-
-
-//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
-//            public boolean onMarkerClick(Marker marker) {
+//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(@NonNull Marker marker) {
+//                //when marker is clicked, we go to activity
+//                System.out.println("clicked marker!");
 //                String title = marker.getTitle();
-//                {
-//                    for (int i = 0; i < venueList.size();) {
-//                        //getting the selected venue
-//                        Venue venue = venueList.get(i);
-//                        //creating an intent
-//
-//                        Intent intent = new Intent(getApplicationContext(), viewbeverageActivity.class);
-//
-//                        //putting venue name and id to intent
-//                        intent.putExtra(VENUE_ID, venue.getVenueId());
-//                        intent.putExtra(VENUE_NAME, venue.getVenueName());
-//
-//                        //starting the activity with intent
-//                        startActivity(intent);
-//
-//                    }
-//                    return false;
-//                }
+//                System.out.println("marker title: " + title);
+//                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
+//                return false;
 //            }
 //        });
 
     }
-
-
-
+    public Store getStore()
+    {
+        return s;
+    }
 
 
     /**
@@ -533,7 +571,6 @@ public class mapView extends AppCompatActivity
             if (locationPermissionGranted) {
                 map.setMyLocationEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(true);
-                //map.getUiSettings().setZoomControlsEnabled(true);
             } else {
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
@@ -608,6 +645,10 @@ public class mapView extends AppCompatActivity
     public void UserClickViewMap(View view)
     {
         recreate();
+    }
+    public void UserClickDeliveryProgress(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
     }
 
     public static void logout(Activity activity)
