@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/user_drawer_layout"
-    tools:context=".mapView">
+    android:id="@+id/merchant_drawer_layout"
+    tools:context=".Merchant_map_view">
 
     <LinearLayout
         android:id="@+id/linearLayout"

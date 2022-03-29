@@ -20,7 +20,6 @@ public class UserNavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_navigation);
-
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 

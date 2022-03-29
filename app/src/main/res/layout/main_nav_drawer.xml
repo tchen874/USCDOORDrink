@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="MerchantClickViewMap">
+        android:onClick="ClickViewMap">
 
         <TextView
             android:layout_width="0dp"

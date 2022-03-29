@@ -28,13 +28,12 @@ public class MerchantNavigationActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_merchant_navigation);
-
         drawerLayout = findViewById(R.id.drawer_layour);
     }
+
+
     public void ClickMenu(View view)
     {
         openDrawer(drawerLayout);
@@ -46,18 +45,6 @@ public class MerchantNavigationActivity extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
 
     }
-
-
-    public void ClickLogo(View view)
-    {
-        closeDrawer(drawerLayout);
-    }
-
-    public void MerchantClickViewMap(View view)
-    {
-        redirectActivity(this, mapView.class);
-    }
-
     public static void closeDrawer(DrawerLayout drawerLayout)
     {
         // If the drawer is open, then close it
@@ -66,6 +53,21 @@ public class MerchantNavigationActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
+
+
+    public void ClickLogo(View view)
+    {
+        closeDrawer(drawerLayout);
+    }
+
+    public void ClickViewMap(View view)
+    {
+//        redirectActivity(this, mapView.clas
+        redirectActivity(this, Merchant_map_view.class);
+    }
+
+
+
 
     public void ClickEditMenu(View view)
     {

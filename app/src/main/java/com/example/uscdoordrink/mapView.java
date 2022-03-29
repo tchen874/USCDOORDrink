@@ -543,10 +543,7 @@ public class mapView extends AppCompatActivity
     }
 
 
-    public void UserClickViewMap(View view)
-    {
-        recreate();
-    }
+
 
     public void UserClickProfile(View view)
     {
