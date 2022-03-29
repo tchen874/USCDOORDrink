@@ -222,6 +222,7 @@ public class mapView extends AppCompatActivity
         //moves to current location of device on map!
         getDeviceLocation();
 
+
         //click listener so it goes to store activity view when we click!
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -526,6 +527,7 @@ public class mapView extends AppCompatActivity
             if (locationPermissionGranted) {
                 map.setMyLocationEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(true);
+                //map.getUiSettings().setZoomControlsEnabled(true);
             } else {
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
