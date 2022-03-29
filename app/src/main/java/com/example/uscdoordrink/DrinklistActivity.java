@@ -36,7 +36,9 @@ public class DrinklistActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listViewDrinks);
         // FirebaseAuth.getInstance().getCurrentUser().getUid(); //get current id
         //query reference to values in database
-        Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Merchants");
+
+
         FirebaseListOptions<Drink> options = new FirebaseListOptions.Builder<Drink>()
                 .setLayout(R.layout.single_drink_view)
                 .setQuery(query, Drink.class).build();
