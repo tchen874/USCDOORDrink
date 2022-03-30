@@ -16,7 +16,7 @@ public class UserDeliveryProgress  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_delivery_progress);
+        setContentView(R.layout.activity_user_order_history);
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 
@@ -51,10 +51,6 @@ public class UserDeliveryProgress  extends AppCompatActivity {
     {
         recreate();
 
-    }
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
     }
     public void UserClickAboutUs(View view)
     {

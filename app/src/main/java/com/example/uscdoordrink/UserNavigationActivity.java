@@ -52,11 +52,11 @@ public class UserNavigationActivity extends AppCompatActivity {
     {
         redirectActivity(this, mapView.class);
     }
-    public void UserClickViewStore(View view)
-    {
-        redirectActivity(this, User_store.class);
-    }
-
+//    public void UserClickViewStore(View view)
+//    {
+//        redirectActivity(this, class);
+//    }
+//
     public void UserClickDeliveryProgress(View view)
     {
         redirectActivity(this, UserDeliveryProgress.class);
