@@ -26,6 +26,16 @@ public class Drink {
         this.caffeine = caffeine;
     }
 
+    //second constructor
+    public Drink(String id, String name, double caffeine, double price, String discount, String ownerUsername){
+        this.id = id;
+        this.name = name;
+        this.caffeine = caffeine;
+        this.price = price;
+        this.discount = discount;
+        this.ownerUsername = ownerUsername;
+    }
+
     //getters and setters
 
     public String getName() {
