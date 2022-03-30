@@ -687,5 +687,9 @@ public class mapView extends AppCompatActivity
         UserNavigationActivity.closeDrawer(drawerLayout);
     }
 
+
+    //classes to draw line of directions using polyline
+
+
 }
 
