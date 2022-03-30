@@ -1,6 +1,7 @@
 package com.example.uscdoordrink;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Customer {
 
@@ -16,6 +17,24 @@ public class Customer {
     public Boolean caffeine;
     public String order_location;
 
+    //creating Customer constructor using map of string, objects
+    //the variables that I am getting will be from firebase firestore
+    // query data from map https://stackoverflow.com/questions/46276806/retrieving-data-using-map-from-firebase-database
+    public Customer(String id, Map<String, Object> map){
+        this.id = id;
+        this.customer_name = (String)map.get("customer_name");
+        this.drink = (String)map.get("drink_name");
+        this.startTime = (String)map.get("start_time");
+        this.seller_name = (String)map.get("seller_name");
+        this.restaurant_name = (String)map.get("restaurant_name");
+        this.endTime = (String)map.get("end_time");
+        this.caffeine = (Boolean) map.get("caffeine");
+        this.order_location = (String) map.get("order_location");
+    }
+
+
+
+
     private String custName;
     //private Location custLoc;
     private ArrayList<Order> currOrders;
@@ -26,6 +45,7 @@ public class Customer {
     public void addOrder(Order order){
         this.currOrders.add(order);
     }
+
     public void sendNotification(){
 
     }
