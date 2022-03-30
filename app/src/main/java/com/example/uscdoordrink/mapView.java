@@ -651,10 +651,6 @@ public class mapView extends AppCompatActivity
     {
         UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
     }
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
 
     public static void logout(Activity activity)
     {

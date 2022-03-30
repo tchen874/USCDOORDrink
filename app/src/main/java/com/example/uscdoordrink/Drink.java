@@ -8,7 +8,7 @@ import java.util.*;
 import java.lang.Object.*;
 
 
-public class Drink implements java.io.Serializable {
+public class Drink {
     public String name;
     private double price;
     private double caffeine;

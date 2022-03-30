@@ -7,7 +7,7 @@
     android:paddingBottom="5dp">
 
 
-    <TextView
+    <EditText
         android:id="@+id/drink_name"
         android:layout_width="250dp"
         android:layout_height="42dp"
@@ -16,9 +16,9 @@
         android:hint="Drink Name"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></TextView>
+        android:textSize="14sp"></EditText>
 
-    <TextView
+    <EditText
         android:id="@+id/drink_price"
         android:layout_width="150dp"
         android:layout_height="42dp"
@@ -26,9 +26,9 @@
         android:hint="Price $"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></TextView>
+        android:textSize="14sp"></EditText>
 
-    <TextView
+    <EditText
         android:id="@+id/drink_caffeine"
         android:layout_width="150dp"
         android:layout_height="42dp"
@@ -37,16 +37,17 @@
         android:hint="caffeine"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></TextView>
+        android:textSize="14sp"></EditText>
+
 
 
     <ImageView
         android:id="@+id/image_add"
-        android:layout_width="20dp"
-        android:layout_height="42dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
         android:src="@drawable/ic_add"></ImageView>
 
 </LinearLayout>
