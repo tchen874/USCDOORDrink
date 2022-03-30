@@ -9,6 +9,12 @@ import java.lang.Object.*;
 
 
 public class Drink {
+    //adding variables i will use for Drink class
+    public String id; //adding global ID to keep better track
+    public String discount;
+    public String ownerUsername;
+
+
     public String name;
     private double price;
     private double caffeine;
@@ -18,6 +24,16 @@ public class Drink {
         this.name = name;
         this.price = price;
         this.caffeine = caffeine;
+    }
+
+    //second constructor
+    public Drink(String id, String name, double caffeine, double price, String discount, String ownerUsername){
+        this.id = id;
+        this.name = name;
+        this.caffeine = caffeine;
+        this.price = price;
+        this.discount = discount;
+        this.ownerUsername = ownerUsername;
     }
 
     //getters and setters
