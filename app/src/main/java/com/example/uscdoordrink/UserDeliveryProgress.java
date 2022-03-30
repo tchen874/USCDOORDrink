@@ -16,14 +16,13 @@ public class UserDeliveryProgress  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_order_history);
+        setContentView(R.layout.activity_user_delivery_progress);
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 
     // For navigation purpose
     public void UserClickMenu(View view)
     {
-        System.out.println("Why this is mot");
         UserNavigationActivity.openDrawer(drawerLayout);
     }
 
@@ -41,6 +40,11 @@ public class UserDeliveryProgress  extends AppCompatActivity {
     public void ClickLogout(View view)
     {
         logout(this);
+    }
+
+    public void UserClickViewStore(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, User_store.class);
     }
     public void UserClickOrderHistory(View view)
     {

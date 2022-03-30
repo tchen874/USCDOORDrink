@@ -212,12 +212,16 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     }
     public void UserClickAboutUs(View view)
     {
-        recreate();
+        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
     }
 
     public void UserClickProfile(View view)
     {
         recreate();
+    }
+    public void UserClickViewStore(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, User_store.class);
     }
 
     public void ClickLogout(View view)

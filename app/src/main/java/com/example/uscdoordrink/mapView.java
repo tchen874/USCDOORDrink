@@ -75,7 +75,7 @@ import android.os.Handler;
 //code from google maps tutorial https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
 
 public class mapView extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, java.io.Serializable{
 
     DrawerLayout drawerLayout;
     private static final String TAG = mapView.class.getSimpleName();
@@ -119,6 +119,7 @@ public class mapView extends AppCompatActivity
     private ArrayList<String> nameArrayList;
 
     private ArrayList<String> MerchantUidList;
+    private ArrayList<Drink> cart;
     // For click marker
     boolean doubleBackToExitPressedOnce = false;
 
@@ -158,6 +159,7 @@ public class mapView extends AppCompatActivity
         locationArrayList = new ArrayList<>();
         nameArrayList = new ArrayList<>();
         MerchantUidList = new ArrayList<>();
+        cart = new ArrayList<Drink>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
         //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
@@ -616,8 +618,13 @@ public class mapView extends AppCompatActivity
     // For navigation purpose
     public void UserClickMenu(View view)
     {
-        System.out.println("Why this is mot");
+
         UserNavigationActivity.openDrawer(drawerLayout);
+    }
+    public void UserClickViewStore(View view)
+    {
+        System.out.println("Why this is mot");
+        UserNavigationActivity.redirectActivity(this, User_store.class);
     }
 
 

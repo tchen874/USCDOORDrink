@@ -8,7 +8,7 @@ import java.util.*;
 import java.lang.Object.*;
 
 
-public class Drink {
+public class Drink implements  java.io.Serializable{
     //adding variables i will use for Drink class
     public String id; //adding global ID to keep better track
     public String discount;
@@ -65,6 +65,7 @@ public class Drink {
                 ", caffeine=" + caffeine +
                 '}';
     }
+
 
     public List<ArrayList<String>> DrinkToList(List<Drink> drinkList)
     {
