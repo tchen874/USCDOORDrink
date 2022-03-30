@@ -62,7 +62,7 @@ public class MerchantNavigationActivity extends AppCompatActivity {
 
     public void ClickViewMap(View view)
     {
-//        redirectActivity(this, mapView.clas
+//        redirectActivity(this, mapView.class
         redirectActivity(this, Merchant_map_view.class);
     }
 

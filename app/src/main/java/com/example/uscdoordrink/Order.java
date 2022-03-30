@@ -17,6 +17,10 @@ public class Order {
 
     public Order(){
     }
+
+    public Order(ArrayList<Drink> drinks){
+        orderDrinks = drinks;
+    }
     public Order(ArrayList<Drink> drinks, Customer customer, Merchant seller, Location loc, double caff){
         this.orderDrinks = drinks;
         this.cus = customer;

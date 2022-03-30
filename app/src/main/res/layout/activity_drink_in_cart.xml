@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/drink_name"
+        android:id="@+id/user_drink_name"
         android:layout_width="250dp"
         android:layout_height="42dp"
         android:layout_marginLeft="10dp"
@@ -19,7 +19,7 @@
         android:textSize="14sp"></TextView>
 
     <TextView
-        android:id="@+id/drink_price"
+        android:id="@+id/user_drink_price"
         android:layout_width="150dp"
         android:layout_height="42dp"
         android:layout_weight="1"
@@ -29,7 +29,7 @@
         android:textSize="14sp"></TextView>
 
     <TextView
-        android:id="@+id/drink_caffeine"
+        android:id="@+id/user_drink_caffeine"
         android:layout_width="150dp"
         android:layout_height="42dp"
         android:layout_marginLeft="10dp"
@@ -41,12 +41,12 @@
 
 
     <ImageView
-        android:id="@+id/image_add"
+        android:id="@+id/user_image_close"
         android:layout_width="20dp"
         android:layout_height="42dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/ic_add"></ImageView>
+        android:src="@drawable/ic_close"></ImageView>
 
 </LinearLayout>

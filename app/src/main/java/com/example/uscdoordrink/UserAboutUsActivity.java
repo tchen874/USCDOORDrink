@@ -43,6 +43,10 @@ public class UserAboutUsActivity extends AppCompatActivity {
         UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
 
     }
+    public void UserClickViewStore(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, User_store.class);
+    }
 
     public void UserClickAboutUs(View view)
     {

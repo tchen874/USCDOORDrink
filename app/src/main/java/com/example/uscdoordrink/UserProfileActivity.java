@@ -149,6 +149,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             return;
         }
 
+
         // Check to see if the phone is valid
         if(Patterns.PHONE.matcher(phone).matches() == false)
         {
@@ -209,6 +210,10 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     {
         UserNavigationActivity.redirectActivity(this, mapView.class);
 
+    }
+    public void UserClickViewStore(View view)
+    {
+        UserNavigationActivity.redirectActivity(this, User_store.class);
     }
     public void UserClickAboutUs(View view)
     {
