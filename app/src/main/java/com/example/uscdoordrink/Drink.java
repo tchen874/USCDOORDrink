@@ -9,6 +9,12 @@ import java.lang.Object.*;
 
 
 public class Drink {
+    //adding variables i will use for Drink class
+    public String id; //adding global ID to keep better track
+    public String discount;
+    public String ownerUsername;
+
+
     public String name;
     private double price;
     private double caffeine;
