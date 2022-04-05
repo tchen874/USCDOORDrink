@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout"
-    tools:context=".UserDeliveryProgress">
+    tools:context=".User_store">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,29 +14,82 @@
         <include
             layout="@layout/user_tool_bar"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Delivery Progress"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            />
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Time:"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            />
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".UserDeliveryProgress">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=""
-            android:textSize="30sp"
-            android:textStyle="bold"
-            />
+                <TextView
+                    android:id="@+id/delievryProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delivery Progress"
+                    android:textSize="20sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:id="@+id/Delievryordertime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Time"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:id="@+id/DelievryStoreName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Store Name"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/DelievryStoreAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/DelievryStorePhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order:"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <LinearLayout
+                    android:id="@+id/deliveryLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </LinearLayout>
 
     <RelativeLayout
@@ -55,3 +108,5 @@
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+

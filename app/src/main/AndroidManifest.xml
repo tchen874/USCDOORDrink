@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCDoorDrink">
         <activity
+            android:name=".SingleOrderHistory"
+            android:exported="false" />
+        <activity
+            android:name=".Drink_in_Delivery"
+            android:exported="false" />
+        <activity
             android:name=".drink_in_cart"
             android:exported="false" />
         <activity
@@ -23,20 +29,20 @@
         <activity
             android:name=".Merchant_map_view"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".User_store"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".UserAboutUsActivity"
@@ -90,15 +96,14 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-
         <activity
             android:name=".MerchantNavigationActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".MainActivity"

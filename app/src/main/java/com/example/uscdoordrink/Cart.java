@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
@@ -213,7 +214,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 // Set order to the database and direct to the delivery information
 //                System.out.println("In the click the button");
 
-                startActivity(new Intent(this, UserDeliveryProgress.class));
+
                 //TODO: Add the Hashmap<key: date, value= List of drink>
                 //TODO change to the current user //FirebaseAuth.getInstance().getCurrentUser().getUid()
                 // Sent order to merchant
@@ -245,6 +246,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 // Add to merchant database
                 // {date, user uid, }
                 ArrayList<String> temp = new ArrayList<>();
+
                 temp.add(dateStr);
                 temp.add(timeStr);
 
@@ -260,8 +262,21 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 FirebaseDatabase.getInstance().getReference("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders")
                         .setValue(orders);
 
+                // direct back to the Progress View;
+                // Pass the cart information to user
+                UserDeliveryProgress userdelivery = new UserDeliveryProgress();
+                Intent intent = new Intent(Cart.this, userdelivery.getClass());
+                intent.putExtra("UID_STRING", currentStoreid);
+                intent.putExtra("ORDERTIME", dateStr + " " + timeStr);
 
-                // Add to merchant order
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ORDERS", (Serializable) cart);
+                intent.putExtra("BUNDLE", bundle);
+
+                startActivity(intent);
+
+//                startActivity(new Intent(this, UserDeliveryProgress.class));
 
                 break;
         }

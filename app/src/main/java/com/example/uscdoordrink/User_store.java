@@ -285,8 +285,8 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                 bundle.putSerializable("CART", (Serializable) cart);
                 intent.putExtra("BUNDLE", bundle);
 
-                System.out.println("stroe ifssss====");
-                System.out.println("stroe ifssss====");
+//                System.out.println("stroe ifssss====");
+//                System.out.println("stroe ifssss====");
                 startActivity(intent);
 
                 break;
