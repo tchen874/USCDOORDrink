@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             {
                                 if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
                                 {
-                                    startActivity(new Intent(MainActivity.this, mapView.class));
+                                    startActivity(new Intent(MainActivity.this, UserNavigationActivity.class));
                                     isUser = true;
                                     break;
                                 }
