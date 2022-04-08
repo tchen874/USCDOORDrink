@@ -70,6 +70,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         orderMap = new HashMap<String, ArrayList<String>>();
         totalCaffeien = 0.0;
         // Load the orders in map
+        // database reference with get instance
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders");
         userref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,6 +78,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                 //shows store name, address, and phone
                 for (DataSnapshot s : snapshot.getChildren()){
                     System.out.println("orderssss= " + s.getValue());
+                    System.out.println((ArrayList<String>) s.getValue());
                     ArrayList<String> l = (ArrayList<String>) s.getValue();
 
                     ArrayList<String> temp = new ArrayList<>();
@@ -107,7 +109,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 
                     for(int i = 0; i < orderMap.size(); i++)
                     {
-                        System.out.println("Oders" + orderMap.get(2022/03/29));
+                        System.out.println("Orders" + orderMap.get(2022/03/29));
                     }
 
                 }

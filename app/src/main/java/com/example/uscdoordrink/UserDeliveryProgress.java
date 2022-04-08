@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class UserDeliveryProgress  extends AppCompatActivity implements java.io.Serializable{
+public class UserDeliveryProgress extends AppCompatActivity implements java.io.Serializable{
     DrawerLayout drawerLayout;
     LinearLayout layout;
     TextView storeName;

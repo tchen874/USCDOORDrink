@@ -14,13 +14,31 @@
         <include
             layout="@layout/user_tool_bar"/>
 
-        <TextView
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"/>
+
+        <ListView
+            android:id="@+id/order_chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="User Order History"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="-119dp"
+            />
+
+
+
+
     </LinearLayout>
 
     <RelativeLayout
@@ -28,8 +46,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/white">
-        <include
-            layout="@layout/user_nav_drawer"/>
+
+        <include layout="@layout/user_nav_drawer" />
 
 
     </RelativeLayout>

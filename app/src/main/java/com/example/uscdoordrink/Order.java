@@ -5,6 +5,8 @@ import android.location.Location;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
     private ArrayList<Drink> orderDrinks = new ArrayList<Drink>();
@@ -95,6 +97,16 @@ public class Order {
     public void placeOrder(){
     //push to the database
 
+    }
+
+    //structuring user order data as hashmap
+    public Map<String, Object> ordersToHashMap(){
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("CUSTOMER_FIELD", cus);
+        map.put("DRINK_FIELD", orderDrinks);
+        map.put("CAFFEINATED_FIELD", caffTotal);
+        map.put("MERCHANT_FIELD", sel);
+        return map;
     }
 
 }
