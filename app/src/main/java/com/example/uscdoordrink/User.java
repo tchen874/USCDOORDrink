@@ -59,13 +59,15 @@ public class User {
         this.email = email;
     }
 
-    public List<String> getMerchant() {
+   /* public List<String> getMerchant() {
         return merchant;
     }
 
     public void setMerchant(List<String> merchant) {
         this.merchant = merchant;
-    }
+    }*/
+
+
 
     static void viewAccount(){
         //TODO
@@ -74,6 +76,7 @@ public class User {
     }
     static void viewHistory(){
         //TODO
+        //return UserOrders;
     }
 /*
     @Override

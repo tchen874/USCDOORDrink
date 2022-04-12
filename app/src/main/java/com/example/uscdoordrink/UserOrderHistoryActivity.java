@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -36,13 +37,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserOrderHistoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    ListView history;
+    ListView history_view;
     Spinner dropdown;
-    ArrayList<String> orders;
+    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+    ArrayList<String> orders_list;
+    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    ArrayAdapter<String> adapter;
+
 
 
 
@@ -77,6 +83,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_order_history);
 
@@ -85,14 +92,18 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //System.out.println("store if=");
 
-        history = (ListView) findViewById(R.id.order_chart);
+        history_view = (ListView) findViewById(R.id.order_chart);
+        orders_list = new ArrayList<>();
 
-        orders = new ArrayList<>();
-        MerchantOrders = new ArrayList<ArrayList<String>>();
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                orders_list);
 
+        history_view.setAdapter(adapter);
 
-        layout = findViewById(R.id.cart_Drink_layout);
-        drawerLayout = findViewById(R.id.user_drawer_layout);
+        //MerchantOrders = new ArrayList<ArrayList<String>>();
+
+        //layout = findViewById(R.id.cart_Drink_layout);
 
         //get the spinner from the xml.
         Spinner dropdown = findViewById(R.id.spinner1);
@@ -106,6 +117,18 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
 
+        //testing
+        //System.out.println("TESTING!!!!! LOOK AT ME");
+        //DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //System.out.println("Usersref : "  + usersRef.getKey());
+        //Log.d("Usersref : ", usersRef.getKey());
+        //Log.d("orders : ", usersRef.child("orders").child("2").get);
+        //Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
+        //Log.d("orders: ", usersRef.toString());
+
+        //testing@gmail.com
+        //testing123
+        loadView();
 
     }
 
@@ -216,15 +239,147 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
     }
 
+    private void loadView() {
+
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        usersRef.child("orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String orderString = "";
+                for(DataSnapshot i : snapshot.getChildren()) {
+                    for (DataSnapshot s : i.getChildren()) {
+                        if (s.getKey().equals("0")) {
+                            orderString += "Date order purchased: ";
+                        }
+                        if (s.getKey().equals("1")) {
+                            orderString += "Time order placed: ";
+                        }
+                        if (s.getKey().equals("2")) {
+
+                            orderString += "Name, price, and caffiene amount: ";
+                        }
+                        orderString += s.getValue();
+                        orderString += " \n";
+                    }
+                    orders_list.add(orderString);
+                    orderString = "";
+                }
+
+                adapter.notifyDataSetChanged();
 
 
 
-    @Override
+                //instantiate user object with snapshot to set up for getting orders later
+                // Customer cust = snapshot.getValue(Customer.class);
+                //get an array here that holds orders
+               /* history = (ListView) findViewById(R.id.order_chart);
+                orders = new ArrayList<>();
+
+                //once we have the data, how are we going to throw it to this method?
+                //
+                //Customer cust1 = new Customer();
+                orders.add("Cust name");
+                orders.add("Cust email");
+
+                for (DataSnapshot s : snapshot.getChildren()){
+                    List<String> st = (List<String>) s.getValue();
+
+                    if(s.getKey().toString().equals("orders"))
+                    {
+                        //get value at index?
+                       // for(Order o : s){
+
+                        //}
+                        //orders.add(s.getValue().toString());
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+                history.setAdapter(adapter);
+*/
+
+
+                //cust.setCurrOrders();
+                //System.out.println(cust.getcurrOrders());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+
+
+        @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+
         //filters by data of user input
         String selected = (String)parent.getItemAtPosition(position);
 
         //after they select we do the work
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        //System.out.println(usersRef);
+        Query q = usersRef.orderByKey();
+        ArrayList<String> listItems = new ArrayList<String>();
+        //attach listener to query to get the data
+
+            usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //instantiate user object with snapshot to set up for getting orders later
+               // Customer cust = snapshot.getValue(Customer.class);
+                //get an array here that holds orders
+               /* history = (ListView) findViewById(R.id.order_chart);
+                orders = new ArrayList<>();
+
+                //once we have the data, how are we going to throw it to this method?
+                //
+                //Customer cust1 = new Customer();
+                orders.add("Cust name");
+                orders.add("Cust email");
+
+                for (DataSnapshot s : snapshot.getChildren()){
+                    List<String> st = (List<String>) s.getValue();
+
+                    if(s.getKey().toString().equals("orders"))
+                    {
+                        //get value at index?
+                       // for(Order o : s){
+
+                        //}
+                        //orders.add(s.getValue().toString());
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+                history.setAdapter(adapter);
+*/
+
+
+                //cust.setCurrOrders();
+                //System.out.println(cust.getcurrOrders());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //testing
+        //System.out.println("TESTING!!!!! LOOK AT ME");
+        //System.out.println("Usersref : "  + usersRef.getKey());
+        Log.d("Usersref : ", usersRef.getKey());
+        Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
+        //testing@gmail.com
+        //testing123
+
+
+
     }
 
     @Override
