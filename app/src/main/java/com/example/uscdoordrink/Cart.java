@@ -56,15 +56,19 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        //System.out.println("stroe ifssssqqqqqq====");
+        System.out.println("stroe ifssssqqqqqq====");
 
-        orders= new ArrayList<ArrayList<String>>();
+        orders = new ArrayList<ArrayList<String>>();
         MerchantOrders = new ArrayList<ArrayList<String>>();
+
+
 
         cart = new ArrayList<>();
 
         Intent intent = this.getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
+        //from USER_STORE because once you click checkout button, you need to be able to know what order you've added
+        //
         cart = (ArrayList<Drink>) args.getSerializable("CART");
 //        cart = this.getIntent().getExtras().getParcelableArrayList("CART");
 //        ArrayList<Drink> t = this.getIntent().getParcelableArrayList("CART");
@@ -91,12 +95,15 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 currentStoreid= extras.getString("UID_STRING");
             }
         } else {
+            //when click map view needs to know what store it is
+            // in user store, once user clicks add to cart she needs to know which store you're looking at
             currentStoreid= (String) savedInstanceState.getSerializable("UID_STRING");
 //            strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
-        //System.out.println("stroe ifssss====");
-        //System.out.println("stroe if====" + currentStoreid + cart.get(0).getPrice());
+        //wanted to see if current store ID is being passed to cart class
+        System.out.println("stroe ifssss====");
+        System.out.println("stroe if====" + currentStoreid + cart.get(0).getPrice());
         loadView();
     }
 
@@ -105,6 +112,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
         //get dat reference
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
         ref.addValueEventListener(new ValueEventListener() {
+            //getting data from the snapshot
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //shows store name, address, and phone
@@ -125,6 +133,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                     {
                         ArrayList<String> order = (ArrayList<String>) s.getValue();
                         MerchantOrders.add(order);
+
                     }
                 }
 
@@ -142,8 +151,10 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //shows store name, address, and phone
+
                 for (DataSnapshot s : snapshot.getChildren()){
                     System.out.println("orderssss= " + s.getValue());
+                    //getting values and adding it to the cart
                     ArrayList<String> l = (ArrayList<String>) s.getValue();
                     orders.add(l);
                 }
@@ -159,6 +170,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
         // drinks in the cart
         for(Drink d: cart)
         {
+            //getting references to the view on screen sent over to activity
+            //
             final View drinkView = getLayoutInflater().inflate(R.layout.activity_drink_in_cart,null,false);
             TextView drinkName = (TextView)drinkView.findViewById(R.id.user_drink_name);
             TextView drinkPrice = (TextView)drinkView.findViewById(R.id.user_drink_price);
@@ -198,7 +211,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
         }
 //        cart.remove(d);
 
-        System.out.println("my car=" + cart.size());
+        System.out.println("my cart=" + cart.size());
         layout.removeView(view);
     }
 

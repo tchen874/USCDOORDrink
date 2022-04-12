@@ -35,6 +35,7 @@ tools:context=".drink_in_cart">
                 android:textSize="30sp"
                 android:layout_margin="15dp"
                 android:textColor="@color/black"></TextView>
+
             <TextView
                 android:id="@+id/cartStoreName"
                 android:layout_width="wrap_content"
@@ -42,7 +43,8 @@ tools:context=".drink_in_cart">
                 android:text="Store Name"
                 android:textSize="15sp"
                 android:layout_margin="15dp"
-                android:textColor="@color/black"></TextView>
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/cartStoreAddress"
                 android:layout_width="wrap_content"
@@ -50,7 +52,7 @@ tools:context=".drink_in_cart">
                 android:text="Address"
                 android:textSize="15sp"
                 android:layout_margin="15dp"
-                android:textColor="@color/black"></TextView>
+                android:textColor="@color/black" />
             <TextView
                 android:id="@+id/cartStorePhone"
                 android:layout_width="wrap_content"
@@ -78,8 +80,7 @@ tools:context=".drink_in_cart">
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                ></Button>
+                android:paddingRight="10dp" />
         </LinearLayout>
 
     </ScrollView>

@@ -1,3 +1,9 @@
+# USCDoorDrink
+
+USC DoorDrink
+Team #42
+Authors: Angela Sun, Tiffany Chen, Madison Brading 
+
 # EMULATOR INSTRUCTIONS:
 Pixel 3a API 32
 
@@ -64,14 +70,16 @@ this takes the user to a view of their order history.
 
 
 ### about us
-this takes the user to an 'about us' page detailing information about the ap 
+this takes the user to an 'about us' page detailing information about the ap
 
 
 ### profile
 this button takes the user to their profile.
-for users, they will be able to see and edit their name, email and phone number. 
+for users, they will be able to see and edit their name, email and phone number.
 press update after editing!
 
 
 ### logout
 this button logs the user out. 
+
+
