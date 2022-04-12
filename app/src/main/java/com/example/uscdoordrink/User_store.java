@@ -75,16 +75,16 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         totalCaffeien = 0.0;
         // Load the orders in map
         //TODO: get child
-        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders");
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
         userref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //shows store name, address, and phone
                 Date date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-                System.out.println("Date======= " + formatter.format(date).toString());
+                //System.out.println("Date======= " + formatter.format(date).toString());
                 for (DataSnapshot s : snapshot.getChildren()){
-                    System.out.println("orderssss= " + s.getValue());
+                   // System.out.println("orderssss= " + s.getValue());
                     ArrayList<String> l = (ArrayList<String>) s.getValue();
 
                     ArrayList<String> temp = new ArrayList<>();
@@ -93,7 +93,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                     {
                         String[] caff = l.get(i).split("=");
                         int index = caff.length - 1;
-                        System.out.println("testtstststs=" + caff[0]);
+                        //System.out.println("testtstststs=" + caff[0]);
                         String tempstr = "";
                         if(caff[index].contains("}"))
                         {

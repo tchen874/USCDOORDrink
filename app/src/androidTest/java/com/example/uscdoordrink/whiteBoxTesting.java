@@ -166,7 +166,6 @@ public class whiteBoxTesting{
                 add(d1);
             }
         };
-
         assertEquals(menu.getDrinkList(), result);
     }
 

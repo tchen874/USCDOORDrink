@@ -175,14 +175,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             {
                                                 if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
                                                 {
-                                                    startActivity(new Intent(RegisterActivity.this, mapView.class));
+                                                    startActivity(new Intent(RegisterActivity.this, UserNavigationActivity.class));
                                                     isUser = true;
                                                     break;
                                                 }
                                             }
                                             if(!isUser)
                                             {
-                                                startActivity(new Intent(RegisterActivity.this, UserNavigationActivity.class));
+                                                startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
 
                                             }
                                         }
