@@ -70,7 +70,6 @@ public class Drink implements  java.io.Serializable{
     public List<ArrayList<String>> DrinkToList(List<Drink> drinkList)
     {
         List<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-//        ArrayList<String> temp = new ArrayList<String>();
         for(int i = 0; i < drinkList.size(); i++)
         {
             ArrayList<String> temp = new ArrayList<String>();
@@ -79,11 +78,6 @@ public class Drink implements  java.io.Serializable{
             temp.add(String.valueOf(drinkList.get(i).getCaffeine()));
             result.add(temp);
         }
-
-//        for(int i = 0; i < result.size(); i++)
-//        {
-//            System.out.println("RESUKT= " + result.get(i));
-//        }
         return result;
     }
 

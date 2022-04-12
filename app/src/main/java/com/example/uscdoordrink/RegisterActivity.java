@@ -182,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             }
                                             if(!isUser)
                                             {
-                                                startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
+                                                startActivity(new Intent(RegisterActivity.this, UserNavigationActivity.class));
 
                                             }
                                         }

@@ -80,8 +80,4 @@ public class Store {
     public void removeOrder(Order order){
         this.storeOrders.remove(order);
     }
-
-
-
-
 }

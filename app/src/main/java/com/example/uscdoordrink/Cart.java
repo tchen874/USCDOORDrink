@@ -56,12 +56,10 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        System.out.println("stroe ifssssqqqqqq====");
+        //System.out.println("stroe ifssssqqqqqq====");
 
         orders= new ArrayList<ArrayList<String>>();
         MerchantOrders = new ArrayList<ArrayList<String>>();
-
-
 
         cart = new ArrayList<>();
 
@@ -97,8 +95,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 //            strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
-        System.out.println("stroe ifssss====");
-        System.out.println("stroe if====" + currentStoreid + cart.get(0).getPrice());
+        //System.out.println("stroe ifssss====");
+        //System.out.println("stroe if====" + currentStoreid + cart.get(0).getPrice());
         loadView();
     }
 
@@ -127,7 +125,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                     {
                         ArrayList<String> order = (ArrayList<String>) s.getValue();
                         MerchantOrders.add(order);
-
                     }
                 }
 

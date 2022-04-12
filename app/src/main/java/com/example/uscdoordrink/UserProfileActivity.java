@@ -58,7 +58,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         return super.dispatchTouchEvent(ev);
     }
     private void loadView() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

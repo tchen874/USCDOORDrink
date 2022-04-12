@@ -26,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     mapView map;
     HashMap<String, ArrayList<String>> orderMap;
     Double totalCaffeien;
+    Order order;
     public User_store()
     {
     }
@@ -68,13 +71,18 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_user_store);
 
         orderMap = new HashMap<String, ArrayList<String>>();
+        order = new Order();
         totalCaffeien = 0.0;
         // Load the orders in map
+        //TODO: get child
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders");
         userref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //shows store name, address, and phone
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+                System.out.println("Date======= " + formatter.format(date).toString());
                 for (DataSnapshot s : snapshot.getChildren()){
                     System.out.println("orderssss= " + s.getValue());
                     ArrayList<String> l = (ArrayList<String>) s.getValue();
@@ -83,13 +91,9 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                     // pit the drink in
                     for(int i = 2; i < l.size(); i++)
                     {
-                        for(int j = 0; j < l.get(i).length(); j++)
-                        {
-
-                        }
                         String[] caff = l.get(i).split("=");
                         int index = caff.length - 1;
-                        System.out.println("testtstststs=" + caff[index].length());
+                        System.out.println("testtstststs=" + caff[0]);
                         String tempstr = "";
                         if(caff[index].contains("}"))
                         {
@@ -100,7 +104,13 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                         {
                             tempstr = caff[index];
                         }
-                        totalCaffeien += Double.parseDouble(tempstr);
+                        // Checking the date of the caffine
+                        if(l.get(0).equals(formatter.format(date).toString()))
+                        {
+                            System.out.println("temp = " + tempstr);
+                            totalCaffeien += Double.parseDouble(tempstr);
+                        }
+
                         temp.add(l.get(i));
                     }
                     orderMap.put(l.get(0), temp);
@@ -226,20 +236,14 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                         int count = 0;
                         @Override
                         public void onClick(View v) {
-//                            for(View view: MenuView.getContext().toString())
-//                            {
-//                                System.out.println("id=" + v.getId());
-//                            }
 
                             // when they are adding to drink, show the caffeine overtake alert
                             // 400 mg per day
 
-
-
                             Double drinkPrice = Double.parseDouble(((TextView) v.getRootView().findViewById(R.id.drink_price)).getText().toString());
                             String drinkName = ((TextView) v.getRootView().findViewById(R.id.drink_name)).getText().toString();
                             Double drinkCaffein = Double.parseDouble(((TextView) v.getRootView().findViewById(R.id.drink_caffeine)).getText().toString());
-                            if((totalCaffeien + drinkCaffein) > 400)
+                            if(order.warnCaff(totalCaffeien + drinkCaffein))
                             {
                                 Toast.makeText(User_store.this, "ALERT!!! Over 400mg/day will exceed", Toast.LENGTH_LONG).show();
                             }

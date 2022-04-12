@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.33770225635473283" />
+        <entry key="app/src/main/res/layout/activity_single_order_history.xml" value="0.24479166666666666" />
         <entry key="app/src/main/res/layout/activity_trip_information.xml" value="0.10030395136778116" />
         <entry key="app/src/main/res/layout/activity_user_about_us.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_delivery_progress.xml" value="0.21819763183593752" />

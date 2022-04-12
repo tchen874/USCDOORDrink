@@ -27,13 +27,9 @@ public class UserOrderHistoryActivity extends AppCompatActivity {
         System.out.println("Why this is mot");
         UserNavigationActivity.openDrawer(drawerLayout);
     }
-
-
     public void UserClickLogo(View view){
         UserNavigationActivity.closeDrawer(drawerLayout);
     }
-
-
     public void UserClickProfile(View view)
     {
         UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);

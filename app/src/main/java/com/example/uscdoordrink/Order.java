@@ -68,14 +68,8 @@ public class Order {
     }
 
     //warn if caffeine total is too high, TODO! need to make into activity and call toast and maybe make user click continue yes/no
-    public boolean warnCaff(){
-        if(caffTotal > 400){
-//            Context context = context.getApplicationContext();
-//            CharSequence text = "Hello toast!";
-//            int duration = Toast.LENGTH_SHORT;
-//
-//            Toast toast = Toast.makeText(context, text, duration);
-//            toast.show();
+    public boolean warnCaff(double caffeine){
+        if(caffeine > 400){
             return true;
         }
         return false;

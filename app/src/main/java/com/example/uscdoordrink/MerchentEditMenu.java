@@ -28,18 +28,18 @@ import java.util.List;
 public class MerchentEditMenu extends AppCompatActivity implements View.OnClickListener{
 
     DrawerLayout drawerLayout;
-
     LinearLayout layoutList;
     Button addButton;
     Button updateButton;
-
     ArrayList<Drink> drinksList = new ArrayList<>();
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_merchent_edit_menu);
 
+        menu = new Menu();
         drawerLayout = findViewById(R.id.drawer_layour);
         layoutList = findViewById(R.id.menu_layout_list);
         addButton = findViewById(R.id.button_add);
@@ -98,19 +98,25 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
                         EditText drinkName = (EditText)MenuView.findViewById(R.id.edit_drink_name);
                         EditText drinkPrice = (EditText)MenuView.findViewById(R.id.edit_price);
                         EditText drinkCaffeine = (EditText)MenuView.findViewById(R.id.edit_caffeine);
+
                         ImageView imageClose = (ImageView)MenuView.findViewById(R.id.image_remove);
                         imageClose.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 System.out.println("in here");
+                                String name = ((EditText)v.findViewById(R.id.edit_drink_name)).getText().toString();
+                                Double price = Double.valueOf(((EditText)v.findViewById(R.id.edit_price)).getText().toString());
+                                Double caffeine = Double.valueOf(((EditText)v.findViewById(R.id.edit_caffeine)).getText().toString());
+                                menu.removeDrink(new Drink(name, price, caffeine));
                                 removeView(MenuView);
                             }
                         });
 
-
                         drinkName.setText(st.get(0).toString());
                         drinkPrice.setText(st.get(1).toString());
                         drinkCaffeine.setText(st.get(2).toString());
+                        Drink d = new Drink(st.get(0).toString(), Double.valueOf(st.get(1).toString()), Double.valueOf(st.get(2).toString()));
+                        menu.addDrink(d);
                         layoutList.addView(MenuView);
 
                     }
@@ -153,6 +159,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
     private void removeView(View view){
 
         //drinksList.remove(view.getId());
+
         layoutList.removeView(view);
     }
     private void update(){

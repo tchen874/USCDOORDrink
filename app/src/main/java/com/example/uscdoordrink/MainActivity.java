@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -137,8 +140,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for(DataSnapshot s : snapshot.getChildren())
                             {
-                                if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                                System.out.println("s= " + s.getValue().toString());
+                                System.out.println("firebase= " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+                                if(s.getValue().toString().toLowerCase(Locale.ROOT).contains(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(Locale.ROOT)))
                                 {
+                                    System.out.println("here ");
                                     startActivity(new Intent(MainActivity.this, UserNavigationActivity.class));
                                     isUser = true;
                                     break;

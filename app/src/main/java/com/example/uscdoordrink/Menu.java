@@ -9,6 +9,9 @@ public class Menu {
     public Menu(){
 
     }
+    public Menu(ArrayList<Drink> drinks){
+        this.drinkList = drinks;
+    }
 
     public Menu(ArrayList<Drink> drinks, ArrayList<Double> discounts){
         this.drinkList = drinks;
