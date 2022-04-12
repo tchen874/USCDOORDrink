@@ -54,12 +54,14 @@ public class Customer {
     }
     public void viewHistory(){
 
+        System.out.println("Customer name: " + customer_name);
     }
 
     //getters and setters
     public ArrayList<Order> getcurrOrders() {return currOrders;}
     public String getCustName(){ return custName;}
-
+    //where am i supposed to grab the order history from?
+    //
     public void setCurrOrders(ArrayList<Order> currOrders) {this.currOrders = currOrders;}
     public void setCustName(String custName){this.custName = custName;}
 
