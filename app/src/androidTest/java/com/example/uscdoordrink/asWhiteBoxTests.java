@@ -1,5 +1,5 @@
 package com.example.uscdoordrink;
-//angela sun
+//Angela Sun
 
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;

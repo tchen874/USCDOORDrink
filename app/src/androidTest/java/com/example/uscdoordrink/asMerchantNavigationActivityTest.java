@@ -1,5 +1,5 @@
 package com.example.uscdoordrink;
-
+//Angela Sun
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -39,7 +39,7 @@ public class asMerchantNavigationActivityTest extends TestCase {
     //bug found! same as user view map but in merchant_map_view, wasn't loading correctly
     //fixed: was adding a null location to locationarraylist. added check if null before adding to list
     @Test
-    public void testMerchantViewMap() throws InterruptedException {
+    public void testMerchantViMap() throws InterruptedException {
         mActivityTestScenario.launchActivity(null);
         Intents.init();
         Thread.sleep(2000);

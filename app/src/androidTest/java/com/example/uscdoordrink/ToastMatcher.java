@@ -1,4 +1,6 @@
 package com.example.uscdoordrink;
+// Tiffany Chen
+
 import android.os.IBinder;
 import android.view.WindowManager;
 

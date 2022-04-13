@@ -1,4 +1,6 @@
 package com.example.uscdoordrink;
+// Tiffany Chen
+
 
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;

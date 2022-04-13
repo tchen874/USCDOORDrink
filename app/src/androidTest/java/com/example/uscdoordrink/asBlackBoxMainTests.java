@@ -1,5 +1,5 @@
 package com.example.uscdoordrink;
-//Angela Sun
+// Angela Sun
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
