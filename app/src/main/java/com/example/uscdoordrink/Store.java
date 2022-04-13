@@ -78,6 +78,9 @@ public class Store {
     }
     //remove order to menu
     public void removeOrder(Order order){
-        this.storeOrders.remove(order);
+        //only remove if it's in the list
+        if(this.storeOrders.contains(order)){
+            this.storeOrders.remove(order);
+        }
     }
 }

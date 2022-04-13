@@ -41,35 +41,98 @@ public class asWhiteBoxTests {
 
     }
 
-//    public void addDrink(Drink drink){
-//        this.orderDrinks.add(drink);
-//    }
-//
-//    //remove drink from cart
-//    public void removeDrink(Drink drink){
-//        this.orderDrinks.remove(drink);
-//    }
 
     //add drink in order
     @Test
-    public void testAddDrink(){
+    public void testAddDrinkInOrder(){
         Order order = new Order();
-        Drink d = new Drink("Wintermelon Milk Tea", 4.75, 150);
-        Drink d1 = new Drink("Thai Tea", 3.50, 300);
-
+        Drink d1 = new Drink("Wintermelon Milk Tea", 4.75, 150);
+        Drink d2 = new Drink("Thai Tea", 3.50, 300);
+        order.addDrink(d1);
+        order.addDrink(d2);
+        ArrayList<Drink> tempDrinkList = new ArrayList<Drink>(){
+            {
+                add(d1);
+                add(d2);
+            }
+        };
+        assertEquals("add drinks test", order.getOrderDrinks(), tempDrinkList);
 
     }
 
+    //remove existing drink in order
+    @Test
+    public void testRemoveDrinkInOrder(){
+        Order order = new Order();
+        Drink d1 = new Drink("Wintermelon Milk Tea", 4.75, 150);
+        Drink d2 = new Drink("Thai Tea", 3.50, 300);
+        order.addDrink(d1);
+        order.addDrink(d2);
+        order.removeDrink(d1);
+        ArrayList<Drink> tempDrinkList = new ArrayList<Drink>(){
+            {
+                add(d2);
+            }
+        };
+        assertEquals("remove drinks test", order.getOrderDrinks(), tempDrinkList);
+    }
 
-
-    //remove drink in order
-
+    //remove drink in empty order
+    //bug!! didn't check if drink was in order before removing
+    //bug fixed :)
+    @Test
+    public void testRemoveEmptyDrinkInOrder(){
+        Order order = new Order();
+        Drink d1 = new Drink("Wintermelon Milk Tea", 4.75, 150);
+        Drink d2 = new Drink("Thai Tea", 3.50, 300);
+        order.removeDrink(d1);
+        ArrayList<Drink> tempDrinkList = new ArrayList<Drink>() {};
+        assertEquals("remove empty drinks test", order.getOrderDrinks(), tempDrinkList);
+    }
 
     //add order in store
+    @Test
+    public void testAddOrderInStore(){
+        Store store = new Store();
+        Order order1 = new Order();
+        Order order2 = new Order();
+        store.addOrder(order1);
+        store.addOrder(order2);
+
+        ArrayList<Order> ordersList = new ArrayList<Order>();
+        ordersList.add(order1);
+        ordersList.add(order2);
+        assertEquals("add order to store", store.getStoreOrders(), ordersList);
+    }
 
     //remove order in store
+    @Test
+    public void testRemoveOrderInStore(){
+        Store store = new Store();
+        Order order1 = new Order();
+        Order order2 = new Order();
+        store.addOrder(order1);
+        store.addOrder(order2);
+        store.removeOrder(order1);
 
-    //orders to hashmap
+        ArrayList<Order> ordersList = new ArrayList<Order>();
+        ordersList.add(order2);
+        assertEquals("remove order from store", store.getStoreOrders(), ordersList);
+    }
+
+    //remove order from empty store
+    //bug found! need to check list has order before removing
+    //bug fixed :)
+    @Test
+    public void testRemoveEmptyOrderInStore(){
+        Store store = new Store();
+        Order order1 = new Order();
+        Order order2 = new Order();
+        store.removeOrder(order1);
+
+        ArrayList<Order> ordersList = new ArrayList<Order>();
+        assertEquals("remove order from empty store", store.getStoreOrders(), ordersList);
+    }
 
 
     public void tearDown() throws Exception {
