@@ -134,6 +134,7 @@ public class whiteBoxTesting{
     @Test
     public void testAddDrinkinOrder()
     {
+        //set up menu object
         Menu menu = new Menu();
         Drink d = new Drink("Boba Milk Tea", 5.0, 300.5);
         Drink d1 = new Drink("Milk Tea", 4.0, 134.9);
@@ -145,7 +146,8 @@ public class whiteBoxTesting{
                 add(d1);
             }
         };
-
+        //combo... do operation and observe the result
+        //check if menu was constructed properly be add drink
         assertEquals(menu.getDrinkList(), result);
     }
 
@@ -153,8 +155,10 @@ public class whiteBoxTesting{
     @Test
     public void testRemoveDrinkinOrder()
     {
+        //do setup with some data
         Drink d = new Drink("Boba Milk Tea", 5.0, 300.5);
         Drink d1 = new Drink("Milk Tea", 4.0, 134.9);
+
         ArrayList<Drink> drinks = new ArrayList<Drink>(){
             {
                 add(d);
@@ -175,11 +179,21 @@ public class whiteBoxTesting{
     @Test
     public void testwarnCaff()
     {
+        //for the same order, warnCaff 300.5 = false but warnCaff 405.1 is true
         Order order = new Order();
         double total = 300.5;
         assertEquals(order.warnCaff(total), false);
         total = 405.1;
         assertEquals(order.warnCaff(total), true);
     }
+
+    //This test is to test addDiscount in Menu.java class
+
+    @Test
+    public void testAddDiscount() {
+
+    }
+
+    //This test is to test removeDiscount in Menu.java class
 
 }
