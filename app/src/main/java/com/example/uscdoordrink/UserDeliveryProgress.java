@@ -85,6 +85,8 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
 
     }
 
+    //TODO expresso test by calling view
+    //e
     private void loadView() {
 
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
