@@ -25,7 +25,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class AsBlackBoxRegisterTests {
+public class AsBlackBoxRegisterTest {
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityTestScenario = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, false);
     private String name = "shore";

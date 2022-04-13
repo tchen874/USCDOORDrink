@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class asBlackBoxMainTests {
+public class asBlackBoxMainTest {
 
     private String email = "shore@gmail.com";
     private String password = "shorepassword";
