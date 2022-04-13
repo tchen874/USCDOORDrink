@@ -148,18 +148,6 @@ public class Merchant_map_view extends AppCompatActivity
 
         Query query = FirebaseDatabase.getInstance().getReference().child("Merchants");
 
-//        LatLng sydney = new LatLng(-34, 151);
-//        LatLng brisbane = new LatLng(-27.470125, 153.021072);
-//        //shoreline amphitheatre: One Amphitheatre Pkwy, Mountain View, CA 94043
-//        //LatLng address = getLocationFromAddress(this, yourAddressString(eg. "Street Number, Street, Suburb, State, Postcode");
-//        //    mMap.addMarker(new MarkerOptions().position(address).title("Marker in Sydney"));
-//        //    mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
-//        LatLng shoreAmp = getLocationFromAddress(this, "One Amphitheatre Pkwy, Mountain View, CA 94043");
-//        locationArrayList.add(sydney);
-//        locationArrayList.add(brisbane);
-//        locationArrayList.add(shoreAmp);
-//        LatLng home = getLocationFromAddress(this, "3131 S Hoover St, Los Angeles, California, 90089");
-//        locationArrayList.add(home);
 
         //get addresses from database and place down markers
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants");
@@ -170,12 +158,24 @@ public class Merchant_map_view extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterable<DataSnapshot> iterChild = snapshot.getChildren();
                 for (DataSnapshot s : snapshot.getChildren()) {
-                    LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
-                    locationArrayList.add(loc);
+                    //bug fixing - added when null, so check it's not null first!
+                    String address =  s.child("address").getValue(String.class);
+                    System.out.println("Address testing: " + address);
+                    if(address != null){
+                        LatLng loc = getLocationFromAddress(getApplicationContext(), address);
+                        if(loc != null){
+                            locationArrayList.add(loc);
+                            System.out.println("printing location array list" + locationArrayList);
+                        }
+
+                    }
+
                 }
                 //called here since ondatachange is called after onmapready initially is!!!!!!!
                 onMapReady(map);
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
