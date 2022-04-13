@@ -84,8 +84,8 @@ public class asWhiteBoxTests {
     public void testRemoveEmptyDrinkInOrder(){
         Order order = new Order();
         Drink d1 = new Drink("Wintermelon Milk Tea", 4.75, 150);
-        Drink d2 = new Drink("Thai Tea", 3.50, 300);
         order.removeDrink(d1);
+
         ArrayList<Drink> tempDrinkList = new ArrayList<Drink>() {};
         assertEquals("remove empty drinks test", order.getOrderDrinks(), tempDrinkList);
     }
@@ -127,7 +127,6 @@ public class asWhiteBoxTests {
     public void testRemoveEmptyOrderInStore(){
         Store store = new Store();
         Order order1 = new Order();
-        Order order2 = new Order();
         store.removeOrder(order1);
 
         ArrayList<Order> ordersList = new ArrayList<Order>();
