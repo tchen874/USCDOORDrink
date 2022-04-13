@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this, "Unable to Login!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, MainActivity.this.getString(R.string.toast_text), Toast.LENGTH_LONG).show();
 
                 }
             }

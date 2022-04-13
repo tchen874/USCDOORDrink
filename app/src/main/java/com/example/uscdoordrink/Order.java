@@ -19,6 +19,9 @@ public class Order {
 
     public Order(){
     }
+
+
+
     public Order(ArrayList<Drink> drinks, Customer customer, Merchant seller, Location loc, double caff){
         this.orderDrinks = drinks;
         this.cus = customer;
@@ -84,7 +87,10 @@ public class Order {
 
     //remove drink from cart
     public void removeDrink(Drink drink){
-        this.orderDrinks.remove(drink);
+        if(this.orderDrinks.contains(drink)){
+            this.orderDrinks.remove(drink);
+        }
+
     }
 
     //start order? TODO start timer until delivery using route time

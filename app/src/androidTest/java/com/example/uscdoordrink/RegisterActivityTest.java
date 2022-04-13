@@ -1,4 +1,5 @@
 package com.example.uscdoordrink;
+// Tiffany Chen
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
