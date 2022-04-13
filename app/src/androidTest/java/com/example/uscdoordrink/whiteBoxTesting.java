@@ -1,6 +1,4 @@
 package com.example.uscdoordrink;
-// Tiffany Chen
-
 
 import androidx.annotation.NonNull;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -40,7 +38,7 @@ public class whiteBoxTesting{
 
 
     @Before
-    public void setuo()
+    public void setUp()
     {
         // For user
         email = "whiteboxtesting@gmail.com";
@@ -50,8 +48,7 @@ public class whiteBoxTesting{
         database = FirebaseDatabase.getInstance();
         user = new User("whiteBoxTesting", "testing@gmail.com");
         auth.createUserWithEmailAndPassword(email, password);
-        userUid = auth.getCurrentUser().getUid();
-
+        userUid = "Wj1qHzXETpdoSpyvjoIhn08v3f92";
 
     }
 

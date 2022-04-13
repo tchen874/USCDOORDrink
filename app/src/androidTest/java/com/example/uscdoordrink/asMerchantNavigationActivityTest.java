@@ -39,7 +39,7 @@ public class asMerchantNavigationActivityTest extends TestCase {
     //bug found! same as user view map but in merchant_map_view, wasn't loading correctly
     //fixed: was adding a null location to locationarraylist. added check if null before adding to list
     @Test
-    public void testMerchantViMap() throws InterruptedException {
+    public void testMerchantViewMap() throws InterruptedException {
         mActivityTestScenario.launchActivity(null);
         Intents.init();
         Thread.sleep(2000);
@@ -55,7 +55,7 @@ public class asMerchantNavigationActivityTest extends TestCase {
         //verify goes to user map view
         intended(hasComponent(Merchant_map_view.class.getName()));
         Intents.release();
-        Thread.sleep(5000);
+
     }
 
     public void tearDown() throws Exception {

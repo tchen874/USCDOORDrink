@@ -1,5 +1,4 @@
 package com.example.uscdoordrink;
-// Tiffany Chen
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -30,11 +29,11 @@ public class RegisterActivityTest extends TestCase {
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityTestScenario = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, false);
     private String userName = "UserTest";
-    private String userEmail = "usertesting@gmail.com";
+    private String userEmail = "usertesting1@gmail.com";
     private String userPassword = "usertesting";
 
     private String merchantName = "MerchantTest";
-    private String merchantEmail = "merchanttesting@gmail.com";
+    private String merchantEmail = "merchanttesting1@gmail.com";
     private String merchantPassword = "merchanttesting";
 
     @Before
