@@ -1,12 +1,14 @@
 
-
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'jacoco'
 
 }
 
-
+jacoco {
+    toolVersion = '0.8.8' //Use latest version
+}
 android {
     compileSdk 32
 
@@ -24,6 +26,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
         }
         debug{
             testCoverageEnabled true
@@ -32,6 +35,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 
 }
@@ -78,4 +88,7 @@ dependencies {
     androidTestImplementation 'org.testng:testng:6.9.6'
 
 }
+
+
+
 
