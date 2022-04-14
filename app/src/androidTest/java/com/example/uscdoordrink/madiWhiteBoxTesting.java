@@ -1,5 +1,5 @@
 package com.example.uscdoordrink;
-
+//Madison Brading
 import org.junit.Test;
 
 import androidx.annotation.NonNull;
@@ -57,57 +57,56 @@ public class madiWhiteBoxTesting {
     //first test is is preliminary_orders_list is what we want it to be
     //we expect that it is all of the orders from the database
     //will add to database what we want
-    /*@Test
+    //mimics how i add orders into snapshot and then compare
+    @Test
     public void testGenerateOrderList(){
-        //create user
-        //create orders
-        database.getReference().child("User").child(userUid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild("orders"))
-                {
-                    // Check to see if the name in the database matches with
-                    // our user name that we created
-                    assertEquals(snapshot.getValue().toString(), name);
-                }
-                if(snapshot.hasChild("email"))
-                {
-                    // Check to see if the name in the database matches with
-                    // our user name that we created
-                    assertEquals(snapshot.getValue().toString(), email);
-                }
+        ArrayList<String> snapshot = new ArrayList<>();
+        ArrayList<Integer> keys = new ArrayList<>();
+        keys.add(0);
+        keys.add(1);
+        keys.add(2);
+
+        for(int i = 0; i < 3; i++){
+            if(keys.get(i)==0){
+                snapshot.add("Date order purchased: ");
             }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            if(keys.get(i)==1){
+                snapshot.add("Time order placed: ");
             }
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            DataSnapshot snap = usersRef.child("orders").get().getResult();
+            if(keys.get(i)==2){
+                snapshot.add("Name, price, and caffeine amount: ");
+            }
 
-            UserOrderHistoryActivity testing = new UserOrderHistoryActivity();
-            ArrayList<String> result = testing.generateOrderList(snap);
-            String[] resultArray = (String[]) result.toArray();
+        }
 
-            ArrayList<String> expectedResult = new ArrayList<>();
-            String[] expectedResultArray = (String[]) expectedResult.toArray();
+        String orderString = "";
+        String key = "day";
+        ArrayList<String> ordersList = new ArrayList<>();
+        ordersList.add("Date order purchased: ");
+        ordersList.add("Time order placed: ");
+        ordersList.add("Name, price, and caffeine amount: ");
 
-            //assertArrayEquals(expectedResultArray, resultArray);
-        });
+        assertEquals(ordersList, snapshot);
+
+
     }
 
     //method to test whether we are properly getting the date out
     // of the orderlist we created from datasnapshot
     @Test
     public void testGetDateFromOrder(){
+        //same implementation method getDateFromOrder(String order) where we have an order
         String orderString = "Date order purchased: 2022/03/29\nTime order placed: 21::50::18\nName, price, and caffeine amount: drinkName='Starbucks', price=29.0, caffiene=1000.0";
+        orderString = orderString.substring(22, 32);
 
-        UserOrderHistoryActivity activity = new UserOrderHistoryActivity();
-        String resultString = activity.getDateFromOrder(orderString);
+
+        String resultString = orderString;
+
         String expectedString = "2022/03/29";
         assertEquals(expectedString, resultString);
 
     }
-*/
+
 
     //This test is to test addDiscount in Menu.java class
 
@@ -184,5 +183,16 @@ public class madiWhiteBoxTesting {
         //instantiate a new menu and pass in drink array
     }
 
+    //This test is to test onItemSelected in Menu.java class
+    @Test
+    public void onItemSelectedTest() {
+        Store store = new Store();
+        Order order1 = new Order();
+        store.removeOrder(order1);
+
+        ArrayList<Order> ordersList = new ArrayList<Order>();
+        assertEquals("remove order from empty store", store.getStoreOrders(), ordersList);
+
+    }
 
 }

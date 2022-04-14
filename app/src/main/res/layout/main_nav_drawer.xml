@@ -78,6 +78,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:id="@+id/UserOrderHistID"
         android:onClick="ClickOrderHistory">
 
         <TextView

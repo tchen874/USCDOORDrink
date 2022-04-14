@@ -43,7 +43,7 @@
         <entry key="app/src/main/res/layout/fragment_merchant_menu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile_merchant.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/itemlistrow.xml" value="0.19537037037037036" />
-        <entry key="app/src/main/res/layout/main_nav_drawer.xml" value="0.14617462158203126" />
+        <entry key="app/src/main/res/layout/main_nav_drawer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.20334320068359377" />
         <entry key="app/src/main/res/layout/notificationview.xml" value="0.25" />
         <entry key="app/src/main/res/layout/single_drink_view.xml" value="0.18854166666666666" />
