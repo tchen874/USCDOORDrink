@@ -24,21 +24,20 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class RegisterActivityTest extends TestCase {
-
+public class RegisterActivityTest{
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityTestScenario = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, false);
-    private String userName = "UserTest";
-    private String userEmail = "usertesting1@gmail.com";
-    private String userPassword = "usertesting";
+    private String userName = "UserTest55";
+    private String userEmail = "usertesting55@gmail.com";
+    private String userPassword = "usertesting55";
 
-    private String merchantName = "MerchantTest";
-    private String merchantEmail = "merchanttesting1@gmail.com";
-    private String merchantPassword = "merchanttesting";
+    private String merchantName = "MerchantTest55";
+    private String merchantEmail = "merchanttesting55@gmail.com";
+    private String merchantPassword = "merchanttesting55";
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
+
     }
 
     // Test to see register User
