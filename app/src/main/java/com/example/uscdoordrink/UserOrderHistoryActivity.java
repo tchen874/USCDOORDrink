@@ -82,8 +82,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_order_history);
-        makeNotificationMechanism();
-        //notificationRecommendationTitle = "";
+        //makeNotificationMechanism();
 
         drawerLayout = findViewById(R.id.user_drawer_layout);
         //System.out.println("store if=");
@@ -281,14 +280,14 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
        // notificationManager.notify(0, builder.build());
     }
 
-
-    private ArrayList<String> generateOrderList(DataSnapshot snapshot){
+    public ArrayList<String> generateOrderList(DataSnapshot snapshot){
         String orderString = "";
         ArrayList<String> ordersList = new ArrayList<>();
 
         for(DataSnapshot i : snapshot.getChildren()) {
             for (DataSnapshot s : i.getChildren()) {
-
+                //how to convert between snapshot and orderlist??
+                //array of string value pairs?!
                 if (s.getKey().equals("0")) {
                     orderString += "Date order purchased: ";
                 }
@@ -314,6 +313,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         usersRef.child("orders").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //String orderlist = snapshot.
 
                 preliminary_orders_list = generateOrderList(snapshot);
                 //addGroupDataToListView();
@@ -362,6 +362,10 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
     }
 
+    public String getDateFromOrder(String order){
+        return order.substring(22, 32);
+    }
+
     private void addGroupDataToListView(){
         //have list need to create another list
         ArrayList<Integer> groupIndicator = new ArrayList<>();
@@ -373,7 +377,8 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         int prevDay = 0;
         int prevMonth = 0;
         int prevYear = 0;
-        String prevDate = preliminary_orders_list.get(0).substring(22, 32);
+        //String prevDate = preliminary_orders_list.get(0).substring(22, 32);
+        String prevDate = getDateFromOrder(preliminary_orders_list.get(0));
         String currDate;
         groupNumber = 1;
 
@@ -388,7 +393,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
         System.out.println("Year : " + prevYear);
         for (int i = 1; i < preliminary_orders_list.size(); i++) {
-            currDate = preliminary_orders_list.get(i).substring(22, 32);
+            currDate = getDateFromOrder(preliminary_orders_list.get(i));
             currentYear = Integer.parseInt(currDate.substring(0,4));
             currentMonth = Integer.parseInt(currDate.substring(5,7));
             currentDay = Integer.parseInt(currDate.substring(8));
