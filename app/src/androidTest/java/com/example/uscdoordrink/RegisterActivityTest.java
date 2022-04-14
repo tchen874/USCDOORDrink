@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import junit.framework.TestCase;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +29,9 @@ import org.junit.Test;
 public class RegisterActivityTest extends TestCase {
 
     @Rule
-    public ActivityTestRule<RegisterActivity> mActivityTestScenario = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, false);
+    public ActivityTestRule<RegisterActivity> mActivityTestScenario = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, true);
+    public ActivityTestRule<RegisterActivity> mActivityTest = new ActivityTestRule<RegisterActivity>(RegisterActivity.class, true, true);
+
     private String userName = "UserTest";
     private String userEmail = "usertesting@gmail.com";
     private String userPassword = "usertesting";
@@ -40,43 +43,19 @@ public class RegisterActivityTest extends TestCase {
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        Intents.init();
     }
+
+
 
     // Test to see register User
-    // Direct to userNavigationView
-    // Found bugs!!!!! -> It direct to mapView instead of User Navigation View
+    // Direct to merchantNavigationView
+    // Found bugs!!!!! -> It direct to mapView instead of Merchant Navigation View
     //Fixed
     @Test
-    public void testRegisterUser() throws InterruptedException {
+    public void testRegister() throws InterruptedException {
         mActivityTestScenario.launchActivity(null);
 
-        Intents.init();
-        // input the name, email and password in the edit text
-        Espresso.onView(withId(R.id.editTextTextPersonName3)).perform(typeText(userName));
-        Espresso.onView(withId(R.id.editTextTextEmailAddress5)).perform(typeText(userEmail));
-        Espresso.onView(withId(R.id.editTextTextPassword4)).perform(typeText(userPassword));
-
-        // close the keybard
-        Espresso.closeSoftKeyboard();
-        // perform signup button
-        Espresso.onView(withId(R.id.signupButton3)).perform(click());
-        Thread.sleep(7000);
-        // check the view direct to userNavigationView class
-        intended(hasComponent(UserNavigationActivity.class.getName()));
-        Intents.release();
-
-        //Delete the new user we created in this test from firebaseAuth
-        // so next time we call this function, we will able to register again
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.delete();
-    }
-
-    // Test to see register Merchant
-    // Direct to MerchantNavigationView
-    @Test
-    public void testRegisterMerchant() throws InterruptedException {
-        mActivityTestScenario.launchActivity(null);
-        Intents.init();
         // input the name, email and password in the edit text
         Espresso.onView(withId(R.id.editTextTextPersonName3)).perform(typeText(merchantName));
         Espresso.onView(withId(R.id.editTextTextEmailAddress5)).perform(typeText(merchantEmail));
@@ -87,18 +66,20 @@ public class RegisterActivityTest extends TestCase {
         Espresso.closeSoftKeyboard();
         // perform signup button
         Espresso.onView(withId(R.id.signupButton3)).perform(click());
-        Thread.sleep(6000);
+        Thread.sleep(4000);
         // check the view direct to userNavigationView class
         intended(hasComponent(MerchantNavigationActivity.class.getName()));
-        Intents.release();
 
         //Delete the new user we created in this test from firebaseAuth
         // so next time we call this function, we will able to register again
         final FirebaseUser merchant = FirebaseAuth.getInstance().getCurrentUser();
         merchant.delete();
+        mActivityTestScenario.finishActivity();
+
 
     }
-
+    @After
     public void tearDown() throws Exception {
+        Intents.release();
     }
 }

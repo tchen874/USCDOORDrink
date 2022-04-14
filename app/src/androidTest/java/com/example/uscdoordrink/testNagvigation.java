@@ -1,5 +1,5 @@
 package com.example.uscdoordrink;
-//Angela Sun
+//Tiffany Chen
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -7,6 +7,7 @@ import static androidx.test.espresso.Espresso.openContextualActionModeOverflowMe
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.init;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -41,53 +42,41 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.testng.reporters.jq.Main;
 
-public class asUserNavigationActivityTest {
+
+// This is test if the user is clicking the navigation with the same current view, it will stay in that page
+public class testNagvigation extends TestCase{
     @Rule
-    public ActivityTestRule<UserNavigationActivity> mActivityTestScenario = new ActivityTestRule<UserNavigationActivity>(UserNavigationActivity.class, true, false);
-    //public ActivityScenarioRule<mapView> activityScenarioRule = new ActivityScenarioRule<>(mapView.class);
-    private String useremail = "mapviewtest@gmail.com";
-    private String userpassword = "mapviewtestpassword";
-    private String merchantemail = "shore@gmail.com";
-    private String merchantpassword = "shorepassword";
+    public ActivityTestRule<UserAboutUsActivity> mActivityTestScenario = new ActivityTestRule<UserAboutUsActivity>(UserAboutUsActivity.class, true, false);
+
 
 
     @Before
     public void setUp() throws Exception {
-
-
-    }
-
-    // verify show map for user in mapview
-    //bug found! wasn't loading correctly, in map view
-    //fixed: was adding a null location to locationarraylist. added check if null before adding to list
-    @Test
-    public void testUserViewMap() throws InterruptedException {
-//        ActivityScenario scenario = activityScenarioRule.getScenario();
-        mActivityTestScenario.launchActivity(null);
+        super.setUp();
         Intents.init();
-        Thread.sleep(2000);
-        //click menu
-        onView(withId(R.id.usertoolbarmenu)).perform(click());
-        Thread.sleep(2000);
-//        onData(allOf()).atPosition(0).
-//                onChildView(withId(R.id.rcOverflow)).
-//                perform(click());
-        // click view menu
-        onView(withId(R.id.ViewMapButton)).perform(click());
-        Thread.sleep(2000);
-        //verify goes to user map view
-        intended(hasComponent(mapView.class.getName()));
-        Intents.release();
-
     }
 
+    // Test to see that it's ok to click the current menu in the toolbar
+    @Test
+    public void testNavig() throws InterruptedException {
+        mActivityTestScenario.launchActivity(null);
+        //click menu
+        Espresso.onView(withId(R.id.usertoolbarmenu)).perform(click());
+        Thread.sleep(3000);
 
+        // click view about us
+        onView(withId(R.id.AboutUsButton)).perform(click());
+        Thread.sleep(3000);
 
-
-
+        // Check to see if it stay in the same page
+        // To determine if our page changed
+        onView(withId(R.id.aboutUsText)).check(matches(isDisplayed()));
+        Thread.sleep(3000);
+    }
 
     public void tearDown() throws Exception {
-
+        Intents.release();
     }
 
 }
+

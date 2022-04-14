@@ -18,7 +18,8 @@
             android:layout_height="50dp"
             android:text="Profile"
             android:textSize="40dp"
-            android:layout_marginLeft="23dp"/>
+            android:layout_marginLeft="23dp"
+            android:id="@+id/profileText"/>
 
         <EditText
             android:id="@+id/nameuser"

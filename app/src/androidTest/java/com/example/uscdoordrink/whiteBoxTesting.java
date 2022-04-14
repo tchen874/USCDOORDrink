@@ -185,13 +185,4 @@ public class whiteBoxTesting{
         assertEquals(order.warnCaff(total), true);
     }
 
-    //This test is to test addDiscount in Menu.java class
-
-    @Test
-    public void testAddDiscount() {
-
-    }
-
-    //This test is to test removeDiscount in Menu.java class
-
 }

@@ -13,6 +13,7 @@
         android:text="About US:"
         android:textSize="40dp"
         android:layout_marginLeft="23dp"
+        android:id="@+id/aboutUsText"
         android:layout_marginTop="50dp"/>
 
     <TextView

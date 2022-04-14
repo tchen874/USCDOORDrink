@@ -130,6 +130,7 @@
             android:layout_weight="1"
             android:text="About us"
             android:padding="20dp"
+            android:id="@+id/AboutUsButton"
             android:layout_marginStart="16dp"/>
 
         <ImageView
@@ -145,6 +146,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:id="@+id/UserProfileButton"
         android:onClick="UserClickProfile">
 
         <TextView
