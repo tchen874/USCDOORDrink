@@ -26,7 +26,7 @@ import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
-public class whiteBoxTesting{
+public class whiteBoxTest{
     //public ActivityScenarioRule<MainActivity> mActivityRule = new ActivityScenarioRule<>(MainActivity.class);
 
     //For User testing purpose
