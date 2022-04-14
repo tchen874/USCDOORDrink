@@ -21,7 +21,7 @@ public class UserAboutUsActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.user_drawer_layout);
     }
 
-    public void ClickMenu(View view)
+    public void UserClickMenu(View view)
     {
         System.out.println("++++OPENED in menu");
         UserNavigationActivity.openDrawer(drawerLayout);

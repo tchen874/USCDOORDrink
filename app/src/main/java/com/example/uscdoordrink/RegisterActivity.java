@@ -61,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
             case R.id.signupButton3:
+                System.out.println("after here");
                 registerUser();
                 break;
                 
@@ -165,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 {
                                     Toast.makeText(RegisterActivity.this, "User registered successful", Toast.LENGTH_LONG).show();
 
-                                    // Direct to Map view if is user, else direct to the merchant menu edit view
+                                    // Direct to User navigation view if is user, else direct to the merchant menu edit view
                                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
                                     ref.addValueEventListener(new ValueEventListener() {
                                         Boolean isUser = false;
@@ -175,7 +176,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             {
                                                 if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
                                                 {
-                                                    startActivity(new Intent(RegisterActivity.this, UserNavigationActivity.class));
+                                                    System.out.println("I am here````````");
+                                                    Intent i = new Intent(RegisterActivity.this, UserNavigationActivity.class);
+                                                    startActivity(i);
                                                     isUser = true;
                                                     break;
                                                 }

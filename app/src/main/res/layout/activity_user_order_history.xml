@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout"
-    tools:context=".merchantOrderHistoryActivity">
+    tools:context=".UserOrderHistoryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,9 +36,6 @@
             android:layout_marginBottom="-119dp"
             />
 
-
-
-
     </LinearLayout>
 
     <RelativeLayout
@@ -49,11 +46,6 @@
 
         <include layout="@layout/user_nav_drawer" />
 
-
     </RelativeLayout>
-
-
-
-
 
 </androidx.drawerlayout.widget.DrawerLayout>
