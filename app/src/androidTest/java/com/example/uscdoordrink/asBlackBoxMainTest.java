@@ -1,6 +1,5 @@
 package com.example.uscdoordrink;
 // Angela Sun
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -33,7 +32,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class asBlackBoxMainTests {
+public class asBlackBoxMainTest {
 
     private String email = "shore@gmail.com";
     private String password = "shorepassword";

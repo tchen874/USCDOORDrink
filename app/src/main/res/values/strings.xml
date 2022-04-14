@@ -28,6 +28,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="toast_text">Unable to login!</string>
+    <string name="notificationtitle">strtitle</string>
+    <string name="notificationtext">strtext</string>
 
     <string-array name="date_choice_array">
         <item>Day</item>

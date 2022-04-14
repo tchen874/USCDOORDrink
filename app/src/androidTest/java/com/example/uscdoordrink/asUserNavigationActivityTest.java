@@ -77,6 +77,7 @@ public class asUserNavigationActivityTest {
         Thread.sleep(2000);
         //verify goes to user map view
         intended(hasComponent(mapView.class.getName()));
+        Thread.sleep(2000);
         Intents.release();
 
     }

@@ -24,7 +24,7 @@ import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
-public class asWhiteBoxTests {
+public class asWhiteBoxTest {
     //test merchant stuff
     public String email;
     public String password;
