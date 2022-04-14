@@ -52,7 +52,7 @@ public class Menu {
 
     //remove discount
     public void removeDiscount(double discount){
-        this.discountList.add(discount);
+        this.discountList.remove(discount);
     }
 
 
