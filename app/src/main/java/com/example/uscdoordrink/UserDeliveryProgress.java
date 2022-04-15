@@ -58,7 +58,10 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         orders = new ArrayList<>();
         Intent intent = this.getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
-        orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
+        if(args != null){
+            orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
+        }
+        //orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
 
 
         if (savedInstanceState == null) {
