@@ -37,8 +37,9 @@
             app:uiScrollGestures="true"
             app:uiTiltGestures="true"
             app:uiZoomControls="true"
-            app:uiZoomGestures="true"
-            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+            app:uiZoomGestures="true"/>
+<!--            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />-->
+
     </LinearLayout>
 
     <RelativeLayout
