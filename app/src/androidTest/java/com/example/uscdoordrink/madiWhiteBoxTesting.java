@@ -22,7 +22,9 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -58,6 +60,7 @@ public class madiWhiteBoxTesting {
     //we expect that it is all of the orders from the database
     //will add to database what we want
     //mimics how i add orders into snapshot and then compare
+
     @Test
     public void testGenerateOrderList(){
         ArrayList<String> snapshot = new ArrayList<>();
@@ -76,7 +79,6 @@ public class madiWhiteBoxTesting {
             if(keys.get(i)==2){
                 snapshot.add("Name, price, and caffeine amount: ");
             }
-
         }
 
         String orderString = "";
@@ -169,7 +171,6 @@ public class madiWhiteBoxTesting {
         };
 
         Menu menu = new Menu(drinks, discounts);
-
         menu.removeDiscount(discount2);
 
         ArrayList<Double> result = new ArrayList<Double>(){
@@ -177,21 +178,42 @@ public class madiWhiteBoxTesting {
                 add(discount3);
             }
         };
-
-
         assertEquals(menu.getDiscountList(), result);
         //instantiate a new menu and pass in drink array
     }
-
     //This test is to test onItemSelected in Menu.java class
     @Test
-    public void onItemSelectedTest() {
-        Store store = new Store();
-        Order order1 = new Order();
-        store.removeOrder(order1);
+    public void seperateOrderList() {
+        //mimicking generateOrderList method
 
-        ArrayList<Order> ordersList = new ArrayList<Order>();
-        assertEquals("remove order from empty store", store.getStoreOrders(), ordersList);
+        String orderString1 = "Date order purchased: 2025/03/29\nTime order placed: XX::50::18\nNAME, price, and caffeine amount: drinkName='monkfruitjuice', price=29.0, caffiene=1000.0";
+        String orderString2 = "Date order purchased: 2025/03/29\nTime order placed: XX::50::18\nNAME, price, and caffeine amount: drinkName='monkfruitjuice', price=29.0, caffiene=1000.0";
+        String orderString = "Date order purchased: 2022/03/29\nTime order placed: 21::50::18\nName, price, and caffeine amount: drinkName='Starbucks', price=29.0, caffiene=1000.0";
+        ArrayList<String> preliminary_orders_list = new ArrayList<>();
+        preliminary_orders_list.add(orderString1);
+        preliminary_orders_list.add(orderString);
+        preliminary_orders_list.add(orderString2);
+
+        int max = Integer.MIN_VALUE;
+
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String order: preliminary_orders_list) {
+            int indexOfDrinkName = order.indexOf("drinkName='");
+            int startIndex = indexOfDrinkName + 10;
+            int endIndex = order.indexOf(", price=");
+            String recDrinkName = order.substring(startIndex, endIndex);
+            if(!map.containsKey(recDrinkName)){
+                map.put(recDrinkName, 1);
+            } else {
+                int numOccurences = map.get(recDrinkName);
+                map.put(recDrinkName, ++numOccurences);
+            }
+        }
+        HashMap<String, String> mapResultExpected = new HashMap<>();
+        mapResultExpected.put("'Starbucks'=1", "'monkfruitjuice=2'");
+
+        assertEquals(mapResultExpected, map);
+
 
     }
 
