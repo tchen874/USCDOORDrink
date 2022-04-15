@@ -33,25 +33,25 @@ public class madiOrderHistNavigationActivityTest {
     // test if user click view UserOrderHistoryActivity takes to the menu
     //bug found! same as user view map but in merchant_map_view, wasn't loading correctly
     //fixed: was adding a null location to locationarraylist. added check if null before adding to list
-    @Test
-    public void testUserOrderHistoryActivity() throws InterruptedException {
-        madiActivityTestScenario.launchActivity(null);
-        Intents.init();
-        Thread.sleep(2000);
-        //click menu
-        onView(withId(R.id.usertoolbarmenu)).perform(click());
-        Thread.sleep(2000);
-//        onData(allOf()).atPosition(0).
-//                onChildView(withId(R.id.rcOverflow)).
-//                perform(click());
-        // click view menu
-        onView(withId(R.id.UserOrderHistID)).perform(click());
-        Thread.sleep(2000);
-        //verify goes to user order hist view
-        intended(hasComponent(UserOrderHistoryActivity.class.getName()));
-        Intents.release();
-
-    }
+//    @Test
+//    public void testUserOrderHistoryActivity() throws InterruptedException {
+//        madiActivityTestScenario.launchActivity(null);
+//        Intents.init();
+//        Thread.sleep(2000);
+//        //click menu
+//        onView(withId(R.id.usertoolbarmenu)).perform(click());
+//        Thread.sleep(2000);
+////        onData(allOf()).atPosition(0).
+////                onChildView(withId(R.id.rcOverflow)).
+////                perform(click());
+//        // click view menu
+//        onView(withId(R.id.UserOrderHistID)).perform(click());
+//        Thread.sleep(2000);
+//        //verify goes to user order hist view
+//        intended(hasComponent(UserOrderHistoryActivity.class.getName()));
+//        Intents.release();
+//
+//    }
 
     public void tearDown() throws Exception {
     }
