@@ -50,7 +50,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     Store s;
     mapView map;
     HashMap<String, ArrayList<String>> orderMap;
-    Double totalCaffeien;
+    Double totalCaffeine;
     Order order;
     public User_store()
     {
@@ -72,7 +72,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 
         orderMap = new HashMap<String, ArrayList<String>>();
         order = new Order();
-        totalCaffeien = 0.0;
+        totalCaffeine = 0.0;
         // Load the orders in map
         //TODO: get child
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("orders");
@@ -108,7 +108,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                         if(l.get(0).equals(formatter.format(date).toString()))
                         {
                             System.out.println("temp = " + tempstr);
-                            totalCaffeien += Double.parseDouble(tempstr);
+                            totalCaffeine += Double.parseDouble(tempstr);
                         }
 
                         temp.add(l.get(i));
@@ -243,7 +243,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                             Double drinkPrice = Double.parseDouble(((TextView) v.getRootView().findViewById(R.id.drink_price)).getText().toString());
                             String drinkName = ((TextView) v.getRootView().findViewById(R.id.drink_name)).getText().toString();
                             Double drinkCaffein = Double.parseDouble(((TextView) v.getRootView().findViewById(R.id.drink_caffeine)).getText().toString());
-                            if(order.warnCaff(totalCaffeien + drinkCaffein))
+                            if(order.warnCaff(totalCaffeine + drinkCaffein))
                             {
                                 Toast.makeText(User_store.this, "ALERT!!! Over 400mg/day will exceed", Toast.LENGTH_LONG).show();
                             }

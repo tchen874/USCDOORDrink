@@ -35,6 +35,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     Order order;
     ArrayList<Drink> cart;
 
+    //TODO add customer and merchant name to each order to be able to better display
     TextView storeName;
     TextView address;
     TextView Phonenumber;
@@ -238,10 +239,13 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
                 String dateStr = formatter.format(date).toString();
                 String timeStr = minformatter.format(date).toString();
+                //TODO actually get the merchant name from a datasnap shot + declare global variable
+                String merchantName = "Gary";
 
                 ArrayList<String> orderArray = new ArrayList<String>();
                 orderArray.add(dateStr);
                 orderArray.add(timeStr);
+                orderArray.add(merchantName);
 
                 for(int i = 0; i < cart.size(); i++)
                 {

@@ -59,6 +59,8 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         Intent intent = this.getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
 
+        //look at which activity started the intent that started the activity...
+        //pass empty arraylist if no one has placed an order yet...
         orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
 
 

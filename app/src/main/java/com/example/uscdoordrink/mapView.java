@@ -758,6 +758,8 @@ public class mapView extends AppCompatActivity
                 // Starts parsing data
                 routes = parser.parse(jObject);
             }catch(Exception e){
+                //if jObject is invalid object... the data you're getting is invalid
+                //if jsonData[0] is null... the data you're getting is invalid
                 e.printStackTrace();
             }
             return routes;
