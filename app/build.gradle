@@ -87,6 +87,8 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0'
     androidTestImplementation 'org.testng:testng:6.9.6'
 
+    implementation 'com.google.maps:google-maps-services:0.9.3'
+
 }
 
 
