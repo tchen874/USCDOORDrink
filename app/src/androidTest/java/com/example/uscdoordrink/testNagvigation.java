@@ -53,7 +53,7 @@ public class testNagvigation extends TestCase{
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        Intents.init();
+//        Intents.init();
     }
 
     // Test to see that it's ok to click the current menu in the toolbar
@@ -75,7 +75,7 @@ public class testNagvigation extends TestCase{
     }
 
     public void tearDown() throws Exception {
-        Intents.release();
+//        Intents.release();
     }
 
 }

@@ -194,36 +194,30 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         });
 
     }
-    public void ClickMenu(View view)
+    public void UserClickMenu(View view)
     {
-        System.out.println("++++OPENED in menu");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 
     public void UserClickViewMap(View view)
     {
-        UserNavigationActivity.redirectActivity(this, mapView.class);
+        mapView.redirectActivity(this, mapView.class);
 
     }
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
 
     public void UserClickProfile(View view)
     {
         recreate();
     }
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
-
     public void ClickLogout(View view)
     {
         logout(this);
@@ -256,7 +250,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 }

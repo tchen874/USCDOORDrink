@@ -225,25 +225,25 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
 
     public void ClickMenu(View view)
     {
-        MerchantNavigationActivity.openDrawer(drawerLayout);
+        Merchant_map_view.openDrawer(drawerLayout);
     }
 
     public void ClickLogo(View view)
     {
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 
     public void ClickViewMap(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, mapView.class);
+        Merchant_map_view.redirectActivity(this, Merchant_map_view.class);
     }
     public void ClickOrderHistory(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
+        Merchant_map_view.redirectActivity(this, merchantOrderHistoryActivity.class);
     }
     public void ClickProfile(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
+        Merchant_map_view.redirectActivity(this, ProfileActivity.class);
 
     }
 
@@ -253,13 +253,13 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
     }
     public void ClickLogout(View view)
     {
-        MerchantNavigationActivity.logout(this);
+        Merchant_map_view.logout(this);
     }
     @Override
     protected void onPause()
     {
         super.onPause();
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 
 }

@@ -92,7 +92,9 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
             if(extras == null) {
                 currentStoreid= null;
 //                storeName = null;
-            } else {
+            }
+            else
+            {
                 currentStoreid= extras.getString("UID_STRING");
             }
         } else {
@@ -225,12 +227,10 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 // Set order to the database and direct to the delivery information
 //                System.out.println("In the click the button");
 
-
                 //TODO: Add the Hashmap<key: date, value= List of drink>
                 //TODO change to the current user //FirebaseAuth.getInstance().getCurrentUser().getUid()
                 // Sent order to merchant
                 HashMap<ArrayList<String>, ArrayList<Drink>> orderMap = new HashMap<ArrayList<String>, ArrayList<Drink>>();
-
 
                 Date date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
@@ -302,23 +302,20 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     public void UserClickMenu(View view)
     {
 //        System.out.println("Why this is mot");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
 
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        mapView.redirectActivity(this, UserProfileActivity.class);
     }
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
+
 
     public void ClickLogout(View view)
     {
@@ -326,21 +323,20 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     }
     public void UserClickOrderHistory(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
 
     }
-    public void UserClickDeliveryProgress(View view)
-    {
-        recreate();
-
-    }
+//    public void UserClickDeliveryProgress(View view)
+//    {
+//        recreate();
+//    }
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickViewMap(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
+        mapView.redirectActivity(this, UserDeliveryProgress.class);
     }
 
     public static void logout(Activity activity)
@@ -371,7 +367,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 }

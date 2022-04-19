@@ -557,47 +557,63 @@ public class mapView extends AppCompatActivity
     // For navigation purpose
     public void UserClickMenu(View view)
     {
-
-        UserNavigationActivity.openDrawer(drawerLayout);
+        openDrawer(drawerLayout);
     }
-    public void UserClickViewStore(View view)
+
+    public static void openDrawer(DrawerLayout drawerLayout)
     {
-        System.out.println("Why this is mot");
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
+        // open the drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
 
+    }
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 
+    public static void closeDrawer(DrawerLayout drawerLayout)
+    {
+        // If the drawer is open, then close it
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    public void UserClickViewMap(View view)
+    {
+        recreate();
+//        redirectActivity(this, mapView.class);
+    }
+    //    public void UserClickViewStore(View view)
+//    {
+//        redirectActivity(this, class);
+//    }
+//
+    public void UserClickDeliveryProgress(View view)
+    {
+        redirectActivity(this, UserDeliveryProgress.class);
+    }
+
+    public void UserClickOrderHistory(View view)
+    {
+        redirectActivity(this, UserOrderHistoryActivity.class);
+    }
+
+    public void UserClickAboutUs(View view)
+    {
+        redirectActivity(this, UserAboutUsActivity.class);
+    }
 
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        redirectActivity(this, UserProfileActivity.class);
     }
 
     public void ClickLogout(View view)
     {
         logout(this);
     }
-    public void UserClickOrderHistory(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
-    }
-    public void UserClickAboutUs(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
-    }
-    public void UserClickViewMap(View view)
-    {
-        recreate();
-    }
-    public void UserClickDeliveryProgress(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
-    }
-
     public static void logout(Activity activity)
     {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
@@ -621,14 +637,19 @@ public class mapView extends AppCompatActivity
 
         builder.show();
     }
+    public static void redirectActivity(Activity activity, Class aclass)
+    {
+        Intent intent = new Intent(activity, aclass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
-
 
     //classes to draw line of directions using polyline
     //draw route between origin and destination

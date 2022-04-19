@@ -145,18 +145,18 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     // For navigation purpose
     public void UserClickMenu(View view)
     {
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
 
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        mapView.redirectActivity(this, UserProfileActivity.class);
     }
 
     public void ClickLogout(View view)
@@ -164,28 +164,18 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         logout(this);
     }
 
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
+
     public void UserClickOrderHistory(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
 
     }
-    public void UserClickDeliveryProgress(View view)
-    {
-        recreate();
 
-    }
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
-    public void UserClickViewMap(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
-    }
+
 
     public static void logout(Activity activity)
     {
@@ -215,7 +205,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 }

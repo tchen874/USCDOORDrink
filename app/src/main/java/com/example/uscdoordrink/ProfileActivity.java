@@ -259,17 +259,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public void ClickMenu(View view)
     {
-        MerchantNavigationActivity.openDrawer(drawerLayout);
+        Merchant_map_view.openDrawer(drawerLayout);
     }
 
     public void ClickLogo(View view)
     {
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 
     public void ClickOrderHistory(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, merchantOrderHistoryActivity.class);
+        Merchant_map_view.redirectActivity(this, merchantOrderHistoryActivity.class);
     }
     public void ClickProfile(View view)
     {
@@ -278,20 +278,20 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public void ClickEditMenu(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
+        Merchant_map_view.redirectActivity(this, MerchentEditMenu.class);
     }
     public void ClickViewMap(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, mapView.class);
+        Merchant_map_view.redirectActivity(this, Merchant_map_view.class);
     }
     public void ClickLogout(View view)
     {
-        MerchantNavigationActivity.logout(this);
+        Merchant_map_view.logout(this);
     }
     @Override
     protected void onPause()
     {
         super.onPause();
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 }

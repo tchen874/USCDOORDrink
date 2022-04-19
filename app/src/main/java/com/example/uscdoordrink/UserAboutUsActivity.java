@@ -24,37 +24,33 @@ public class UserAboutUsActivity extends AppCompatActivity {
     public void UserClickMenu(View view)
     {
         System.out.println("++++OPENED in menu");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 
     public void UserClickViewMap(View view)
     {
-        UserNavigationActivity.redirectActivity(this, mapView.class);
+        mapView.redirectActivity(this, mapView.class);
 
     }
 
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        mapView.redirectActivity(this, UserProfileActivity.class);
 
     }
 
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickOrderHistory(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
-    }
-    public void UserClickDeliveryProgress(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
+        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
     }
 
     public void ClickLogout(View view)
@@ -89,6 +85,6 @@ public class UserAboutUsActivity extends AppCompatActivity {
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 }

@@ -306,18 +306,18 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     public void UserClickMenu(View view)
     {
         System.out.println("Why this is mot");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
 
 
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        mapView.redirectActivity(this, UserProfileActivity.class);
     }
 
     public void ClickLogout(View view)
@@ -326,24 +326,17 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     }
     public void UserClickOrderHistory(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
     }
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickViewMap(View view)
     {
-        recreate();
+        mapView.redirectActivity(this, mapView.class);
     }
-    public void UserClickDeliveryProgress(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, UserDeliveryProgress.class);
-    }
-    public void UserClickViewStore(View view)
-    {
-        recreate();
-    }
+
 
     public static void logout(Activity activity)
     {
@@ -373,7 +366,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
 }
