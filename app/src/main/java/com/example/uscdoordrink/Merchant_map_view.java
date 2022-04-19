@@ -534,45 +534,92 @@ public class Merchant_map_view extends AppCompatActivity
     // For navigation purpose
     public void ClickMenu(View view)
     {
-        MerchantNavigationActivity.openDrawer(drawerLayout);
+        openDrawer(drawerLayout);
     }
+
+    public static void openDrawer(DrawerLayout drawerLayout)
+    {
+        // open the drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
+
+    }
+    public static void closeDrawer(DrawerLayout drawerLayout)
+    {
+        // If the drawer is open, then close it
+        if(drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
 
     public void ClickLogo(View view)
     {
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 
-    public void ClickOrderHistory(View view)
+    public void ClickViewMap(View view)
     {
         recreate();
-
+        //redirectActivity(this, Merchant_map_view.class);
     }
 
-    public void ClickProfile(View view)
-    {
-        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
 
-    }
+
 
     public void ClickEditMenu(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
+        redirectActivity(this, MerchentEditMenu.class);
     }
-    public void ClickViewMap(View view)
+    public void ClickOrderHistory(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, Merchant_map_view.class);
-
+        redirectActivity(this, merchantOrderHistoryActivity.class);
+    }
+    public void ClickProfile(View view)
+    {
+        redirectActivity(this, ProfileActivity.class);
     }
 
     public void ClickLogout(View view)
     {
-        MerchantNavigationActivity.logout(this);
+        logout(this);
     }
+    public static void logout(Activity activity)
+    {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to log out?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                activity.finishAffinity();
+                FirebaseAuth.getInstance().signOut();
+                activity.startActivity(new Intent(activity, MainActivity.class));
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+    public static void redirectActivity(Activity activity, Class aclass)
+    {
+        Intent intent = new Intent(activity, aclass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+
+    }
+
     @Override
     protected void onPause()
     {
         super.onPause();
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        closeDrawer(drawerLayout);
     }
 
 }

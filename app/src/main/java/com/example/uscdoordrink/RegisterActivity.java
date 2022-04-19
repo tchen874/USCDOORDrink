@@ -143,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     Toast.makeText(RegisterActivity.this, "Merchant registered successful", Toast.LENGTH_LONG).show();
 
                                     // Direct to merchant view
-                                    startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
+                                    startActivity(new Intent(RegisterActivity.this, Merchant_map_view.class));
 
 
                                 }
@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 if(s.getValue().toString().contains(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
                                                 {
                                                     System.out.println("I am here````````");
-                                                    Intent i = new Intent(RegisterActivity.this, UserNavigationActivity.class);
+                                                    Intent i = new Intent(RegisterActivity.this, mapView.class);
                                                     startActivity(i);
                                                     isUser = true;
                                                     break;
@@ -185,7 +185,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             }
                                             if(!isUser)
                                             {
-                                                startActivity(new Intent(RegisterActivity.this, MerchantNavigationActivity.class));
+                                                startActivity(new Intent(RegisterActivity.this, Merchant_map_view.class));
 
                                             }
                                         }

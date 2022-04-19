@@ -132,14 +132,14 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
     public void UserClickMenu(View view)
     {
         System.out.println("Why this is mot");
-        UserNavigationActivity.openDrawer(drawerLayout);
+        mapView.openDrawer(drawerLayout);
     }
     public void UserClickLogo(View view){
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
     public void UserClickProfile(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserProfileActivity.class);
+        mapView.redirectActivity(this, UserProfileActivity.class);
     }
 
     public void ClickLogout(View view)
@@ -152,16 +152,13 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
     }
     public void UserClickAboutUs(View view)
     {
-        UserNavigationActivity.redirectActivity(this, UserAboutUsActivity.class);
+        mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickViewMap(View view)
     {
-        UserNavigationActivity.redirectActivity(this, mapView.class);
+        mapView.redirectActivity(this, mapView.class);
     }
-    public void UserClickViewStore(View view)
-    {
-        UserNavigationActivity.redirectActivity(this, User_store.class);
-    }
+
 
     public static void logout(Activity activity)
     {
@@ -186,17 +183,13 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
         builder.show();
     }
-    public void UserClickDeliveryProgress(View view)
-    {
-        recreate();
 
-    }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        UserNavigationActivity.closeDrawer(drawerLayout);
+        mapView.closeDrawer(drawerLayout);
     }
 
     private void makeNotificationMechanism() {

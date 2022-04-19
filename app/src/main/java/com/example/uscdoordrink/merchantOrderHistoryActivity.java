@@ -19,45 +19,44 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
 
     public void ClickMenu(View view)
     {
-        MerchantNavigationActivity.openDrawer(drawerLayout);
+        Merchant_map_view.openDrawer(drawerLayout);
     }
 
     public void ClickLogo(View view)
     {
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 
     public void ClickOrderHistory(View view)
     {
         recreate();
-
     }
 
     public void ClickProfile(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, ProfileActivity.class);
+        Merchant_map_view.redirectActivity(this, ProfileActivity.class);
 
     }
 
     public void ClickEditMenu(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, MerchentEditMenu.class);
+        Merchant_map_view.redirectActivity(this, MerchentEditMenu.class);
     }
     public void ClickViewMap(View view)
     {
-        MerchantNavigationActivity.redirectActivity(this, Merchant_map_view.class);
+        Merchant_map_view.redirectActivity(this, Merchant_map_view.class);
 
     }
 
     public void ClickLogout(View view)
     {
-        MerchantNavigationActivity.logout(this);
+        Merchant_map_view.logout(this);
     }
     @Override
     protected void onPause()
     {
         super.onPause();
-        MerchantNavigationActivity.closeDrawer(drawerLayout);
+        Merchant_map_view.closeDrawer(drawerLayout);
     }
 
 }

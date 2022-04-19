@@ -146,14 +146,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 if(s.getValue().toString().toLowerCase(Locale.ROOT).contains(FirebaseAuth.getInstance().getCurrentUser().getEmail().toLowerCase(Locale.ROOT)))
                                 {
                                     System.out.println("here ");
-                                    startActivity(new Intent(MainActivity.this, UserNavigationActivity.class));
+                                    startActivity(new Intent(MainActivity.this, mapView.class));
                                     isUser = true;
                                     break;
                                 }
                             }
                             if(!isUser)
                             {
-                                startActivity(new Intent(MainActivity.this, MerchantNavigationActivity.class));
+                                startActivity(new Intent(MainActivity.this, Merchant_map_view.class));
 
 
                             }
