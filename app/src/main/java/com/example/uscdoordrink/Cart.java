@@ -240,12 +240,12 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 String dateStr = formatter.format(date).toString();
                 String timeStr = minformatter.format(date).toString();
                 //TODO actually get the merchant name from a datasnap shot + declare global variable
-                String merchantName = "Gary";
+                //String merchantName = "Gary";
 
                 ArrayList<String> orderArray = new ArrayList<String>();
                 orderArray.add(dateStr);
                 orderArray.add(timeStr);
-                orderArray.add(merchantName);
+                //orderArray.add(merchantName);
 
                 for(int i = 0; i < cart.size(); i++)
                 {
@@ -258,13 +258,15 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
 //                orderMap.put(dateArray, cart);
                 // Add to merchant database
-                // {date, user uid, }
+                // {date, time, user uid }
                 ArrayList<String> temp = new ArrayList<>();
 
                 temp.add(dateStr);
                 temp.add(timeStr);
 
-                temp.add("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1");
+                //temp.add("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1");
+                String userIDNumber = String.valueOf(FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()));
+                temp.add(userIDNumber);
                 for(int i = 0; i < cart.size(); i++)
                 {
                     temp.add(cart.get(i).toString());
@@ -273,8 +275,11 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 FirebaseDatabase.getInstance().getReference("Merchants").child(currentStoreid).child("orders")
                         .setValue(MerchantOrders);
                 //TODO:FirebaseAuth.getInstance().getCurrentUser().getUid()
-                FirebaseDatabase.getInstance().getReference("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders")
+                //FirebaseDatabase.getInstance().getReference("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders")
+                        //.setValue(orders);
+                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getUid()).child("orders")
                         .setValue(orders);
+
 
                 // direct back to the Progress View;
                 // Pass the cart information to user

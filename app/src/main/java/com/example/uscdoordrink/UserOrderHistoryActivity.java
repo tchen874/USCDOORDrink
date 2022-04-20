@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -26,11 +30,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -51,7 +57,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-public class UserOrderHistoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class UserOrderHistoryActivity<firstTab> extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ListView history_view;
     Spinner dropdown;
@@ -66,13 +72,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
     int groupNumber = 1;
     //String notificationRecommendationTitle;
 
-    public static final String CHANNEL_NAME = "notification_channel";
-    public static final String CHANNEL_DESCRIPTION = "A channel for notifications.";
-    public static final String CHANNEL_ID = "0";
-
-
-
-
+    // Tab titles
 
     //old stuff
     DrawerLayout drawerLayout;
@@ -81,10 +81,11 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_order_history);
+        //setContentView(R.layout.activity_user_order_history);
         //makeNotificationMechanism();
 
-        drawerLayout = findViewById(R.id.user_drawer_layout);
+
+        //drawerLayout = findViewById(R.id.user_drawer_layout);
         //System.out.println("store if=");
 
         history_view = (ListView) findViewById(R.id.order_chart);
@@ -100,8 +101,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
         //get the spinner from the xml.
         dropdown = (Spinner) findViewById(R.id.spinner1);
-        //create a list of items for the spinner.
-        //String[] items = new String[]{"day", "month", "year"};
+
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
@@ -110,21 +110,12 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         //set the spinners adapter to the previously created one.
         dropdown.setAdapter(spinnerAdapter);
         dropdown.setOnItemSelectedListener(this);
-
-
-        //testing
-        //System.out.println("TESTING!!!!! LOOK AT ME");
-        //DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        //System.out.println("Usersref : "  + usersRef.getKey());
-        //Log.d("Usersref : ", usersRef.getKey());
-        //Log.d("orders : ", usersRef.child("orders").child("2").get);
-        //Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
-        //Log.d("orders: ", usersRef.toString());
-
-        //testing@gmail.com
-        //testing123
         loadView();
 
+        //testing
+        //Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
+        //testing@gmail.com
+        //testing123
     }
 
 
@@ -192,19 +183,6 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         mapView.closeDrawer(drawerLayout);
     }
 
-    private void makeNotificationMechanism() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = CHANNEL_NAME;
-            String description = CHANNEL_DESCRIPTION;
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-
-        }
-    }
 
     //Can I test this?
     private boolean checkVersionSDK() {
@@ -255,22 +233,26 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         Toast toast = Toast.makeText(context,text,duration );
         toast.show();
 
-        //TextView textView = (TextView) findViewById(R.id.android_id);
-        //textView.setText("You bought the drink " + recommendation + " the most so you should purchase this drink again.");
+    }
 
-        //Intent intent = new Intent(this, notification.class);
-        // intent.putExtra("title", "Recommendation");
-        //intent.putExtra("text", "You bought the drink " + recommendation + " the most so you should purchase this drink again.");
+    private void loadView() {
 
-       // builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-       //         .setContentTitle("Recommendation")
-       //         .setContentText("You bought the drink " + recommendation + " the most so you should purchase this drink again.")
-       //         .setStyle(new NotificationCompat.BigTextStyle()
-       //                 .bigText("You bought the drink " + recommendation + " the most so you should purchase this drink again."))
-       //         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        usersRef.child("orders").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //String orderlist = snapshot.
 
-       // NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-       // notificationManager.notify(0, builder.build());
+                preliminary_orders_list = generateOrderList(snapshot);
+                //addGroupDataToListView();
+                //sendRecommendation();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public ArrayList<String> generateOrderList(DataSnapshot snapshot){
@@ -300,30 +282,8 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         return ordersList;
     }
 
-    private void loadView() {
-
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        usersRef.child("orders").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //String orderlist = snapshot.
-
-                preliminary_orders_list = generateOrderList(snapshot);
-                //addGroupDataToListView();
-                //sendRecommendation();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-
-        //filters by data of user input
 
         //select time period to group items
         timePeriodSelection = (String)parent.getItemAtPosition(position);
@@ -332,22 +292,7 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         orders_list.clear();
         //then call method to seperate
         addGroupDataToListView();
-        // dropdown.setSelection(position);
-        //notification
 
-
-        //Toast.makeText(MainActivity.this, "\n Class: \t " + selectedClass +
-        //       "\n Div: \t" + selectedDiv, Toast.LENGTH_LONG).show();
-
-
-
-    //testing
-        //System.out.println("TESTING!!!!! LOOK AT ME");
-        //System.out.println("Usersref : "  + usersRef.getKey());
-        //Log.d("Usersref : ", usersRef.getKey());
-        //Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
-        //testing@gmail.com
-        //testing123
     }
 
     @Override
@@ -363,7 +308,6 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         //have list need to create another list
         ArrayList<Integer> groupIndicator = new ArrayList<>();
 
-
         int currentDay = 0;
         int currentMonth = 0;
         int currentYear = 0;
@@ -375,7 +319,6 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         String currDate;
         groupNumber = 1;
 
-
         //increment groupNumber when they're different
 
         groupIndicator.add(groupNumber);
@@ -385,11 +328,32 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         prevDay = Integer.parseInt(prevDate.substring(8));
 
         System.out.println("Year : " + prevYear);
+        ArrayList<Integer> currentYearList = new ArrayList<>();
+        //currentYearList.add(currentYear);
+        ArrayList<Integer> currentMonthList = new ArrayList<>();
+        //currentMonthList.add(currentMonth);
+        ArrayList<Integer> currentDayList = new ArrayList<>();
+        //currentYearList.add(currentYear);
+
+
         for (int i = 1; i < preliminary_orders_list.size(); i++) {
             currDate = getDateFromOrder(preliminary_orders_list.get(i));
             currentYear = Integer.parseInt(currDate.substring(0,4));
             currentMonth = Integer.parseInt(currDate.substring(5,7));
             currentDay = Integer.parseInt(currDate.substring(8));
+
+            //to ensure that the headings match up with the lists that populate each area
+            if(i==1){
+                currentYearList.add(currentYear);
+                currentMonthList.add(currentMonth);
+                currentDayList.add(currentDay);
+            }
+
+            //creating arraylists to be able to properly update list headers!
+            currentYearList.add(currentYear);
+            currentMonthList.add(currentMonth);
+            currentDayList.add(currentDay);
+
 
             System.out.println("timePeriodSelection before Switch: "+ timePeriodSelection);
             switch (timePeriodSelection){
@@ -401,11 +365,6 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
                 case "Month":
                     if ((currentYear != prevYear) || (currentMonth != prevMonth)){
-                        System.out.println("currentYear in Switch: "+ currentYear);
-                        System.out.println("prevYear in Switch: "+ prevYear);
-                        System.out.println("currMonth in Switch: "+ currentMonth);
-                        System.out.println("prevMonth in Switch: "+ prevMonth);
-                        System.out.println("groupNum in Switch before incrementation: "+ groupNumber);
                         groupNumber++;
                     }
                     break;
@@ -421,38 +380,38 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
             prevYear = currentYear;
             prevDay = currentDay;
             prevMonth = currentMonth;
-            System.out.println("groupIndicator after Switch: "+ groupIndicator);
-            System.out.println("prevYear after Switch: "+ prevYear);
-            System.out.println("prevDay after Switch: "+ prevDay);
-            System.out.println("prevMonth after Switch: "+ prevMonth);
-            System.out.println("groupNum after Switch before incrementation: "+ groupNumber);
 
         }
+
         System.out.println("Group indicator after for loop: " +groupIndicator);
         //have created a different arraylist which we loop through to create another list to insert headers
         //add to order list now!
         int groupNum = 0;
+
+        //remove first element in groupIndicator list so that it matches size of the current date lists
+        //groupIndicator.remove(0);
         for (int i = 0; i < groupIndicator.size(); i++) {
-            System.out.println("BEFORE IF groupIndicator.get(i): "+ groupIndicator.get(i));
-            System.out.println("BEFORE IF groupNum: "+ groupNum);
+            System.out.println("groupIndicator.size(): "+ groupIndicator.size());
+            System.out.println("currentDayList.size(): "+ currentDayList.size());
+            System.out.println("currentDayList in the for loop: "+ currentDayList);
+
+
             if (groupIndicator.get(i) != groupNum){
-                System.out.println("AFTER IF groupIndicator.get(i): "+ groupIndicator.get(i));
-                System.out.println("AFTER IF groupNum: "+ groupNum);
 
                 //making headers
                 switch (timePeriodSelection){
                     case "Day":
-                        orders_list.add("Day: " + currentYear + "/" + currentMonth + "/" + currentDay);
+                        orders_list.add("Day: " + currentYearList.get(i) + "/" + currentMonthList.get(i) + "/" + currentDayList.get(i));
                         groupNum = groupIndicator.get(i);
                         break;
 
                     case "Month":
-                        orders_list.add("Month: " + currentYear + "/" + currentMonth);
+                        orders_list.add("Month: " + currentYearList.get(i) + "/" + currentMonthList.get(i));
                         groupNum = groupIndicator.get(i);
                         break;
 
                     case "Year":
-                        orders_list.add("Year: " + currentYear);
+                        orders_list.add("Year: " + currentYearList.get(i));
                         groupNum = groupIndicator.get(i);
                         break;
 
@@ -462,10 +421,11 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
             orders_list.add(preliminary_orders_list.get(i));
 
         }
-        System.out.println("timePeriodSelection after second for loop: " + timePeriodSelection);
         listview_adapter.notifyDataSetChanged();
         //after list appears send notification
         sendRecommendation();
 
     }
+
+
 }
