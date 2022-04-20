@@ -595,9 +595,9 @@ public class mapView extends AppCompatActivity
         redirectActivity(this, UserDeliveryProgress.class);
     }
 
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
-        redirectActivity(this, UserOrderHistoryActivity.class);
+        redirectActivity(this, mainTabLayout.class);
     }
 
     public void UserClickAboutUs(View view)

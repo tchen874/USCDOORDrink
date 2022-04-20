@@ -324,9 +324,9 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     {
         logout(this);
     }
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
-        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, mainTabLayout.class);
     }
     public void UserClickAboutUs(View view)
     {

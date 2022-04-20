@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
@@ -23,21 +24,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
-import com.example.uscdoordrink.databinding.ActivityOrderchartBinding;
+//import com.example.uscdoordrink.databinding.ActivityOrderchartBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class mainTabLayout extends AppCompatActivity {
 
-    private Button btntotab1;
-    private Button btntotab2;
     private SectionsPagerAdapter sectionsPagerAdapter;
-    private ActivityOrderchartBinding binding;
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    private ViewPager viewPager;
     DrawerLayout drawerLayout;
+
+
+    Fragment fragment = null;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
 
 
     @Override
@@ -47,22 +50,13 @@ public class mainTabLayout extends AppCompatActivity {
         setContentView(R.layout.activity_orderchart);
         drawerLayout = findViewById(R.id.user_drawer_layout);
 
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        tabLayout.setTabMode(tabLayout.MODE_SCROLLABLE);
-        tabLayout.addTab(tabLayout.newTab().setText("Overview tab"));
-        tabLayout.addTab(tabLayout.newTab().setText("Order list tab"));
-        tabLayout.addTab(tabLayout.newTab().setText("Order chart tab"));
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        TabLayout tabs = binding.tabs;
-        tabs.setupWithViewPager(viewPager);
+        //tabs.setupWithViewPager(viewPager);
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
 
-        tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }
@@ -74,20 +68,20 @@ public class mainTabLayout extends AppCompatActivity {
 //        return true;
 //    }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public static class PlaceholderFragment extends Fragment {
         /**
@@ -114,12 +108,15 @@ public class mainTabLayout extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.activity_orderchart, container, false);
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            //this is where I now display different fragments depending on tab
+            frag1_overview.newInstance("Welcome user", "Please swipe right to view history in list and chart form");
+
             return rootView;
         }
     }
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(mainTabLayout mainTabLayout, FragmentManager fm) {
+        public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -150,32 +147,15 @@ public class mainTabLayout extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Fragment 1";
+                    return "Overview";
                 case 1:
-                    return "Fragment 2";
+                    return "Order List";
                 case 2:
-                    return "Fragment 3";
+                    return "Order Chart";
             }
             return null;
         }
     }
-
-    //click first tab
-        public void UserClickOrderHist(View view)
-        {
-            mapView.redirectActivity(this, UserOrderHistoryActivity.class);
-
-        }
-    public void openTab1(){
-        Intent intent = new Intent(this, UserOrderHistoryActivity.class);
-        startActivity(intent);
-    }
-
-    public void UserClickChartTab(View view)
-    {
-        recreate();
-    }
-
 
     // For navigation purpose
     public void UserClickMenu(View view)

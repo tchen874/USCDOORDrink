@@ -137,7 +137,7 @@ public class UserOrderHistoryActivity<firstTab> extends AppCompatActivity implem
     {
         logout(this);
     }
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
         recreate();
     }

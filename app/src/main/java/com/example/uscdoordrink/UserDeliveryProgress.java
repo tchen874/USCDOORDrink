@@ -165,7 +165,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     }
 
 
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
         mapView.redirectActivity(this, UserOrderHistoryActivity.class);
 

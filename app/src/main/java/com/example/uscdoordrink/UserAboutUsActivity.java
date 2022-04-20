@@ -48,9 +48,9 @@ public class UserAboutUsActivity extends AppCompatActivity {
     {
         mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
-        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, mainTabLayout.class);
     }
 
     public void ClickLogout(View view)
