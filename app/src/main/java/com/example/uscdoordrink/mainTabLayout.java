@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 //import com.example.uscdoordrink.databinding.ActivityOrderchartBinding;
@@ -198,6 +199,7 @@ public class mainTabLayout extends AppCompatActivity {
                 activity.finishAffinity();
                 FirebaseAuth.getInstance().signOut();
                 activity.startActivity(new Intent(activity, MainActivity.class));
+
             }
         });
 
@@ -209,6 +211,7 @@ public class mainTabLayout extends AppCompatActivity {
         });
 
         builder.show();
+
     }
 
 
