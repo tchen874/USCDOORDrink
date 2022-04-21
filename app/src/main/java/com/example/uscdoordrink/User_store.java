@@ -248,10 +248,9 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                                 Toast.makeText(User_store.this, "ALERT!!! Over 400mg/day will exceed", Toast.LENGTH_LONG).show();
                             }
                             Drink d = new Drink(drinkName, drinkPrice, drinkCaffein);
-                            Toast.makeText(User_store.this, "Added to the cart!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(User_store.this, "Added to the cart!", Toast.LENGTH_SHORT).show();
                             addToCart(d);
 ////                            removeView(MenuView);
-//                            //TODO Add drink to the cart
                         }
                     });
 

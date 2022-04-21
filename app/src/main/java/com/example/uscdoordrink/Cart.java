@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -61,7 +62,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
         orders = new ArrayList<ArrayList<String>>();
         MerchantOrders = new ArrayList<ArrayList<String>>();
-
 
 
         cart = new ArrayList<>();
@@ -294,6 +294,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 intent.putExtra("BUNDLE", bundle);
 
                 startActivity(intent);
+                //toast for order placed
+                Toast.makeText(getBaseContext(), "Order Placed!", Toast.LENGTH_SHORT).show();
 
 //                startActivity(new Intent(this, UserDeliveryProgress.class));
 
