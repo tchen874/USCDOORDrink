@@ -62,8 +62,7 @@ public class Drink implements  java.io.Serializable{
     public java.lang.String toString() {
         return "drinkName='" + name + '\'' +
                 ", price=" + price +
-                ", caffeine=" + caffeine +
-                '}';
+                ", caffeine=" + caffeine;
     }
 
 

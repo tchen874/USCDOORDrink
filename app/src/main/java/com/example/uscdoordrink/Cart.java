@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Cart extends AppCompatActivity implements View.OnClickListener, java.io.Serializable {
@@ -41,8 +42,12 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     Button placeOrderButton;
     LinearLayout layout;
     DrawerLayout drawerLayout;
-    ArrayList<ArrayList<String>> orders;
+    List<List<String>> orders;
     ArrayList<ArrayList<String>> MerchantOrders;
+    DatabaseReference databaseRef;
+    DatabaseReference userdatabaseRef;
+    String nameStorest;
+    String nameUserst;
 
     public Cart()
     {
@@ -56,10 +61,11 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        System.out.println("stroe ifssssqqqqqq====");
 
-        orders = new ArrayList<ArrayList<String>>();
+        orders = new ArrayList<List<String>>();
         MerchantOrders = new ArrayList<ArrayList<String>>();
+        nameStorest = "";
+        nameUserst = "";
 
 
 
@@ -82,6 +88,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
         layout = findViewById(R.id.cart_Drink_layout);
         drawerLayout = findViewById(R.id.user_drawer_layout);
+        databaseRef = FirebaseDatabase.getInstance().getReference();
+        userdatabaseRef = FirebaseDatabase.getInstance().getReference();
 
 
         if (savedInstanceState == null) {
@@ -122,6 +130,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                     if(s.getKey().toString().equals("storeName"))
                     {
                         storeName.setText(s.getValue().toString());
+                        nameStorest = s.getValue().toString();
                     }
                     if(s.getKey().toString().equals("address"))
                     {
@@ -131,12 +140,20 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                     {
                         Phonenumber.setText(s.getValue().toString());
                     }
-                    if(s.getKey().toString().equals("orders"))
-                    {
-                        ArrayList<String> order = (ArrayList<String>) s.getValue();
-                        MerchantOrders.add(order);
-
-                    }
+//                    if(s.getKey().toString().equals("orders"))
+//                    {
+//                        ArrayList<String> temp1 = new ArrayList<>();
+//                        ArrayList<ArrayList<String>> order = (ArrayList<ArrayList<String>>) s.getValue();
+//                        for(int i = 0; i < order.size(); i++)
+//                        {
+//                            temp1 = order.get(i);
+//                            System.out.println("temp1 = " + temp1);
+//                            MerchantOrders.add(temp1);
+//                        }
+//                        System.out.println("merchant order tes" + s.getValue());
+////                        MerchantOrders.add(order);
+//
+//                    }
                 }
 
             }
@@ -146,19 +163,63 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
             }
         });
-        //TODO CHANGE uid
 
-        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders");
+        // Load the Merchant order
+        ref = FirebaseDatabase.getInstance().getReference().child("MerchantOrders").child(currentStoreid);
+        ref.addValueEventListener(new ValueEventListener() {
+            //getting data from the snapshot
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    ArrayList<String> temp1 = new ArrayList<>();
+                    ArrayList<String> order = (ArrayList<String>) s.getValue();
+//                    System.out.println("merchant order tes" + s.getValue());
+                    MerchantOrders.add(order);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        // Get the user's name
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         userref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //shows store name, address, and phone
-
                 for (DataSnapshot s : snapshot.getChildren()){
-                    System.out.println("orderssss= " + s.getValue());
-                    //getting values and adding it to the cart
-                    ArrayList<String> l = (ArrayList<String>) s.getValue();
-                    orders.add(l);
+                    if(s.getKey().toString().equals("name"))
+                    {
+                        nameUserst = s.getValue().toString();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        // get user orders
+        //TODO CHANGE uid
+        userref = FirebaseDatabase.getInstance().getReference().child("UserOrders").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getValue() != null)
+                    {
+                        System.out.println("orderssss= " + s.getValue());
+                        ArrayList<String> l = (ArrayList<String>) s.getValue();
+                        orders.add(l);
+                    }
+
                 }
 
             }
@@ -239,20 +300,20 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 String dateStr = formatter.format(date).toString();
                 String timeStr = minformatter.format(date).toString();
 
-                ArrayList<String> orderArray = new ArrayList<String>();
+                // For user
+                List<String> orderArray = new ArrayList<String>();
                 orderArray.add(dateStr);
                 orderArray.add(timeStr);
+                orderArray.add(nameStorest);
 
                 for(int i = 0; i < cart.size(); i++)
                 {
                     orderArray.add(cart.get(i).toString());
                 }
-//                ArrayList<ArrayList<String>> orders= new ArrayList<ArrayList<String>>();
-
                 orders.add(orderArray);
+                databaseRef.child("UserOrders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(orders);
 
 
-//                orderMap.put(dateArray, cart);
                 // Add to merchant database
                 // {date, user uid, }
                 ArrayList<String> temp = new ArrayList<>();
@@ -260,20 +321,27 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 temp.add(dateStr);
                 temp.add(timeStr);
 
-                temp.add("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1");
+
+                temp.add(nameUserst);
                 for(int i = 0; i < cart.size(); i++)
                 {
                     temp.add(cart.get(i).toString());
                 }
+
                 MerchantOrders.add(temp);
-                FirebaseDatabase.getInstance().getReference("Merchants").child(currentStoreid).child("orders")
-                        .setValue(MerchantOrders);
+                System.out.println("Merchant order size= " + MerchantOrders.size());
+                for(int i = 0; i < MerchantOrders.size(); i++)
+                {
+                    System.out.println("merchant order" + MerchantOrders.get(i));
+                }
+                //Add the orders into Merchant Order firebase database
+                databaseRef.child("MerchantOrders").child(currentStoreid).setValue(MerchantOrders);
                 //TODO:FirebaseAuth.getInstance().getCurrentUser().getUid()
-                FirebaseDatabase.getInstance().getReference("Users").child("gUXAp4NhQfMBpBTTYV7bJeIQ0jx1").child("orders")
-                        .setValue(orders);
+
 
                 // direct back to the Progress View;
                 // Pass the cart information to user
+                System.out.println("Directing to user delivery class");
                 UserDeliveryProgress userdelivery = new UserDeliveryProgress();
                 Intent intent = new Intent(Cart.this, userdelivery.getClass());
                 intent.putExtra("UID_STRING", currentStoreid);
@@ -282,6 +350,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("ORDERS", (Serializable) cart);
+                bundle.putSerializable("ORDERSDATABASE", (Serializable) orders);
+                System.out.println("Carts are"+ cart.size());
                 intent.putExtra("BUNDLE", bundle);
 
                 startActivity(intent);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout"
-    tools:context=".User_store">
+    tools:context=".UserDeliveryProgress">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,8 +24,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:context=".UserDeliveryProgress">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/delievryProgress"

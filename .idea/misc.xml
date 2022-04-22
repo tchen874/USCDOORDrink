@@ -29,7 +29,7 @@
         <entry key="app/src/main/res/layout/activity_single_order_history.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_trip_information.xml" value="0.10030395136778116" />
         <entry key="app/src/main/res/layout/activity_user_about_us.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_user_delivery_progress.xml" value="0.2286822111710258" />
+        <entry key="app/src/main/res/layout/activity_user_delivery_progress.xml" value="0.1700404858299595" />
         <entry key="app/src/main/res/layout/activity_user_navigation.xml" value="0.1272644927536232" />
         <entry key="app/src/main/res/layout/activity_user_order_history.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.21213836669921882" />
@@ -47,7 +47,7 @@
         <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.20334320068359377" />
         <entry key="app/src/main/res/layout/notificationview.xml" value="0.25" />
         <entry key="app/src/main/res/layout/single_drink_view.xml" value="0.18854166666666666" />
-        <entry key="app/src/main/res/layout/user_nav_drawer.xml" value="0.24292144775390626" />
+        <entry key="app/src/main/res/layout/user_nav_drawer.xml" value="0.17355371900826447" />
         <entry key="app/src/main/res/layout/user_tool_bar.xml" value="0.1" />
         <entry key="app/src/main/res/menu/activity_row_menu.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/menu/current_place_menu.xml" value="0.3098958333333333" />

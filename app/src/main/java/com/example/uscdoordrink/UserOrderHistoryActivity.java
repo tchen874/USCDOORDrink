@@ -294,6 +294,8 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
                 orderString += s.getValue();
                 orderString += " \n";
             }
+
+
             ordersList.add(orderString);
             orderString = "";
         }
@@ -302,8 +304,8 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
     private void loadView() {
 
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        usersRef.child("orders").addValueEventListener(new ValueEventListener() {
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("UserOrders").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String orderlist = snapshot.

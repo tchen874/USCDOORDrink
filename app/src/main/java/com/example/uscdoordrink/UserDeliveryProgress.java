@@ -1,5 +1,7 @@
 package com.example.uscdoordrink;
 
+import static java.lang.Thread.sleep;
+
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserDeliveryProgress extends AppCompatActivity implements java.io.Serializable{
     DrawerLayout drawerLayout;
@@ -33,6 +36,9 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     String currentStoreid;
     ArrayList<Drink> orders;
     String orderTime;
+    List<List<String>> orderArray;
+    DatabaseReference userdatabaseRef;
+
     public UserDeliveryProgress()
     {
 
@@ -45,9 +51,11 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("Delivery Progress enter~~");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_delivery_progress);
         drawerLayout = findViewById(R.id.user_drawer_layout);
+        userdatabaseRef = FirebaseDatabase.getInstance().getReference();
 
         layout = findViewById(R.id.deliveryLayout);
         storeName = findViewById(R.id.DelievryStoreName);
@@ -60,7 +68,14 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         Bundle args = intent.getBundleExtra("BUNDLE");
 
         orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
+        orderArray = (List<List<String>>) args.getSerializable("ORDERSDATABASE");
 
+        for(int i = 0; i < orderArray.size(); i++)
+        {
+            System.out.println("dta" + orderArray.get(i));
+        }
+//        userdatabaseRef.child("Users").child("j1auNqBOhAelkibxArBIUUMJrd92").child("orders").setValue(orderArray);
+//        System.out.println("user databse ref= " + userdatabaseRef.getReference().toString());
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -75,7 +90,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
             }
         } else {
             currentStoreid= (String) savedInstanceState.getSerializable("UID_STRING");
-            orderTime= (String) savedInstanceState.getSerializable("ORDERTIME");
+            orderTime = (String) savedInstanceState.getSerializable("ORDERTIME");
 //            strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
@@ -84,6 +99,19 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         System.out.println("Delievry:::: " + orders.size() + currentStoreid);
         loadView();
 
+//        try {
+//            Thread.sleep(50000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            Thread.sleep(50000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("End delivery ");
+
     }
 
     //TODO expresso test by calling view
@@ -91,6 +119,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     private void loadView() {
 
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
+        System.out.println("Userref in delivery" + userref.toString());
         userref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -126,17 +155,13 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
             TextView drinkName = (TextView)MenuView.findViewById(R.id.drink_name);
             TextView drinkPrice = (TextView)MenuView.findViewById(R.id.drink_price);
             TextView drinkCaffeine = (TextView)MenuView.findViewById(R.id.drink_caffeine);
-            System.out.println("Oders" + orders.get(i));
+            System.out.println("Orders in delivery" + orders.get(i));
             drinkName.setText(orders.get(i).getName());
             drinkPrice.setText(String.valueOf(orders.get(i).getPrice()));
             drinkCaffeine.setText(String.valueOf(orders.get(i).getCaffeine()));
 
             layout.addView(MenuView);
         }
-
-
-
-
     }
 
 
@@ -172,6 +197,10 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     public void UserClickAboutUs(View view)
     {
         mapView.redirectActivity(this, UserAboutUsActivity.class);
+    }
+    public void UserClickViewMap(View view)
+    {
+        mapView.redirectActivity(this, UserDeliveryProgress.class);
     }
 
 
