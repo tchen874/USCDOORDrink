@@ -192,7 +192,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
 
     public void UserClickMainOrderHistory(View view)
     {
-        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, mainTabLayout.class);
 
     }
 
@@ -202,7 +202,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     }
     public void UserClickViewMap(View view)
     {
-        mapView.redirectActivity(this, UserDeliveryProgress.class);
+        mapView.redirectActivity(this, mapView.class);
     }
 
 

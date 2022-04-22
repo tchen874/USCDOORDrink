@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.MapView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -387,22 +388,19 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     {
         logout(this);
     }
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
-        mapView.redirectActivity(this, UserOrderHistoryActivity.class);
+        mapView.redirectActivity(this, mainTabLayout.class);
 
     }
-//    public void UserClickDeliveryProgress(View view)
-//    {
-//        recreate();
-//    }
+
     public void UserClickAboutUs(View view)
     {
         mapView.redirectActivity(this, UserAboutUsActivity.class);
     }
     public void UserClickViewMap(View view)
     {
-        mapView.redirectActivity(this, UserDeliveryProgress.class);
+        mapView.redirectActivity(this, MapView.class);
     }
 
     public static void logout(Activity activity)
