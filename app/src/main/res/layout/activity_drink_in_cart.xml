@@ -7,7 +7,7 @@
     android:paddingBottom="5dp">
 
 
-    <EditText
+    <TextView
         android:id="@+id/user_drink_name"
         android:layout_width="250dp"
         android:layout_height="42dp"
@@ -16,9 +16,9 @@
         android:hint="Drink Name"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></EditText>
+        android:textSize="14sp"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/user_drink_price"
         android:layout_width="150dp"
         android:layout_height="42dp"
@@ -26,9 +26,9 @@
         android:hint="Price $"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></EditText>
+        android:textSize="14sp"></TextView>
 
-    <EditText
+    <TextView
         android:id="@+id/user_drink_caffeine"
         android:layout_width="150dp"
         android:layout_height="42dp"
@@ -37,7 +37,7 @@
         android:hint="caffeine"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
-        android:textSize="14sp"></EditText>
+        android:textSize="14sp"></TextView>
 
 
 

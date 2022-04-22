@@ -127,6 +127,8 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             case R.id.userUpdateButton:
 //                System.out.println("update profile");
                 update();
+                //toast to say updae successful
+                Toast.makeText(getApplicationContext(),"Updated Profile!", Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -221,6 +223,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     public void ClickLogout(View view)
     {
         logout(this);
+
     }
     public static void logout(Activity activity)
     {
@@ -244,6 +247,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         });
 
         builder.show();
+
     }
 
     @Override

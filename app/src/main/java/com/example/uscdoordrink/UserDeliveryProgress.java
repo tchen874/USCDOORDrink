@@ -67,6 +67,8 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         Intent intent = this.getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
 
+        //look at which activity started the intent that started the activity...
+        //pass empty arraylist if no one has placed an order yet...
         orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
         orderArray = (List<List<String>>) args.getSerializable("ORDERSDATABASE");
 
@@ -188,7 +190,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     }
 
 
-    public void UserClickOrderHistory(View view)
+    public void UserClickMainOrderHistory(View view)
     {
         mapView.redirectActivity(this, UserOrderHistoryActivity.class);
 

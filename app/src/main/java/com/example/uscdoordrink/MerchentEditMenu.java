@@ -71,6 +71,8 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
 
             case R.id.button_update:
                 update();
+                //add toast to update
+                Toast.makeText(getApplicationContext(),"Updated Menu!", Toast.LENGTH_LONG).show();
                 break;
         }
 

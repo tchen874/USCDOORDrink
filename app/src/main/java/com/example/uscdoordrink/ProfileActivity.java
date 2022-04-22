@@ -78,6 +78,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.updateButton:
 //                System.out.println("update profile");
                 update();
+                //make toast when update button clicked
+                Toast.makeText(getApplicationContext(),"Updated Profile!", Toast.LENGTH_LONG).show();
                 break;
         }
     }
