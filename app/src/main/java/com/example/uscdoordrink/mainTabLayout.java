@@ -38,12 +38,6 @@ public class mainTabLayout extends AppCompatActivity {
     private ViewPager viewPager;
     DrawerLayout drawerLayout;
 
-
-    Fragment fragment = null;
-    FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,13 +55,6 @@ public class mainTabLayout extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -110,8 +97,8 @@ public class mainTabLayout extends AppCompatActivity {
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             //this is where I now display different fragments depending on tab
-            frag1_overview.newInstance("Welcome user", "Please swipe right to view history in list and chart form");
-
+            //frag1_overview.newInstance("Welcome user", "Please swipe right to view history in list and chart form");
+            frag2_orderlist.newInstance();
             return rootView;
         }
     }

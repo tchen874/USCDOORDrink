@@ -1,64 +1,43 @@
 package com.example.uscdoordrink;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
+import static android.R.layout.simple_list_item_1;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
-public class UserOrderHistoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link frag2_orderlistMerch#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItemSelectedListener{
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     ListView history_view;
     Spinner dropdown;
     //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
@@ -70,173 +49,51 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     ArrayAdapter<String> listview_adapter;
     int groupNumber = 1;
-    //String notificationRecommendationTitle;
 
-    // Tab titles
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    //old stuff
-    DrawerLayout drawerLayout;
+    public frag2_orderlistMerch() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment frag2_orderlistMerch.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static frag2_orderlistMerch newInstance() {
+        frag2_orderlistMerch fragment = new frag2_orderlistMerch();
+
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_user_order_history);
-        //makeNotificationMechanism();
 
-
-        //drawerLayout = findViewById(R.id.user_drawer_layout);
-        //System.out.println("store if=");
-
-        history_view = (ListView) findViewById(R.id.order_chart);
-        orders_list = new ArrayList<>();
-        preliminary_orders_list = new ArrayList<>();
-
-        listview_adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                orders_list);
-
-        history_view.setAdapter(listview_adapter);
-
-
-        //get the spinner from the xml.
-        dropdown = (Spinner) findViewById(R.id.spinner1);
-
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.date_choice_array, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(spinnerAdapter);
-        dropdown.setOnItemSelectedListener(this);
-        loadView();
-
-        //frag2_orderlist fragobj = new frag2_orderlist();
-
-        //testing
-        //Log.d("orders : ", usersRef.child("orders").child("2").get().toString());
-        //testing@gmail.com
-        //testing123
     }
-
-
-    // For navigation purpose
-    public void UserClickMenu(View view)
-    {
-        System.out.println("Why this is mot");
-        mapView.openDrawer(drawerLayout);
-    }
-    public void UserClickLogo(View view){
-        mapView.closeDrawer(drawerLayout);
-    }
-    public void UserClickProfile(View view)
-    {
-        mapView.redirectActivity(this, UserProfileActivity.class);
-    }
-
-    public void ClickLogout(View view)
-    {
-        logout(this);
-    }
-    public void UserClickMainOrderHistory(View view)
-    {
-        recreate();
-    }
-    public void UserClickAboutUs(View view)
-    {
-        mapView.redirectActivity(this, UserAboutUsActivity.class);
-    }
-    public void UserClickViewMap(View view)
-    {
-        mapView.redirectActivity(this, mapView.class);
-    }
-
-
-    public static void logout(Activity activity)
-    {
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(activity);
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to log out?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                activity.finishAffinity();
-                FirebaseAuth.getInstance().signOut();
-                activity.startActivity(new Intent(activity, MainActivity.class));
-            }
-        });
-
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
-
     @Override
-    protected void onPause()
-    {
-        super.onPause();
-        mapView.closeDrawer(drawerLayout);
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
 
-
-    //Can I test this?
-    private boolean checkVersionSDK() {
-        boolean b = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
-        return b;
-    }
-
-    private String getRecommendation(){
-        //go through list, get rec, put into String
-        int max = Integer.MIN_VALUE;
-        String recommendation = "";
-        HashMap<String, Integer> map = new HashMap<>();
-        for (String order: preliminary_orders_list) {
-            int indexOfDrinkName = order.indexOf("drinkName='");
-            int startIndex = indexOfDrinkName + 10;
-            int endIndex = order.indexOf(", price=");
-            String recDrinkName = order.substring(startIndex, endIndex);
-            if(!map.containsKey(recDrinkName)){
-                map.put(recDrinkName, 1);
-            } else {
-                int numOccurences = map.get(recDrinkName);
-                map.put(recDrinkName, ++numOccurences);
-            }
-        }
-        //find the max occurences in has map
-        for (Map.Entry<String, Integer> set : map.entrySet()) {
-            if (set.getValue() > max){
-                max = set.getValue();
-                recommendation = set.getKey();
-            }
-        }
-        return recommendation;
+        //select time period to group items
+        timePeriodSelection = (String)parent.getItemAtPosition(position);
+        System.out.println("onItemSelected timeperiodSelection value: " + timePeriodSelection);
+        //clear order list
+        orders_list.clear();
+        //then call method to seperate
+        addGroupDataToListView();
 
     }
-
-    public void sendRecommendation() {
-        NotificationCompat.Builder builder;
-        String recommendation = getRecommendation();
-        if (recommendation.equals("")){
-            return;
-        }
-        //String strtitle = getString(R.string.notificationtitle);
-        //String strtext = getString(R.string.notificationtext);
-        Context context = getApplicationContext();
-        String text = "You bought the drink " + recommendation + " the most so you should purchase this drink again.";
-        int duration = Toast.LENGTH_LONG;
-
-        Toast toast = Toast.makeText(context,text,duration );
-        toast.show();
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
     private void loadView() {
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -255,6 +112,9 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
 
             }
         });
+    }
+    public String getDateFromOrder(String order){
+        return order.substring(22, 32);
     }
 
     public ArrayList<String> generateOrderList(DataSnapshot snapshot){
@@ -282,28 +142,6 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
             orderString = "";
         }
         return ordersList;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-
-        //select time period to group items
-        timePeriodSelection = (String)parent.getItemAtPosition(position);
-        System.out.println("onItemSelected timeperiodSelection value: " + timePeriodSelection);
-        //clear order list
-        orders_list.clear();
-        //then call method to seperate
-        addGroupDataToListView();
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    public String getDateFromOrder(String order){
-        return order.substring(22, 32);
     }
 
     private void addGroupDataToListView(){
@@ -428,6 +266,79 @@ public class UserOrderHistoryActivity extends AppCompatActivity implements Adapt
         sendRecommendation();
 
     }
+    private String getRecommendation(){
+        //go through list, get rec, put into String
+        int max = Integer.MIN_VALUE;
+        String recommendation = "";
+        HashMap<String, Integer> map = new HashMap<>();
+        for (String order: preliminary_orders_list) {
+            int indexOfDrinkName = order.indexOf("drinkName='");
+            int startIndex = indexOfDrinkName + 10;
+            int endIndex = order.indexOf(", price=");
+            String recDrinkName = order.substring(startIndex, endIndex);
+            if(!map.containsKey(recDrinkName)){
+                map.put(recDrinkName, 1);
+            } else {
+                int numOccurences = map.get(recDrinkName);
+                map.put(recDrinkName, ++numOccurences);
+            }
+        }
+        //find the max occurences in has map
+        for (Map.Entry<String, Integer> set : map.entrySet()) {
+            if (set.getValue() > max){
+                max = set.getValue();
+                recommendation = set.getKey();
+            }
+        }
+        return recommendation;
+
+    }
+    public void sendRecommendation() {
+        NotificationCompat.Builder builder;
+        String recommendation = getRecommendation();
+        if (recommendation.equals("")){
+            return;
+        }
+        //String strtitle = getString(R.string.notificationtitle);
+        //String strtext = getString(R.string.notificationtext);
+        Context context = getActivity();
+        String text = "You bought the drink " + recommendation + " the most so you should purchase this drink again.";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context,text,duration );
+        toast.show();
+
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_frag2_orderlist_merch, container, false);
+        history_view = (ListView) v.findViewById(R.id.order_chart);
+        orders_list = new ArrayList<>();
+        preliminary_orders_list = new ArrayList<>();
+
+        listview_adapter = new ArrayAdapter<String>(v.getContext(),
+                simple_list_item_1,
+                orders_list);
+
+        history_view.setAdapter(listview_adapter);
 
 
+//        //get the spinner from the xml.
+        dropdown = (Spinner) v.findViewById(R.id.spinner1);
+//
+//        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//        //There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.date_choice_array, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //set the spinners adapter to the previously created one.
+        dropdown.setAdapter(spinnerAdapter);
+        dropdown.setOnItemSelectedListener(this);
+        loadView();
+
+        return v;
+        // return inflater.inflate(R.layout.fragment_frag2_orderlist, container, false);
+    }
 }

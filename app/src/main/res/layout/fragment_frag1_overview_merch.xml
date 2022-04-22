@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".frag1_overviewMerch">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/WelcomingUser"
+        android:layout_width="155dp"
+        android:layout_height="139dp"
+        android:text="Welcome merchant!"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:translationX="110dp"
+        android:translationY="100dp" />
+
+    <TextView
+        android:id="@+id/DirectionsToUser"
+        android:layout_width="195dp"
+        android:layout_height="99dp"
+        android:text="Swipe right to view customer order history in list and chart form!"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:translationX="110dp"
+        android:translationY="300dp" />
+
+</FrameLayout>
