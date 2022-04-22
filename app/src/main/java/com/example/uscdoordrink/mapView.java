@@ -88,6 +88,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 
 
@@ -289,7 +297,11 @@ public class mapView extends AppCompatActivity
                                 LatLng origin = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
                                 LatLng destination = marker.getPosition();
                                 // drawRoute
-                                drawRoute(origin, destination);
+                                try {
+                                    drawRoute(origin, destination);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 //Define list to get all latlng for the route
                                 //List<LatLng> path = new ArrayList();
 
@@ -653,14 +665,41 @@ public class mapView extends AppCompatActivity
 
     //classes to draw line of directions using polyline
     //draw route between origin and destination
-    private void drawRoute(LatLng mOrigin, LatLng mDestination){
+    private void drawRoute(LatLng mOrigin, LatLng mDestination) throws IOException{
+
         System.out.println("at drawRoute");
-        // Getting URL to the Google Directions API
-        String url = getDirectionsUrl(mOrigin, mDestination);
-        System.out.println("url: " + url);
-        DownloadTask downloadTask = new DownloadTask();
-        // Start downloading json data from Google Directions API
-        downloadTask.execute(url);
+        //make new thread bc was getting networkonmainthreadexception
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    // Getting URL to the Google Directions API
+                    String myURL = getDirectionsUrl(mOrigin, mDestination);
+                    System.out.println("url: " + myURL);
+                    OkHttpClient client = new OkHttpClient().newBuilder()
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(myURL)
+                            .method("GET", null)
+                            .build();
+//          Response response = client.newCall(request).execute();
+                    try (Response response = client.newCall(request).execute()) {
+                        System.out.println("drawRoute response:" + response.body().string());
+                        DownloadTask downloadTask = new DownloadTask();
+                        // Start downloading json data from Google Directions API
+                        downloadTask.execute(myURL);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+
+//
     }
 
 
