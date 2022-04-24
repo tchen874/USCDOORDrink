@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+
+    <TextView
+        android:id="@+id/drink_name"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:hint="Drink Name"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:text="$"
+        android:textColor="@color/black"
+        android:textSize="18sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/drink_price"
+        android:layout_width="150dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:hint="Price $"
+        android:textColor="@color/black"
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:id="@+id/drink_caffeine"
+        android:layout_width="150dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:hint="caffeine"
+        android:gravity="end"
+        android:textColor="@color/black"
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:layout_width="120dp"
+        android:layout_height="42dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="mg"
+        android:textColor="@color/black"
+        android:textSize="18sp">
+    </TextView>
+
+
+    <ImageView
+        android:id="@+id/image_add"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_add"></ImageView>
+
+</LinearLayout>

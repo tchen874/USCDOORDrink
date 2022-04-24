@@ -10,10 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class User_store extends AppCompatActivity implements View.OnClickListener, java.io.Serializable{
+public class User_store extends AppCompatActivity implements View.OnClickListener, java.io.Serializable, AdapterView.OnItemSelectedListener{
 
     private String currentStoreid;
     TextView storeName;
@@ -43,7 +46,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     Button checkoutButton;
     DrawerLayout drawerLayout;
     LinearLayout layoutList;
-    List<Drink> menu;
+    ArrayList<Drink> menu;
     ArrayList<Drink> cart;
     DatabaseReference dref;
     ImageView addDrink;
@@ -52,6 +55,8 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     HashMap<String, ArrayList<String>> orderMap;
     Double totalCaffeien;
     Order order;
+    Spinner spinner;
+
     public User_store()
     {
     }
@@ -73,6 +78,19 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         orderMap = new HashMap<String, ArrayList<String>>();
         order = new Order();
         totalCaffeien = 0.0;
+        spinner = (Spinner) findViewById(R.id.menuSpinner);
+
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.menuChoiceArray, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+
         // Load the orders in map
         //TODO: get child
         //Get the Caffine
@@ -150,7 +168,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 //        System.out.println("UID=" + current);
 
         // Initialize menu
-//        menu = new ArrayList<>();
+        menu = new ArrayList<>();
 //        dref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid).child("menu");
 //        dref.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -170,11 +188,13 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 //            }
 //        });
 
-        loadView();
+        //loadView();
     }
     //load store view
     private void loadView() {
         // TODO: FirebaseAuth.getInstance().getCurrentUser().getUid()
+        // Remove ALL THE views
+        layoutList.removeAllViews();
         //get dat reference
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
         ref.addValueEventListener(new ValueEventListener() {
@@ -195,13 +215,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                         storePhone.setText(s.getValue().toString());
                     }
                 }
-//                storeName.setText(snapshot.getValue().toString());
-//                layoutList = findViewById(R.id.drink_layout_list);
-//                storeAdress = findViewById(R.id.userStoreAddress);
-//                storePhone = findViewById(R.id.userStorePhone);
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -214,7 +228,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                 //show store menu
                 for (DataSnapshot s : snapshot.getChildren()) {
                     List<String> st = (List<String>) s.getValue();
-                    final View MenuView = getLayoutInflater().inflate(R.layout.drink,null,false);
+                    final View MenuView = getLayoutInflater().inflate(R.layout.single_drink_in_menu,null,false);
 
                     TextView drinkName = (TextView)MenuView.findViewById(R.id.drink_name);
                     TextView drinkPrice = (TextView)MenuView.findViewById(R.id.drink_price);
@@ -222,7 +236,6 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                     ImageView imageAdd = (ImageView)MenuView.findViewById(R.id.image_add);
 
                     imageAdd.setOnClickListener(new View.OnClickListener() {
-                        int count = 0;
                         @Override
                         public void onClick(View v) {
 
@@ -232,7 +245,6 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                             String name = drinkName.getText().toString();
                             Double caffein = Double.parseDouble(drinkCaffeine.getText().toString());
 
-
                             if(order.warnCaff(totalCaffeien + caffein))
                             {
                                 Toast.makeText(User_store.this, "ALERT!!! Over 400mg/day will exceed", Toast.LENGTH_LONG).show();
@@ -240,8 +252,6 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                             Drink d = new Drink(name, price, caffein);
                             Toast.makeText(User_store.this, "Added to the cart!", Toast.LENGTH_LONG).show();
                             addToCart(d);
-////                            removeView(MenuView);
-//                            //TODO Add drink to the cart
                         }
                     });
 
@@ -249,6 +259,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                     drinkName.setText(st.get(0).toString());
                     drinkPrice.setText(st.get(1).toString());
                     drinkCaffeine.setText(st.get(2).toString());
+                    menu.add(new Drink(st.get(0).toString(), Double.parseDouble(st.get(1).toString()), Double.parseDouble(st.get(2).toString())));
                     layoutList.addView(MenuView);
 
                 }
@@ -259,6 +270,104 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+
+    }
+    //Sort the menu by the menuchoiceArray
+    // Take in index as
+    // 1 -> Price low to high
+    // 2 -> Price high to low
+    // 3 -> Caffeine low to high
+    // 4 -> Caffeine high to low
+    private void sortView(int index)
+    {
+        Menu m = new Menu(menu);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("storeName"))
+                    {
+                        storeName.setText(s.getValue().toString());
+                    }
+                    if(s.getKey().toString().equals("address"))
+                    {
+                        storeAdress.setText(s.getValue().toString());
+                    }
+                    if(s.getKey().toString().equals("phoneNumber"))
+                    {
+                        storePhone.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        // sort the menu by price low to high
+        if(index == 1)
+        {
+            m.sortPriceLowtoHigh();
+        }
+        else if(index == 2)
+        {
+            m.sortPriceHigtoLow();
+        }
+        else if(index == 3)
+        {
+            m.sortCaffineLowtoHigh();
+        }
+        else if(index == 4)
+        {
+            m.sortCaffineHightoLow();
+        }
+        //Clear out all the views in layout list
+        layoutList.removeAllViews();
+        // Create the view
+        for(int i = 0; i < m.getDrinkList().size(); i++)
+        {
+            Drink tempDrink = (Drink) m.getDrinkList().get(i);
+            final View MenuView = getLayoutInflater().inflate(R.layout.single_drink_in_menu,null,false);
+
+            TextView drinkName = (TextView)MenuView.findViewById(R.id.drink_name);
+            TextView drinkPrice = (TextView)MenuView.findViewById(R.id.drink_price);
+            TextView drinkCaffeine = (TextView)MenuView.findViewById(R.id.drink_caffeine);
+            ImageView imageAdd = (ImageView)MenuView.findViewById(R.id.image_add);
+
+            imageAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // when they are adding to drink, show the caffeine overtake alert
+                    // 400 mg per day
+                    Double price = Double.parseDouble(drinkPrice.getText().toString());
+                    String name = drinkName.getText().toString();
+                    Double caffein = Double.parseDouble(drinkCaffeine.getText().toString());
+
+                    if(order.warnCaff(totalCaffeien + caffein))
+                    {
+                        Toast.makeText(User_store.this, "ALERT!!! Over 400mg/day will exceed", Toast.LENGTH_LONG).show();
+                    }
+                    Drink d = new Drink(name, price, caffein);
+                    Toast.makeText(User_store.this, "Added to the cart!", Toast.LENGTH_LONG).show();
+                    addToCart(d);
+                }
+            });
+
+
+            drinkName.setText(tempDrink.getName());
+            drinkPrice.setText(String.valueOf(tempDrink.getPrice()));
+            drinkCaffeine.setText(String.valueOf(tempDrink.getCaffeine()));
+//            menu.add(new Drink(st.get(0).toString(), Double.parseDouble(st.get(1).toString()), Double.parseDouble(st.get(2).toString())));
+            layoutList.addView(MenuView);
+
+
+        }
+
+
 
     }
 
@@ -364,4 +473,35 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         mapView.closeDrawer(drawerLayout);
     }
 
+    // For spinner purpose
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        System.out.println("Spinner in i" + adapterView.getItemAtPosition(i));
+        String name = (String) adapterView.getItemAtPosition(i);
+        if(name.equals("Best Match"))
+        {
+            loadView();
+        }
+        else if(name.equals("Price: Low to High"))
+        {
+            sortView(1);
+        }
+        else if(name.equals("Price: High to Low"))
+        {
+            sortView(2);
+        }
+        else if(name.equals("Caffeine: Low to High"))
+        {
+            sortView(3);
+        }
+        else if(name.equals("Caffeine: High to Low"))
+        {
+            sortView(4);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

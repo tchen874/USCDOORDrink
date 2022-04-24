@@ -37,4 +37,12 @@
         <item>Year</item>
     </string-array>
 
+    <string-array name="menuChoiceArray">
+        <item>Best Match</item>
+        <item>Price: Low to High</item>
+        <item>Price: High to Low</item>
+        <item>Caffeine: Low to High</item>
+        <item>Caffeine: High to Low</item>
+    </string-array>
+
 </resources>
