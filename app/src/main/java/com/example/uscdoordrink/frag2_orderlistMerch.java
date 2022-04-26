@@ -62,8 +62,7 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     *
      * @return A new instance of fragment frag2_orderlistMerch.
      */
     // TODO: Rename and change types and number of parameters
@@ -76,7 +75,7 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        loadView();
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
@@ -96,8 +95,8 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
     }
     private void loadView() {
 
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        usersRef.child("orders").addValueEventListener(new ValueEventListener() {
+        DatabaseReference merchRef = FirebaseDatabase.getInstance().getReference("MerchantOrders").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        merchRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String orderlist = snapshot.
@@ -120,8 +119,11 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
     public ArrayList<String> generateOrderList(DataSnapshot snapshot){
         String orderString = "";
         ArrayList<String> ordersList = new ArrayList<>();
+        System.out.println("snapshot in genOrderList: " + snapshot);
 
         for(DataSnapshot i : snapshot.getChildren()) {
+            System.out.println("i: "+ snapshot.getChildren());
+
             for (DataSnapshot s : i.getChildren()) {
                 //how to convert between snapshot and orderlist??
                 //array of string value pairs?!
@@ -132,6 +134,10 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
                     orderString += "Time order placed: ";
                 }
                 if (s.getKey().equals("2")) {
+
+                    orderString += "Customer name: ";
+                }
+                if (s.getKey().equals("3")) {
 
                     orderString += "Name, price, and caffeine amount: ";
                 }
@@ -155,7 +161,14 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
         int prevMonth = 0;
         int prevYear = 0;
         //String prevDate = preliminary_orders_list.get(0).substring(22, 32);
+        if(preliminary_orders_list.size() == 0){
+            return;
+            //want to be able to display a text into the list view saying please place an order!
+        }
+        System.out.println("before prevDate preliminary_orders_list: "+ preliminary_orders_list);
         String prevDate = getDateFromOrder(preliminary_orders_list.get(0));
+        System.out.println("preliminary_orders_list: "+ preliminary_orders_list);
+
         String currDate;
         groupNumber = 1;
 
@@ -302,7 +315,7 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
         //String strtitle = getString(R.string.notificationtitle);
         //String strtext = getString(R.string.notificationtext);
         Context context = getActivity();
-        String text = "You bought the drink " + recommendation + " the most so you should purchase this drink again.";
+        String text = "Customers bought the drink " + recommendation + " the most so consider adding more similar menu items.";
         int duration = Toast.LENGTH_LONG;
 
         Toast toast = Toast.makeText(context,text,duration );
