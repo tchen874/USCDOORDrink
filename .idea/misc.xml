@@ -9,7 +9,7 @@
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.2635" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.2759033203125" />
         <entry key="app/src/main/res/layout/activity_drink_in_cart.xml" value="0.2797905521116395" />
-        <entry key="app/src/main/res/layout/activity_drink_in_delivery.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/activity_drink_in_delivery.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_drinklist.xml" value="0.2078804347826087" />
         <entry key="app/src/main/res/layout/activity_firebase_ui.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_forgotpassword.xml" value="0.26875" />
