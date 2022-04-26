@@ -56,6 +56,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     Double totalCaffeien;
     Order order;
     Spinner spinner;
+    TextView userName;
 
     public User_store()
     {
@@ -79,6 +80,26 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
         order = new Order();
         totalCaffeien = 0.0;
         spinner = (Spinner) findViewById(R.id.menuSpinner);
+
+        userName = findViewById(R.id.userName);
+
+        // Get name
+        DatabaseReference useRref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        useRref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        userName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         // Create an ArrayAdapter using the string array and a default spinner layout

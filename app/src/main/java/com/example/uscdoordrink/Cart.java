@@ -49,6 +49,8 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     DatabaseReference userdatabaseRef;
     String nameStorest;
     String nameUserst;
+    TextView userName;
+    TextView cancleOrder;
 
     public Cart()
     {
@@ -67,6 +69,27 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
         MerchantOrders = new ArrayList<ArrayList<String>>();
         nameStorest = "";
         nameUserst = "";
+        userName = findViewById(R.id.userName);
+        cancleOrder = (TextView) findViewById(R.id.cancleOrder);
+        cancleOrder.setOnClickListener(this);
+
+        // Get name
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        userName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -284,6 +307,9 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     public void onClick(View view) {
         switch (view.getId())
         {
+            case R.id.cancleOrder:
+                startActivity(new Intent(this, mapView.class));
+                break;
             case R.id.PlaceOrder:
                 // Set order to the database and direct to the delivery information
 //                System.out.println("In the click the button");
@@ -356,9 +382,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 intent.putExtra("BUNDLE", bundle);
 
                 startActivity(intent);
-
-//                startActivity(new Intent(this, UserDeliveryProgress.class));
-
                 break;
         }
     }

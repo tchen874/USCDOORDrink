@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     EditText phoneNumber;
     EditText state;
     Button updateButton;
+    TextView merchantName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         updateButton = (Button) findViewById(R.id.updateButton);
         updateButton.setOnClickListener(this);
+        merchantName = findViewById(R.id.merchantusername);
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        merchantName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         loadView();
     }
 

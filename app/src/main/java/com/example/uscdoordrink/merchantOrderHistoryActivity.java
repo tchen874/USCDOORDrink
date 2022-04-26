@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class merchantOrderHistoryActivity extends AppCompatActivity {
@@ -33,6 +36,7 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
     private merchantOrderHistoryActivity.SectionsPagerAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     DrawerLayout drawerLayout;
+    TextView merchantName;
 
 
     @Override
@@ -47,6 +51,24 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
         //tabs.setupWithViewPager(viewPager);
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
+
+        merchantName = findViewById(R.id.merchantusername);
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        merchantName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);

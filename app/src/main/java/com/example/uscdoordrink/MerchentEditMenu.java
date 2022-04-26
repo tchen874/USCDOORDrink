@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,7 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
     Button updateButton;
     ArrayList<Drink> drinksList = new ArrayList<>();
     Menu menu;
+    TextView merchantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,25 @@ public class MerchentEditMenu extends AppCompatActivity implements View.OnClickL
 
         updateButton = findViewById(R.id.button_update);
         updateButton.setOnClickListener(this);
+
+        merchantName = findViewById(R.id.merchantusername);
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        merchantName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         loadView();
     }
     // Use to dismiss the keyboard when not inputting

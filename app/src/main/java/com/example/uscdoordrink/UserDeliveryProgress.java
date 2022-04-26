@@ -38,6 +38,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     String orderTime;
     List<List<String>> orderArray;
     DatabaseReference userdatabaseRef;
+    TextView userName;
 
     public UserDeliveryProgress()
     {
@@ -71,6 +72,27 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         //pass empty arraylist if no one has placed an order yet...
         orders = (ArrayList<Drink>) args.getSerializable("ORDERS");
         orderArray = (List<List<String>>) args.getSerializable("ORDERSDATABASE");
+
+
+        userName = findViewById(R.id.userName);
+
+        // Get name
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        userName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         for(int i = 0; i < orderArray.size(); i++)
         {

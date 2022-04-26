@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Merchant"
+        android:id="@+id/merchantusername"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
