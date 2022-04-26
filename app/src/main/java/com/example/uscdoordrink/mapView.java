@@ -155,6 +155,8 @@ public class mapView extends AppCompatActivity
     String markerTitle = "";
     //marker not clicked yet
     boolean markerClicked = false;
+    TextView userName;
+    String name;
 
 
     // create map
@@ -174,6 +176,27 @@ public class mapView extends AppCompatActivity
         //buttons
         Button drivingButton = findViewById(R.id.drivingbutton);
         Button bikingButton = findViewById(R.id.bikingbutton);
+
+        userName = findViewById(R.id.userName);
+
+        // Get name
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        userName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         //if click driving button
@@ -216,6 +239,7 @@ public class mapView extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         drawerLayout = findViewById(R.id.user_drawer_layout);
+
         //initialize arraylist
         locationArrayList = new ArrayList<>();
         nameArrayList = new ArrayList<>();
