@@ -20,80 +20,120 @@
             android:textSize="40dp"
             android:layout_marginLeft="23dp"/>
 
-        <EditText
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:hint="Name"
-            android:textSize="15dp"/>
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Name: "/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:hint="Name"
+                android:textSize="15dp"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/storeName"
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:text="Store Name: "/>
+            <EditText
+                android:id="@+id/storeName"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint="Store Name"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:text="Address: "/>
+            <EditText
+                android:id="@+id/street"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint="Street"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:hint="Store Name"
-            android:textSize="15dp"/>
-
-        <EditText
-            android:id="@+id/street"
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:hint="Street"
-            android:textSize="15dp"/>
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="350dp"
-        android:layout_height="50dp">
-        <EditText
-            android:id="@+id/city"
-            android:layout_width="165dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:hint="City"
-            android:textSize="15dp"/>
+            android:layout_height="50dp">
 
-        <EditText
-            android:id="@+id/state"
-            android:layout_width="165dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="20dp"
-            android:hint="State"
-            android:textSize="15dp" />
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="0dp"
+                android:hint="City"
+                android:textSize="15dp"/>
 
+            <EditText
+                android:id="@+id/state"
+                android:layout_width="165dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="10dp"
+                android:hint="State"
+                android:textSize="15dp" />
+        </LinearLayout>
 
-    </LinearLayout>
         <EditText
             android:id="@+id/zipCode"
             android:layout_width="165dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="20dp"
             android:hint="Zip Code"
             android:textSize="15dp"/>
 
-        <EditText
-            android:id="@+id/phoneNumber"
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:hint="Phone"
-            android:textSize="15dp"/>
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:text="Phone: "/>
+            <EditText
+                android:id="@+id/phoneNumber"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint="Phone"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+
 
         <Button
             android:id="@+id/updateButton"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="125dp"
             android:text="Update"/>
 

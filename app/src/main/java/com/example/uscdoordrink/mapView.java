@@ -287,10 +287,8 @@ public class mapView extends AppCompatActivity
         //add markers
         for (int i = 0; i < locationArrayList.size(); i++) {
             // below line is use to add marker to each location of our array list.
-            Marker marker = this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
-            //set marker tag to track click count
-            Integer clickCount = 0;
-            marker.setTag(clickCount);
+            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
+
 
         }
         //when we click marker

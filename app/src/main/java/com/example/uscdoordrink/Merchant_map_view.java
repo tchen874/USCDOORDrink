@@ -101,15 +101,12 @@ public class Merchant_map_view extends AppCompatActivity
     private static final String KEY_LOCATION = "location";
     // [END maps_current_place_state_keys]
 
-    // Used for selecting the current place.
-    private static final int M_MAX_ENTRIES = 5;
-    private String[] likelyPlaceNames;
-    private String[] likelyPlaceAddresses;
-    private List[] likelyPlaceAttributions;
-    private LatLng[] likelyPlaceLatLngs;
 
     // array list for all merchants
     private ArrayList<LatLng> locationArrayList;
+    //array list for store names
+    private ArrayList<String> nameArrayList;
+
 
     // [START maps_current_place_on_create]
     @Override
@@ -117,10 +114,10 @@ public class Merchant_map_view extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         // Retrieve location and camera position from saved instance state.
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-        }
+//        if (savedInstanceState != null) {
+//            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+//            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+//        }
 
         // view map
         setContentView(R.layout.activity_merchant_map_view);
@@ -140,6 +137,7 @@ public class Merchant_map_view extends AppCompatActivity
         drawerLayout = findViewById(R.id.merchant_drawer_layout);
         //initialize arraylist
         locationArrayList = new ArrayList<>();
+        nameArrayList = new ArrayList<>();
 
         // EXAMPLE ADDING TO ARRAYLIST - TODO!!
         //Query query = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Menu");
@@ -165,6 +163,7 @@ public class Merchant_map_view extends AppCompatActivity
                         LatLng loc = getLocationFromAddress(getApplicationContext(), address);
                         if(loc != null){
                             locationArrayList.add(loc);
+                            nameArrayList.add(s.child("name").getValue(String.class));
                             System.out.println("printing location array list" + locationArrayList);
                         }
 
@@ -203,24 +202,16 @@ public class Merchant_map_view extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
-
-        System.out.println("here locationarraylist onmapready");
-        for(LatLng temp : locationArrayList){
-            System.out.println("temp onmapready: " + temp);
-        }
+        getLocationPermission();
 
         //EXAMPLE ADDING A MARKER - TODO THE REST!!
         for (int i = 0; i < locationArrayList.size(); i++) {
             // below line is use to add marker to each location of our array list.
-            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title("Marker"));
-            // below lin is use to zoom our camera on map.
-            //this.map.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
-            // below line is use to move our camera to the specific location.
-            //this.map.moveCamera(CameraUpdateFactory.newLatLng(locationArrayList.get(i)));
+            this.map.addMarker(new MarkerOptions().position(locationArrayList.get(i)).title(nameArrayList.get(i)));
         }
 
 
-        getLocationPermission();
+
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
         //moves to current location of device on map!
@@ -252,20 +243,6 @@ public class Merchant_map_view extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.layout.activity_merchant_map_view, menu);
 //        getMenuInflater().inflate(R.layout.activity_mapview, menu);
-        return true;
-    }
-
-    /**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
-     */
-    // [START maps_current_place_on_options_item_selected]
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.option_get_place) {
-            showCurrentPlace();
-        }
         return true;
     }
 
@@ -356,125 +333,7 @@ public class Merchant_map_view extends AppCompatActivity
     }
     // [END maps_current_place_on_request_permissions_result]
 
-    /**
-     * Prompts the user to select the current place from a list of likely places, and shows the
-     * current place on the map - provided the user has granted location permission.
-     */
-    // [START maps_current_place_show_current_place]
-    private void showCurrentPlace() {
-        if (map == null) {
-            return;
-        }
 
-        if (locationPermissionGranted) {
-            // Use fields to define the data types to return.
-            List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS,
-                    Place.Field.LAT_LNG);
-
-            // Use the builder to create a FindCurrentPlaceRequest.
-            FindCurrentPlaceRequest request =
-                    FindCurrentPlaceRequest.newInstance(placeFields);
-
-            // Get the likely places - that is, the businesses and other points of interest that
-            // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<FindCurrentPlaceResponse> placeResult =
-                    placesClient.findCurrentPlace(request);
-            placeResult.addOnCompleteListener (new OnCompleteListener<FindCurrentPlaceResponse>() {
-                @Override
-                public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
-                    if (task.isSuccessful() && task.getResult() != null) {
-                        FindCurrentPlaceResponse likelyPlaces = task.getResult();
-
-                        // Set the count, handling cases where less than 5 entries are returned.
-                        int count;
-                        if (likelyPlaces.getPlaceLikelihoods().size() < M_MAX_ENTRIES) {
-                            count = likelyPlaces.getPlaceLikelihoods().size();
-                        } else {
-                            count = M_MAX_ENTRIES;
-                        }
-
-                        int i = 0;
-                        likelyPlaceNames = new String[count];
-                        likelyPlaceAddresses = new String[count];
-                        likelyPlaceAttributions = new List[count];
-                        likelyPlaceLatLngs = new LatLng[count];
-
-                        for (PlaceLikelihood placeLikelihood : likelyPlaces.getPlaceLikelihoods()) {
-                            // Build a list of likely places to show the user.
-                            likelyPlaceNames[i] = placeLikelihood.getPlace().getName();
-                            likelyPlaceAddresses[i] = placeLikelihood.getPlace().getAddress();
-                            likelyPlaceAttributions[i] = placeLikelihood.getPlace()
-                                    .getAttributions();
-                            likelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
-
-                            i++;
-                            if (i > (count - 1)) {
-                                break;
-                            }
-                        }
-
-                        // Show a dialog offering the user the list of likely places, and add a
-                        // marker at the selected place.
-                        Merchant_map_view.this.openPlacesDialog();
-                    }
-                    else {
-                        Log.e(TAG, "Exception: %s", task.getException());
-                    }
-                }
-            });
-        } else {
-            // The user has not granted permission.
-            Log.i(TAG, "The user did not grant location permission.");
-
-            // Add a default marker, because the user hasn't selected a place.
-            map.addMarker(new MarkerOptions()
-                    .title(getString(R.string.default_info_title))
-                    .position(defaultLocation)
-                    .snippet(getString(R.string.default_info_snippet)));
-
-            // Prompt the user for permission.
-            getLocationPermission();
-        }
-    }
-    // [END maps_current_place_show_current_place]
-
-    /**
-     * Displays a form allowing the user to select a place from a list of likely places.
-     */
-    // [START maps_current_place_open_places_dialog]
-    private void openPlacesDialog() {
-        // Ask the user to choose the place where they are now.
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // The "which" argument contains the position of the selected item.
-                LatLng markerLatLng = likelyPlaceLatLngs[which];
-                String markerSnippet = likelyPlaceAddresses[which];
-                if (likelyPlaceAttributions[which] != null) {
-                    markerSnippet = markerSnippet + "\n" + likelyPlaceAttributions[which];
-                }
-
-                // Add a marker for the selected place, with an info window
-                // showing information about that place.
-                map.addMarker(new MarkerOptions()
-                        .title(likelyPlaceNames[which])
-                        .position(markerLatLng)
-                        .snippet(markerSnippet));
-
-                // Position the map's camera at the location of the marker.
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
-                        DEFAULT_ZOOM));
-            }
-        };
-
-        // Display the dialog.
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.pick_place)
-                .setItems(likelyPlaceNames, listener)
-                .show();
-    }
-    // [END maps_current_place_open_places_dialog]
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.

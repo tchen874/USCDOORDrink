@@ -18,34 +18,63 @@
             android:layout_height="50dp"
             android:text="Profile"
             android:textSize="40dp"
-            android:layout_marginLeft="23dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/profileText"/>
 
-        <EditText
-            android:id="@+id/nameuser"
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:hint="Name"
-            android:textSize="15dp"/>
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Name: "/>
+            <EditText
+                android:id="@+id/nameuser"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:hint="Name"
+                android:textSize="15dp"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/useremail"
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:hint="Email"
-            android:textSize="15dp"/>
-        <EditText
-            android:id="@+id/phoneUser"
+            android:layout_height="75dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:text="Email: "/>
+            <EditText
+                android:id="@+id/useremail"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint="Email"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:hint="Phone Number"
-            android:textSize="15dp"/>
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:text="Phone: "/>
+            <EditText
+                android:id="@+id/phoneUser"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:hint="Phone Number"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/userUpdateButton"
