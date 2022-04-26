@@ -211,6 +211,7 @@ public class mapView extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         drawerLayout = findViewById(R.id.user_drawer_layout);
+
         //initialize arraylist
         locationArrayList = new ArrayList<>();
         nameArrayList = new ArrayList<>();
