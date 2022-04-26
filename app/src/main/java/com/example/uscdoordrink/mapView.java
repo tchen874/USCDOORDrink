@@ -118,7 +118,7 @@ public class mapView extends AppCompatActivity
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private final LatLng defaultLocation = new LatLng(-34.0224, 118.2851);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
@@ -200,7 +200,7 @@ public class mapView extends AppCompatActivity
                 for (DataSnapshot s : snapshot.getChildren()) {
                     //bug fixing - added when null, so check it's not null first!
                     String address =  s.child("address").getValue(String.class);
-                    System.out.println("Address testing: " + address);
+
                     //if address and location aren't null, add marker to list
                     if(address != null){
                         LatLng loc = getLocationFromAddress(getApplicationContext(), s.child("address").getValue(String.class));
@@ -243,10 +243,6 @@ public class mapView extends AppCompatActivity
     public void onMapReady(GoogleMap map) {
         this.map = map;
         getLocationPermission();
-
-        for(LatLng temp : locationArrayList){
-            System.out.println("temp onmapready: " + temp);
-        }
 
         //add markers
         for (int i = 0; i < locationArrayList.size(); i++) {
@@ -376,6 +372,18 @@ public class mapView extends AppCompatActivity
         updateLocationUI();
         //moves to current location of device on map!
         getDeviceLocation();
+
+        //turn off location layer to remove exceeded sample count in frametime
+        try {
+            if (locationPermissionGranted) {
+                map.setMyLocationEnabled(false);
+                map.getUiSettings().setMyLocationButtonEnabled(false);
+
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+
 
         //click listener so it goes to store activity view when we click!
 //        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -525,6 +533,7 @@ public class mapView extends AppCompatActivity
             if (locationPermissionGranted) {
                 map.setMyLocationEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(true);
+
             } else {
                 map.setMyLocationEnabled(false);
                 map.getUiSettings().setMyLocationButtonEnabled(false);
@@ -702,7 +711,7 @@ public class mapView extends AppCompatActivity
 //
     }
 
-
+    // get url to get directions from origin to destination to look up
     private String getDirectionsUrl(LatLng origin, LatLng dest){
         System.out.println("at getDirecitonsUrl");
 
@@ -727,7 +736,9 @@ public class mapView extends AppCompatActivity
         return url;
     }
 
-    /** A method to download json data from url */
+
+
+    // download json data from url
     private String downloadUrl(String strUrl) throws IOException {
         System.out.println("at downloadUrl");
         String data = "";
@@ -811,12 +822,21 @@ public class mapView extends AppCompatActivity
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
+
             try{
                 jObject = new JSONObject(jsonData[0]);
+                System.out.println("jObject: ");
+                System.out.println(jObject);
+                System.out.println("at parsertask about to go to directionsjsonparser");
                 DirectionsJSONParser parser = new DirectionsJSONParser();
-
                 // Starts parsing data
-                routes = parser.parse(jObject);
+                routes = parser.parseLatLng(jObject);
+                System.out.println("route data:");
+                System.out.println(routes);
+                String distance = parser.parseDistance(jObject);
+                String time = parser.parseDuration(jObject);
+                System.out.println("distance: " + distance + " time: " + time);
+
             }catch(Exception e){
                 //if jObject is invalid object... the data you're getting is invalid
                 //if jsonData[0] is null... the data you're getting is invalid
@@ -829,6 +849,8 @@ public class mapView extends AppCompatActivity
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             System.out.println("at parserTask onPostExecute");
+            System.out.println("result at onPostExecute");
+            System.out.println(result);
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
 
@@ -840,10 +862,10 @@ public class mapView extends AppCompatActivity
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
 
+
                 // Fetching all the points in i-th route
                 for(int j=0;j<path.size();j++){
                     HashMap<String,String> point = path.get(j);
-
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);

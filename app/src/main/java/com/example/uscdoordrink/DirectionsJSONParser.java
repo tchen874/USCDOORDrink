@@ -12,12 +12,13 @@ import java.util.List;
 //parse data from google directions
 public class DirectionsJSONParser {
     /** Receives a JSONObject and returns a list of lists containing latitude and longitude */
-    public List<List<HashMap<String,String>>> parse(JSONObject jObject){
+    public List<List<HashMap<String,String>>> parseLatLng(JSONObject jObject){
 
         List<List<HashMap<String, String>>> routes = new ArrayList<>() ;
         JSONArray jRoutes = null;
         JSONArray jLegs = null;
         JSONArray jSteps = null;
+        JSONObject jDistance = null;
 
         try {
 
@@ -27,6 +28,10 @@ public class DirectionsJSONParser {
             for(int i=0;i<jRoutes.length();i++){
                 jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
                 List path = new ArrayList<HashMap<String, String>>();
+
+                jDistance = ( (JSONObject)jLegs.get(i)).getJSONObject("distance");
+//                String text = jDistance.getString("text");
+//                System.out.println("json parseLatLng text: " + text);
 
                 /** Traversing all legs */
                 for(int j=0;j<jLegs.length();j++){
@@ -55,6 +60,62 @@ public class DirectionsJSONParser {
         }catch (Exception e){
         }
         return routes;
+    }
+
+    //my own method to return mile distance lol
+    public String parseDistance(JSONObject jObject){
+        List<List<HashMap<String, String>>> routes = new ArrayList<>() ;
+        JSONArray jRoutes = null;
+        JSONArray jLegs = null;
+        JSONArray jSteps = null;
+        JSONObject jDistance = null;
+        String text = null;
+
+        try {
+
+            jRoutes = jObject.getJSONArray("routes");
+
+            /** Traversing all routes */
+            for(int i=0;i<jRoutes.length();i++){
+                jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+                jDistance = ( (JSONObject)jLegs.get(i)).getJSONObject("distance");
+                text = jDistance.getString("text");
+                System.out.println("json parseDistance text: " + text);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+        }
+        return text;
+    }
+
+    //my own method to return travel time lol
+    public String parseDuration(JSONObject jObject){
+        List<List<HashMap<String, String>>> routes = new ArrayList<>() ;
+        JSONArray jRoutes = null;
+        JSONArray jLegs = null;
+        JSONArray jSteps = null;
+        JSONObject jDistance = null;
+        String text = null;
+
+        try {
+
+            jRoutes = jObject.getJSONArray("routes");
+
+            /** Traversing all routes */
+            for(int i=0;i<jRoutes.length();i++){
+                jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
+                jDistance = ( (JSONObject)jLegs.get(i)).getJSONObject("duration");
+                text = jDistance.getString("text");
+                System.out.println("json parseDuration text: " + text);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+        }
+        return text;
     }
 
     /**
