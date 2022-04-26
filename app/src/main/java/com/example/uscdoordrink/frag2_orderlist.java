@@ -179,6 +179,9 @@ public class frag2_orderlist extends Fragment implements AdapterView.OnItemSelec
         int prevMonth = 0;
         int prevYear = 0;
         //String prevDate = preliminary_orders_list.get(0).substring(22, 32);
+        if(preliminary_orders_list.size() == 0){
+            return;
+        }
         System.out.println("before prevDate preliminary_orders_list: "+ preliminary_orders_list);
         String prevDate = getDateFromOrder(preliminary_orders_list.get(0));
         System.out.println("preliminary_orders_list: "+ preliminary_orders_list);
