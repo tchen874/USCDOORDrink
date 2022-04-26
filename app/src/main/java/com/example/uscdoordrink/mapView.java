@@ -297,6 +297,7 @@ public class mapView extends AppCompatActivity
             public boolean onMarkerClick(@NonNull Marker marker) {
                 for (int i = 0; i < locationArrayList.size(); i++) {
                     //if we found the marker lol
+                    //TODO: edit - make global variable ad boolean and check if they're the same ?
                     if(marker.getTitle().equals(nameArrayList.get(i))){
                         Integer clickCount = (Integer) marker.getTag();
                         System.out.println("clickCount: " + clickCount);
@@ -351,15 +352,15 @@ public class mapView extends AppCompatActivity
         getDeviceLocation();
 
         //turn off location layer to remove exceeded sample count in frametime
-        try {
-            if (locationPermissionGranted) {
-                map.setMyLocationEnabled(false);
-                map.getUiSettings().setMyLocationButtonEnabled(false);
-
-            }
-        } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
-        }
+//        try {
+//            if (locationPermissionGranted) {
+//                map.setMyLocationEnabled(true);
+//                map.getUiSettings().setMyLocationButtonEnabled(true);
+//
+//            }
+//        } catch (SecurityException e)  {
+//            Log.e("Exception: %s", e.getMessage());
+//        }
 
 
         //click listener so it goes to store activity view when we click!
@@ -429,22 +430,7 @@ public class mapView extends AppCompatActivity
                                             DEFAULT_ZOOM));
 
                         }
-//                        if (task.isSuccessful()) {
-//                            // Set the map's camera position to the current location of the device.
-//                            lastKnownLocation = task.getResult();
-//                            if (lastKnownLocation != null) {
-//                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-//                                        new LatLng(lastKnownLocation.getLatitude(),
-//                                                lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-//                            }
-//                        }
-//                        else {
-//                            Log.d(TAG, "Current location is null. Using defaults.");
-//                            Log.e(TAG, "Exception: %s", task.getException());
-//                            map.moveCamera(CameraUpdateFactory
-//                                    .newLatLngZoom(defaultLocation, DEFAULT_ZOOM));
-//                            map.getUiSettings().setMyLocationButtonEnabled(false);
-//                        }
+
                     }
                 });
             }
