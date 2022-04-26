@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,24 +10,24 @@
 
     <TextView
         android:id="@+id/WelcomingUser"
-        android:layout_width="155dp"
-        android:layout_height="139dp"
+        android:layout_width="247dp"
+        android:layout_height="133dp"
         android:text="Welcome customer!"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:translationX="110dp"
+        android:translationX="90dp"
         android:translationY="100dp" />
 
     <TextView
         android:id="@+id/DirectionsToUser"
-        android:layout_width="195dp"
-        android:layout_height="99dp"
+        android:layout_width="329dp"
+        android:layout_height="49dp"
         android:text="Swipe right to view order history in list and chart form!"
         android:textAlignment="center"
-        android:textSize="16sp"
-        android:translationX="110dp"
-        android:translationY="300dp" />
+        android:textSize="20sp"
+        android:translationX="42dp"
+        android:translationY="250dp" />
 
     <Button
         android:id="@+id/btVar1"
@@ -36,21 +37,31 @@
         android:text="Get Weather"
         android:textAlignment="center"
         android:textSize="20dp"
-        android:translationX="30dp"
-        android:translationY="450dp" />
+        android:translationX="40dp"
+        android:translationY="360dp" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:layout_marginBottom="100dp"
         android:fontFamily="sans-serif-black"
         android:text="Get temperature here"
+        android:textAlignment="center"
         android:textColor="#BCBDBB"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
-        android:translationX="30dp"
-        android:translationY="500dp" />
+        android:translationX="20dp"
+        android:translationY="400dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="89dp"
+        android:layout_height="122dp"
+        android:contentDescription="cloudvview"
+        android:translationX="260dp"
+        android:translationY="320dp"
+        tools:src="@drawable/weathercloud" />
 
 </FrameLayout>
