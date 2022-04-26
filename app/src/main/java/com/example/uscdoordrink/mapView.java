@@ -151,6 +151,11 @@ public class mapView extends AppCompatActivity
 
     boolean isDriving = true;
 
+    //last marker clicked so we can check if double click
+    String markerTitle = "";
+    //marker not clicked yet
+    boolean markerClicked = false;
+
 
     // create map
     @Override
@@ -299,44 +304,74 @@ public class mapView extends AppCompatActivity
                     //if we found the marker lol
                     //TODO: edit - make global variable ad boolean and check if they're the same ?
                     if(marker.getTitle().equals(nameArrayList.get(i))){
-                        Integer clickCount = (Integer) marker.getTag();
-                        System.out.println("clickCount: " + clickCount);
-                        if (clickCount != null) {
-                            //if click twice
-                            if (clickCount == 1) {
-                                System.out.println("marker clicked twice! clickCount: " + clickCount);
-                                //reset click count
-                                clickCount = 0;
-                                marker.setTag(clickCount);
-                                //go to store activity
-                                String currentMerchantUid = MerchantUidList.get(i);
-                                String merchantName = marker.getTitle();
-                                User_store userStore = new User_store(s);
-                                Intent intent = new Intent(mapView.this, userStore.getClass());
-                                intent.putExtra("UID_STRING", currentMerchantUid);
-                                intent.putExtra("STORE_NAME", merchantName);
-                                System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
-                                startActivity(intent);
+                        //get store name
+                        String name = marker.getTitle();
+                        //check if store name equals last marker clicked
+                        if(markerTitle.equals(name)){
+                            //go to store activity
+                            String currentMerchantUid = MerchantUidList.get(i);
+                            String merchantName = marker.getTitle();
+                            User_store userStore = new User_store(s);
+                            Intent intent = new Intent(mapView.this, userStore.getClass());
+                            intent.putExtra("UID_STRING", currentMerchantUid);
+                            intent.putExtra("STORE_NAME", merchantName);
+                            System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
+                            startActivity(intent);
 
-                            }
-                            //else if click once
-                            else if (clickCount == 0) {
-                                //increment click count
-                                clickCount = clickCount + 1;
-                                marker.setTag(clickCount);
-                                System.out.println("marker clicked once!");
-                                //turn lastKnownLocation and marker location into LatLng
-                                LatLng origin = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-                                LatLng destination = marker.getPosition();
-                                // drawRoute
-                                try {
-                                    drawRoute(origin, destination);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
+                        }
+                        //else new marker was clicked once
+                        else{
+                            markerTitle = name;
+                            markerClicked = false;
+                            System.out.println("marker clicked once!");
+                            //turn lastKnownLocation and marker location into LatLng
+                            LatLng origin = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                            LatLng destination = marker.getPosition();
+                            // drawRoute
+                            try {
+                                drawRoute(origin, destination);
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
+//                        Integer clickCount = (Integer) marker.getTag();
+//                        System.out.println("clickCount: " + clickCount);
+//                        if (clickCount != null) {
+//                            //if click twice
+//                            if (clickCount == 1) {
+//                                System.out.println("marker clicked twice! clickCount: " + clickCount);
+//                                //reset click count
+//                                clickCount = 0;
+//                                marker.setTag(clickCount);
+//                                //go to store activity
+//                                String currentMerchantUid = MerchantUidList.get(i);
+//                                String merchantName = marker.getTitle();
+//                                User_store userStore = new User_store(s);
+//                                Intent intent = new Intent(mapView.this, userStore.getClass());
+//                                intent.putExtra("UID_STRING", currentMerchantUid);
+//                                intent.putExtra("STORE_NAME", merchantName);
+//                                System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
+//                                startActivity(intent);
+//
+//                            }
+//                            //else if click once
+//                            else if (clickCount == 0) {
+//                                //increment click count
+//                                clickCount = clickCount + 1;
+//                                marker.setTag(clickCount);
+//                                System.out.println("marker clicked once!");
+//                                //turn lastKnownLocation and marker location into LatLng
+//                                LatLng origin = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+//                                LatLng destination = marker.getPosition();
+//                                // drawRoute
+//                                try {
+//                                    drawRoute(origin, destination);
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        }
                     }
 
                 }
@@ -351,30 +386,7 @@ public class mapView extends AppCompatActivity
         //moves to current location of device on map!
         getDeviceLocation();
 
-        //turn off location layer to remove exceeded sample count in frametime
-//        try {
-//            if (locationPermissionGranted) {
-//                map.setMyLocationEnabled(true);
-//                map.getUiSettings().setMyLocationButtonEnabled(true);
-//
-//            }
-//        } catch (SecurityException e)  {
-//            Log.e("Exception: %s", e.getMessage());
-//        }
 
-
-        //click listener so it goes to store activity view when we click!
-//        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//            @Override
-//            public boolean onMarkerClick(@NonNull Marker marker) {
-//                //when marker is clicked, we go to activity
-//                System.out.println("clicked marker!");
-//                String title = marker.getTitle();
-//                System.out.println("marker title: " + title);
-//                Intent intent = new Intent(getApplicationContext(), DrinklistActivity.class);
-//                return false;
-//            }
-//        });
 
     }
 
@@ -462,27 +474,6 @@ public class mapView extends AppCompatActivity
     }
     // [END maps_current_place_location_permission]
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
-    // [START maps_current_place_on_request_permissions_result]
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        locationPermissionGranted = false;
-//        if (requestCode
-//                == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {// If request is cancelled, the result arrays are empty.
-//            if (grantResults.length > 0
-//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                locationPermissionGranted = true;
-//            }
-//        } else {
-//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        }
-//        updateLocationUI();
-//    }
-    // [END maps_current_place_on_request_permissions_result]
 
     /**
      * Updates the map's UI settings based on whether the user has granted location permission.
