@@ -204,15 +204,15 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                 for (DataSnapshot s : snapshot.getChildren()){
                     if(s.getKey().toString().equals("storeName"))
                     {
-                        storeName.setText(s.getValue().toString());
+                        storeName.setText("Store Name: " + s.getValue().toString());
                     }
                     if(s.getKey().toString().equals("address"))
                     {
-                        storeAdress.setText(s.getValue().toString());
+                        storeAdress.setText("Address: " + s.getValue().toString());
                     }
                     if(s.getKey().toString().equals("phoneNumber"))
                     {
-                        storePhone.setText(s.getValue().toString());
+                        storePhone.setText("Phone: " + s.getValue().toString());
                     }
                 }
             }

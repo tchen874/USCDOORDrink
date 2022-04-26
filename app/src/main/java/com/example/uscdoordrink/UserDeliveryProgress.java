@@ -129,15 +129,15 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
                 for (DataSnapshot s : snapshot.getChildren()){
                     if(s.getKey().toString().equals("storeName"))
                     {
-                        storeName.setText(s.getValue().toString());
+                        storeName.setText("Store Name: " + s.getValue().toString());
                     }
                     if(s.getKey().toString().equals("address"))
                     {
-                        storeAddress.setText(s.getValue().toString());
+                        storeAddress.setText("Address: " + s.getValue().toString());
                     }
                     if(s.getKey().toString().equals("phoneNumber"))
                     {
-                        storePhone.setText(s.getValue().toString());
+                        storePhone.setText("Phone: " + s.getValue().toString());
                     }
                 }
 

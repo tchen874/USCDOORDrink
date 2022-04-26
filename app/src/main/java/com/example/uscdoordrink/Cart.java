@@ -130,16 +130,16 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 for (DataSnapshot s : snapshot.getChildren()){
                     if(s.getKey().toString().equals("storeName"))
                     {
-                        storeName.setText(s.getValue().toString());
+                        storeName.setText("Store Name: " + s.getValue().toString());
                         nameStorest = s.getValue().toString();
                     }
                     if(s.getKey().toString().equals("address"))
                     {
-                        address.setText(s.getValue().toString());
+                        address.setText("Address: " + s.getValue().toString());
                     }
                     if(s.getKey().toString().equals("phoneNumber"))
                     {
-                        Phonenumber.setText(s.getValue().toString());
+                        Phonenumber.setText("Phone: " + s.getValue().toString());
                     }
 //                    if(s.getKey().toString().equals("orders"))
 //                    {
