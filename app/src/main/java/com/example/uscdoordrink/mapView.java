@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -148,6 +149,8 @@ public class mapView extends AppCompatActivity
     //polyline for directions
     private Polyline mPolyline;
 
+    boolean isDriving = true;
+
 
     // create map
     @Override
@@ -162,6 +165,37 @@ public class mapView extends AppCompatActivity
 
         // view map
         setContentView(R.layout.activity_mapview);
+
+        //buttons
+        Button drivingButton = findViewById(R.id.drivingbutton);
+        Button bikingButton = findViewById(R.id.bikingbutton);
+
+        //if click driving button
+        drivingButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 System.out.println("Driving button clicked");
+                 //change boolean
+                 isDriving = true;
+                 //change current mode text
+                TextView tv = (TextView)findViewById(R.id.textCurrentMode);
+                tv.setText("Driving");
+
+             }
+        });
+
+        //if click driving button
+        bikingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Biking button clicked");
+                //change boolean
+                isDriving = false;
+                //change current mode text
+                TextView tv = (TextView)findViewById(R.id.textCurrentMode);
+                tv.setText("Biking");
+            }
+        });
 
         //initialize it
         Places.initialize(getApplicationContext(), "AIzaSyCWDouECJGV1idsJfVU7lMf4Nj22_nUzIo");
@@ -836,6 +870,16 @@ public class mapView extends AppCompatActivity
                 String distance = parser.parseDistance(jObject);
                 String time = parser.parseDuration(jObject);
                 System.out.println("distance: " + distance + " time: " + time);
+                //change time and distance views
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView tv1 = (TextView)findViewById(R.id.textTravelTime);
+                        tv1.setText(time);
+                        TextView tv2 = (TextView)findViewById(R.id.textDistance);
+                        tv2.setText(distance + "les");
+                    }
+                });
 
             }catch(Exception e){
                 //if jObject is invalid object... the data you're getting is invalid
