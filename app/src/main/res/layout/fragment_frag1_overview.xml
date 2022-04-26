@@ -28,4 +28,29 @@
         android:translationX="110dp"
         android:translationY="300dp" />
 
+    <Button
+        android:id="@+id/btVar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Get Weather"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:translationX="30dp"
+        android:translationY="450dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:layout_marginBottom="100dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Get temperature here"
+        android:textColor="#BCBDBB"
+        android:textSize="25dp"
+        android:textStyle="bold|italic"
+        android:translationX="30dp"
+        android:translationY="500dp" />
+
 </FrameLayout>

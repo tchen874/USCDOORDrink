@@ -98,7 +98,10 @@ public class mainTabLayout extends AppCompatActivity {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             //this is where I now display different fragments depending on tab
             //frag1_overview.newInstance("Welcome user", "Please swipe right to view history in list and chart form");
+            frag1_overview.newInstance();
             frag2_orderlist.newInstance();
+            frag3_orderchart.newInstance();
+
             return rootView;
         }
     }
