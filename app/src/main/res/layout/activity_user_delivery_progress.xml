@@ -34,12 +34,28 @@
                     android:textSize="20sp"
                     android:layout_margin="15dp"
                     android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/deliveryorderstatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Status"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
 
                 <TextView
                     android:id="@+id/Delievryordertime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Order Time"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+                <TextView
+                    android:id="@+id/deliveryodercompletetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Order Complete:"
                     android:textSize="15sp"
                     android:layout_margin="15dp"
                     android:textColor="@color/black"></TextView>

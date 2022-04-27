@@ -51,6 +51,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
     String nameUserst;
     TextView userName;
     TextView cancleOrder;
+    String travelTime;
 
     public Cart()
     {
@@ -122,16 +123,20 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 
             if(extras == null) {
                 currentStoreid= null;
+                travelTime = null;
 //                storeName = null;
             }
             else
             {
                 currentStoreid= extras.getString("UID_STRING");
+                travelTime = extras.getString("TRAVEL_TIME");
             }
         } else {
             //when click map view needs to know what store it is
             // in user store, once user clicks add to cart she needs to know which store you're looking at
             currentStoreid= (String) savedInstanceState.getSerializable("UID_STRING");
+            travelTime = (String) savedInstanceState.getSerializable("TRAVEL_TIME");
+
 //            strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
@@ -372,6 +377,7 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
                 UserDeliveryProgress userdelivery = new UserDeliveryProgress();
                 Intent intent = new Intent(Cart.this, userdelivery.getClass());
                 intent.putExtra("UID_STRING", currentStoreid);
+                intent.putExtra("TRAVEL_TIME", travelTime);
                 intent.putExtra("ORDERTIME", dateStr + " " + timeStr);
 
 

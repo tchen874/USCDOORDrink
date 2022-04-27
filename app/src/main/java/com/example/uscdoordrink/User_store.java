@@ -57,6 +57,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
     Order order;
     Spinner spinner;
     TextView userName;
+    String travelTime;
 
     public User_store()
     {
@@ -113,7 +114,6 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
 
 
         // Load the orders in map
-        //TODO: get child
         //Get the Caffine
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("UserOrders").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         userref.addValueEventListener(new ValueEventListener() {
@@ -164,13 +164,17 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
             if(extras == null) {
                 currentStoreid= null;
                 storeName = null;
+                travelTime = null;
             } else {
                 currentStoreid= extras.getString("UID_STRING");
                 strStoreName = extras.getString("STORE_NAME");
+                travelTime = extras.getString("TRAVEL_TIME");
             }
         } else {
             currentStoreid= (String) savedInstanceState.getSerializable("UID_STRING");
             strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
+            travelTime = (String) savedInstanceState.getSerializable("TRAVEL_TIME");
+
         }
         System.out.println("currentStoreid: " + currentStoreid);
         System.out.println("strStoreName: " + strStoreName);
@@ -402,7 +406,7 @@ public class User_store extends AppCompatActivity implements View.OnClickListene
                 Cart user_cart = new Cart(s);
                 Intent intent = new Intent(User_store.this, user_cart.getClass());
                 intent.putExtra("UID_STRING", currentStoreid);
-
+                intent.putExtra("TRAVEL_TIME", travelTime);
 
                 ArrayList<Drink> dlist = cart;
                 Bundle bundle = new Bundle();

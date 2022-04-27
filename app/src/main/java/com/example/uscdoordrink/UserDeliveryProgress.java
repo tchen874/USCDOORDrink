@@ -3,9 +3,12 @@ package com.example.uscdoordrink;
 import static java.lang.Thread.sleep;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class UserDeliveryProgress extends AppCompatActivity implements java.io.Serializable{
@@ -39,6 +48,9 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     List<List<String>> orderArray;
     DatabaseReference userdatabaseRef;
     TextView userName;
+    String travelTime;
+    TextView orderStatus;
+    TextView orderDeliveryTime;
 
     public UserDeliveryProgress()
     {
@@ -63,6 +75,8 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         storeAddress = findViewById(R.id.DelievryStoreAddress);
         storePhone = findViewById(R.id.DelievryStorePhone);
         oderTime = findViewById(R.id.Delievryordertime);
+        orderStatus = findViewById(R.id.deliveryorderstatus);
+        orderDeliveryTime = findViewById(R.id.deliveryodercompletetime);
 
         orders = new ArrayList<>();
         Intent intent = this.getIntent();
@@ -107,21 +121,31 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
 
             if(extras == null) {
                 currentStoreid= null;
+                travelTime = null;
 //                storeName = null;
             } else {
                 currentStoreid= extras.getString("UID_STRING");
                 orderTime = extras.getString("ORDERTIME");
+                travelTime = extras.getString("TRAVEL_TIME");
             }
         } else {
             currentStoreid= (String) savedInstanceState.getSerializable("UID_STRING");
             orderTime = (String) savedInstanceState.getSerializable("ORDERTIME");
+            travelTime = (String) savedInstanceState.getSerializable("TRAVEL_TIME");
 //            strStoreName = (String) savedInstanceState.getSerializable("STORE_NAME");
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
 
+        travelTime = travelTime.replace(" min", "");
 
-        System.out.println("Delievry:::: " + orders.size() + currentStoreid);
-        loadView();
+
+
+        System.out.println("Travel time in delivery::::" + travelTime);
+        try {
+            loadView();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 //        try {
 //            Thread.sleep(50000);
@@ -140,7 +164,11 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
 
     //TODO expresso test by calling view
     //e
-    private void loadView() {
+    private void loadView() throws ParseException {
+
+        orderStatus.setText("Order Status: Complete");
+
+//        orderDeliveryTime.setText();
 
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(currentStoreid);
         System.out.println("Userref in delivery" + userref.toString());
@@ -171,6 +199,27 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
             }
         });
         oderTime.setText("Order Time: " + orderTime);
+        String[] tempstr= orderTime.split(" ");
+        System.out.println("DElievry complete time" + tempstr[0] + " index1" + tempstr[1] );
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm::ss");
+        Date d = df.parse(tempstr[1]);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.MINUTE, (Integer.parseInt(travelTime) + 7));
+        cal.add(Calendar.SECOND,  7);
+        String newTime = df.format(cal.getTime());
+        orderDeliveryTime.setText("Order Complete: " + tempstr[0] + " " + newTime);
+
+
+
+
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 6);// for 6 hour
+        calendar.set(Calendar.MINUTE, 0);// for 0 min
+        calendar.set(Calendar.SECOND, 0);// for 0 sec
+        System.out.println(calendar.getTime());
 
 
         for(int i = 0; i < orders.size(); i++)
@@ -187,7 +236,6 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
             layout.addView(MenuView);
         }
     }
-
 
     // For navigation purpose
     public void UserClickMenu(View view)

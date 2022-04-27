@@ -157,6 +157,7 @@ public class mapView extends AppCompatActivity
     boolean markerClicked = false;
     TextView userName;
     String name;
+    String travelTime;
 
 
     // create map
@@ -178,6 +179,7 @@ public class mapView extends AppCompatActivity
         Button bikingButton = findViewById(R.id.bikingbutton);
 
         userName = findViewById(R.id.userName);
+        travelTime = "";
 
         // Get name
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -337,6 +339,7 @@ public class mapView extends AppCompatActivity
                             Intent intent = new Intent(mapView.this, userStore.getClass());
                             intent.putExtra("UID_STRING", currentMerchantUid);
                             intent.putExtra("STORE_NAME", merchantName);
+                            intent.putExtra("TRAVEL_TIME", travelTime);
                             System.out.println("uid_string: " + currentMerchantUid + " store_name: " + merchantName);
                             startActivity(intent);
 
@@ -816,6 +819,8 @@ public class mapView extends AppCompatActivity
                 System.out.println(routes);
                 String distance = parser.parseDistance(jObject);
                 String time = parser.parseDuration(jObject);
+                travelTime = time;
+
                 System.out.println("distance: " + distance + " time: " + time);
                 //change time and distance views
                 runOnUiThread(new Runnable() {

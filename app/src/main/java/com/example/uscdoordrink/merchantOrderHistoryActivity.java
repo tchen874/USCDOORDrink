@@ -52,6 +52,11 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
 
+
+
+        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
         merchantName = findViewById(R.id.merchantusername);
         DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         userref.addValueEventListener(new ValueEventListener() {
@@ -69,9 +74,6 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
 
             }
         });
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override

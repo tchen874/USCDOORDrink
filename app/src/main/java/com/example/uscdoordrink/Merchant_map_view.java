@@ -106,6 +106,7 @@ public class Merchant_map_view extends AppCompatActivity
     private ArrayList<LatLng> locationArrayList;
     //array list for store names
     private ArrayList<String> nameArrayList;
+    TextView merchantName;
 
 
     // [START maps_current_place_on_create]
@@ -183,6 +184,24 @@ public class Merchant_map_view extends AppCompatActivity
             //});
         };
         ref.addValueEventListener(postlistener);
+
+        merchantName = findViewById(R.id.merchantusername);
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference().child("Merchants").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //shows store name, address, and phone
+                for (DataSnapshot s : snapshot.getChildren()){
+                    if(s.getKey().toString().equals("name")) {
+                        merchantName.setText(s.getValue().toString());
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
