@@ -80,6 +80,17 @@ press update after editing!
 
 
 ### logout
-this button logs the user out. 
+this button logs the user out.
+
+### new updates
+- Implementation of basic features such as showing biking and driving route from current location to store
+- UI changes such as showing category names before the editText
+- Added toasts to notify user an action has been completed after adding to cart, checking out, etc
+- Additional features such as:
+      - User can filter menu items from best match, price low-to-high, price high-to-low, caffeine high-to-low and caffeine low-to-high
+      - User gets drink recommendation based on the weather of their current location with multiple different scenarios possible depending on whether weather is less than 40 degrees fahrenheit, between 40 and 72 degrees fahrenheit, between 72 and 85 degrees fahrenheit, and above 85 degrees fahrenheit.
+      - User can check out a comprehensive view of their order history through swiping between tabs and then seeing a graphical representation of their order history
+      - Merchant can check out a comprehensive view of their order history through swiping between tabs and then seeing a graphical representation of their customer order history
+
 
 
