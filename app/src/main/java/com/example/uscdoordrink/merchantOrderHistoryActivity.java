@@ -43,8 +43,8 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_orderchart);
-        drawerLayout = findViewById(R.id.user_drawer_layout);
+        setContentView(R.layout.activity_merchant_order_history);
+        drawerLayout = findViewById(R.id.drawer_layour);
 
         sectionsPagerAdapter = new merchantOrderHistoryActivity.SectionsPagerAdapter(getSupportFragmentManager());
 
