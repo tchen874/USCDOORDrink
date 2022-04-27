@@ -113,8 +113,6 @@ public class frag2_orderlist extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String orderlist = snapshot.
-
-
                 preliminary_orders_list = generateOrderList(snapshot);
                 //addGroupDataToListView();
                 //sendRecommendation();

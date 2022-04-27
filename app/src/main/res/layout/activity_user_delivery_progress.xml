@@ -61,6 +61,15 @@
                     android:textColor="@color/black"></TextView>
 
                 <TextView
+                    android:id="@+id/deliverydriverName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Driver Name:"
+                    android:textSize="15sp"
+                    android:layout_margin="15dp"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
                     android:id="@+id/DelievryStoreName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

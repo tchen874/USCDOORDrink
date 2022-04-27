@@ -30,9 +30,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class UserDeliveryProgress extends AppCompatActivity implements java.io.Serializable{
     DrawerLayout drawerLayout;
@@ -51,6 +53,9 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
     String travelTime;
     TextView orderStatus;
     TextView orderDeliveryTime;
+    List<String> drivername;
+    TextView deliveryNames;
+    Random rand;
 
     public UserDeliveryProgress()
     {
@@ -77,6 +82,23 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         oderTime = findViewById(R.id.Delievryordertime);
         orderStatus = findViewById(R.id.deliveryorderstatus);
         orderDeliveryTime = findViewById(R.id.deliveryodercompletetime);
+        deliveryNames = findViewById(R.id.deliverydriverName);
+        rand = new Random();
+
+        drivername = new ArrayList<>(
+                Arrays.asList("Tommy Trojan",
+                        "Tommy Trojan",
+                        "Danny Devito",
+                        "Miranda Cosa",
+                        "Rachel Smith",
+                        "Marissa Hart",
+                        "Jackson Sicard",
+                        "Allston Allison",
+                        "Raquel Latorre",
+                        "Ingrid Koback",
+                        "Sterling Terranova",
+                        "Nolan Fauchier")
+        );
 
         orders = new ArrayList<>();
         Intent intent = this.getIntent();
@@ -209,18 +231,8 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         cal.add(Calendar.SECOND,  7);
         String newTime = df.format(cal.getTime());
         orderDeliveryTime.setText("Order Complete: " + tempstr[0] + " " + newTime);
-
-
-
-
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 6);// for 6 hour
-        calendar.set(Calendar.MINUTE, 0);// for 0 min
-        calendar.set(Calendar.SECOND, 0);// for 0 sec
-        System.out.println(calendar.getTime());
-
+        int index = rand.nextInt(drivername.size()-1);
+        deliveryNames.setText("Deliveryman Name: " + drivername.get(index));
 
         for(int i = 0; i < orders.size(); i++)
         {

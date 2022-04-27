@@ -7,6 +7,7 @@
         <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17135416666666667" />
         <entry key="app/src/main/res/drawable/ic_account.xml" value="0.2635" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.2635" />
+        <entry key="app/src/main/res/drawable/ic_menu_book.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.2759033203125" />
         <entry key="app/src/main/res/layout/activity_drink_in_cart.xml" value="0.2797905521116395" />
         <entry key="app/src/main/res/layout/activity_drink_in_delivery.xml" value="0.1" />

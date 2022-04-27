@@ -88,7 +88,7 @@ tools:context=".drink_in_cart">
                 android:layout_height="25dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Cancle Order"
+                android:text="Cancel Order"
                 app:layout_constraintTop_toBottomOf="@+id/PlaceOrder" />
 
         </LinearLayout>
