@@ -4,12 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
-        <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.17135416666666667" />
+        <entry key="../../Library/Android/sdk/platforms/android-32/android.jar!/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
+        <entry key="../../Library/Android/sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.1703125" />
         <entry key="app/src/main/res/drawable/ic_account.xml" value="0.2635" />
+        <entry key="app/src/main/res/drawable/ic_android.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_baseline_insert_chart_outlined_24.xml" value="0.175" />
+        <entry key="app/src/main/res/drawable/ic_baseline_pie_chart_24.xml" value="0.175" />
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_delivery.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_fastfood.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_history.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_info.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_logout.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_map.xml" value="0.146" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.2635" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.2759033203125" />
         <entry key="app/src/main/res/layout/activity_drink_in_cart.xml" value="0.2797905521116395" />
-        <entry key="app/src/main/res/layout/activity_drink_in_delivery.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_drink_in_delivery.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_drinklist.xml" value="0.2078804347826087" />
         <entry key="app/src/main/res/layout/activity_firebase_ui.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_forgotpassword.xml" value="0.26875" />
@@ -24,37 +36,40 @@
         <entry key="app/src/main/res/layout/activity_merchant_order_history.xml" value="0.18854166666666666" />
         <entry key="app/src/main/res/layout/activity_merchent_edit_menu.xml" value="0.20774078369140625" />
         <entry key="app/src/main/res/layout/activity_order_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_orderchart.xml" value="0.17391304347826086" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_orderchart.xml" value="0.1259259259259259" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.26875" />
         <entry key="app/src/main/res/layout/activity_signup.xml" value="0.33770225635473283" />
         <entry key="app/src/main/res/layout/activity_single_order_history.xml" value="0.2006340579710145" />
         <entry key="app/src/main/res/layout/activity_trip_information.xml" value="0.10030395136778116" />
         <entry key="app/src/main/res/layout/activity_user_about_us.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_user_delivery_progress.xml" value="0.1700404858299595" />
+        <entry key="app/src/main/res/layout/activity_user_delivery_progress.xml" value="0.2286822111710258" />
         <entry key="app/src/main/res/layout/activity_user_navigation.xml" value="0.1272644927536232" />
-        <entry key="app/src/main/res/layout/activity_user_order_history.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_user_order_history.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.21213836669921882" />
-        <entry key="app/src/main/res/layout/activity_user_store.xml" value="0.486018210963199" />
+        <entry key="app/src/main/res/layout/activity_user_store.xml" value="0.335" />
         <entry key="app/src/main/res/layout/content_user_about_us.xml" value="0.1331521739130435" />
         <entry key="app/src/main/res/layout/current_place_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/custom_info_contents.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/drink.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_frag1_overview.xml" value="0.17391304347826086" />
-        <entry key="app/src/main/res/layout/fragment_frag1_overview_merch.xml" value="0.17391304347826086" />
+        <entry key="app/src/main/res/layout/drink.xml" value="0.31816253662109373" />
+        <entry key="app/src/main/res/layout/fragment_frag1_overview.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_frag1_overview_merch.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_frag2_orderlist.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_frag2_orderlist_merch.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_frag3_orderchart.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_frag3_orderchart_merch.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_history_merchant.xml" value="0.11322188449848024" />
         <entry key="app/src/main/res/layout/fragment_menu_merchant.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/fragment_merchant_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_orderchart.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_profile_merchant.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/itemlistrow.xml" value="0.19537037037037036" />
         <entry key="app/src/main/res/layout/main_nav_drawer.xml" value="0.25" />
         <entry key="app/src/main/res/layout/main_toolbar.xml" value="0.20334320068359377" />
         <entry key="app/src/main/res/layout/notificationview.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/single_drink_in_cart.xml" value="0.17391304347826086" />
-        <entry key="app/src/main/res/layout/single_drink_in_menu.xml" value="0.19114583333333332" />
         <entry key="app/src/main/res/layout/single_drink_view.xml" value="0.18854166666666666" />
-        <entry key="app/src/main/res/layout/user_nav_drawer.xml" value="0.17355371900826447" />
-        <entry key="app/src/main/res/layout/user_tool_bar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/user_nav_drawer.xml" value="0.24292144775390626" />
+        <entry key="app/src/main/res/layout/user_tool_bar.xml" value="0.2715057373046875" />
         <entry key="app/src/main/res/menu/activity_row_menu.xml" value="0.23958333333333334" />
         <entry key="app/src/main/res/menu/current_place_menu.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/menu/merchant_navigation_items.xml" value="0.25833333333333336" />

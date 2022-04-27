@@ -62,6 +62,6 @@
         android:contentDescription="cloudvview"
         android:translationX="260dp"
         android:translationY="320dp"
-        tools:src="@drawable/weathercloud" />
+        android:src="@drawable/cloudpic" />
 
 </FrameLayout>
