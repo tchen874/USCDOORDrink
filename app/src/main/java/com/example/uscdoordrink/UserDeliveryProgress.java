@@ -227,7 +227,7 @@ public class UserDeliveryProgress extends AppCompatActivity implements java.io.S
         Date d = df.parse(tempstr[1]);
         Calendar cal = Calendar.getInstance();
         cal.setTime(d);
-        cal.add(Calendar.MINUTE, (Integer.parseInt(travelTime) + 7));
+        cal.add(Calendar.MINUTE, 7);
         cal.add(Calendar.SECOND,  7);
         String newTime = df.format(cal.getTime());
         orderDeliveryTime.setText("Order Complete: " + tempstr[0] + " " + newTime);
