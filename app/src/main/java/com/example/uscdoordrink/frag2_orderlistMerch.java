@@ -102,6 +102,8 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
                 //String orderlist = snapshot.
 
                 preliminary_orders_list = generateOrderList(snapshot);
+                //preliminary_orders_list.clear();
+
                 //addGroupDataToListView();
                 //sendRecommendation();
             }
@@ -247,6 +249,8 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
             System.out.println("groupIndicator.size(): "+ groupIndicator.size());
             System.out.println("currentDayList.size(): "+ currentDayList.size());
             System.out.println("currentDayList in the for loop: "+ currentDayList);
+            System.out.println("currentMonthList in the for loop: "+ currentMonthList);
+            System.out.println("currentYearList in the for loop: "+ currentYearList);
 
 
             if (groupIndicator.get(i) != groupNum){
@@ -315,7 +319,7 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
         //String strtitle = getString(R.string.notificationtitle);
         //String strtext = getString(R.string.notificationtext);
         Context context = getActivity();
-        String text = "Customers bought the drink " + recommendation + " the most so consider adding more similar menu items.";
+        String text = "You sold " + recommendation + " the most so sell something else.";
         int duration = Toast.LENGTH_LONG;
 
         Toast toast = Toast.makeText(context,text,duration );
