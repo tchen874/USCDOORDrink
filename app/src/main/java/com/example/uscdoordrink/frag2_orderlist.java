@@ -77,6 +77,9 @@ public class frag2_orderlist extends Fragment implements AdapterView.OnItemSelec
         //args.putString(ARG_PARAM1, param1);
         //args.putString(ARG_PARAM2, param2);
         //fragment.setArguments(args);
+        System.out.println("fragment instantiation" + fragment);
+
+        fragment.addGroupDataToListView();
         return fragment;
     }
 
@@ -114,6 +117,7 @@ public class frag2_orderlist extends Fragment implements AdapterView.OnItemSelec
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String orderlist = snapshot.
                 preliminary_orders_list = generateOrderList(snapshot);
+                addGroupDataToListView();
                 //addGroupDataToListView();
                 //sendRecommendation();
             }
@@ -290,7 +294,6 @@ public class frag2_orderlist extends Fragment implements AdapterView.OnItemSelec
         }
         listview_adapter.notifyDataSetChanged();
         //after list appears send notification
-        sendRecommendation();
 
     }
     private String getRecommendation(){
