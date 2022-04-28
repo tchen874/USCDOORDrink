@@ -118,9 +118,9 @@ public class merchantOrderHistoryActivity extends AppCompatActivity {
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             //this is where I now display different fragments depending on tab
             //frag1_overview.newInstance("Welcome user", "Please swipe right to view history in list and chart form");
-            frag2_orderlist.newInstance();
+            frag2_orderlistMerch.newInstance();
             frag1_overviewMerch.newInstance();
-            frag3_orderchart.newInstance();
+            Frag3_orderchartMerch.newInstance();
 
             return rootView;
         }

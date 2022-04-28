@@ -68,14 +68,14 @@ public class frag2_orderlistMerch extends Fragment implements AdapterView.OnItem
     // TODO: Rename and change types and number of parameters
     public static frag2_orderlistMerch newInstance() {
         frag2_orderlistMerch fragment = new frag2_orderlistMerch();
-
+        fragment.addGroupDataToListView();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadView();
+
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {

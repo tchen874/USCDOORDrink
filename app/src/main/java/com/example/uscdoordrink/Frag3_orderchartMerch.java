@@ -11,6 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.EntryXComparator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,9 +33,13 @@ import com.google.firebase.database.ValueEventListener;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +56,15 @@ public class Frag3_orderchartMerch extends Fragment {
     TextView firstTV, firstTV1, secondTV, secondTV1, thirdTV, thirdTV1, fourthTV, fourthTV1;
     TextView first_label, second_label, third_label, fourth_label;
     PieChart pieChart;
-
+    LineChart chart;
+    XAxis xAxis;
+    YAxis leftAxis;
 
     PieChartView pieChartView;
     private boolean hasLabels = true;
     ArrayList<String> preliminary_orders_list;
+    ArrayList<String> second_preliminary_orders_list;
+
 
 
     public Frag3_orderchartMerch() {
@@ -55,12 +75,10 @@ public class Frag3_orderchartMerch extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment Frag3_orderchartMerch.
      */
     // TODO: Rename and change types and number of parameters
-    public static Frag3_orderchartMerch newInstance(String param1, String param2) {
+    public static Frag3_orderchartMerch newInstance() {
         Frag3_orderchartMerch fragment = new Frag3_orderchartMerch();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -94,8 +112,11 @@ public class Frag3_orderchartMerch extends Fragment {
 
         pieChart = v.findViewById(R.id.piechart);
 
+
         //setData();
         loadView();
+        //getDataSet();
+
         return v;
     }
 
@@ -111,10 +132,10 @@ public class Frag3_orderchartMerch extends Fragment {
 
 
                 preliminary_orders_list = generateOrderList(snapshot);
+
                 //preliminary_orders_list.clear();
                 //addGroupDataToListView();
                 String recommendation = getRecommendation();
-                //TODO where I split up top four popular drinks and put into four var
             }
 
             @Override
@@ -123,18 +144,19 @@ public class Frag3_orderchartMerch extends Fragment {
             }
         });
     }
-    public String getDateFromOrder(String order){
+
+    public String getDateFromOrder(String order) {
         return order.substring(22, 32);
     }
 
-    public ArrayList<String> generateOrderList(DataSnapshot snapshot){
+    public ArrayList<String> generateOrderList(DataSnapshot snapshot) {
         String orderString = "";
         ArrayList<String> ordersList = new ArrayList<>();
 
         System.out.println("snapshot in genOrderList: " + snapshot);
-        for(DataSnapshot i : snapshot.getChildren()) {
+        for (DataSnapshot i : snapshot.getChildren()) {
 
-            System.out.println("i: "+ snapshot.getChildren());
+            System.out.println("i: " + snapshot.getChildren());
             for (DataSnapshot s : i.getChildren()) {
                 //how to convert between snapshot and orderlist??
                 //array of string value pairs?!
@@ -162,34 +184,35 @@ public class Frag3_orderchartMerch extends Fragment {
         return ordersList;
     }
 
-    private String getRecommendation(){
+    private String getRecommendation() {
         //go through list, get rec, put into String
         int max = Integer.MIN_VALUE;
         String recommendation = "";
         //use split!!
         HashMap<String, Integer> map = new HashMap<>();
-        for (String order: preliminary_orders_list) {
+        for (String order : preliminary_orders_list) {
+            System.out.println("This is what an order looks like: " + order);
             int indexOfDrinkName = order.indexOf("drinkName='");
             int startIndex = indexOfDrinkName + 10;
             int endIndex = order.indexOf(", price=");
             String recDrinkName = order.substring(startIndex, endIndex);
-            if(!map.containsKey(recDrinkName)){
+            if (!map.containsKey(recDrinkName)) {
                 map.put(recDrinkName, 1);
             } else {
                 int numOccurences = map.get(recDrinkName);
                 map.put(recDrinkName, ++numOccurences);
             }
         }
-        System.out.println("Map at line 208: "+ map);
-        System.out.println("map.entrySet(): "+ map.entrySet());
+        System.out.println("Map at line 208: " + map);
+        System.out.println("map.entrySet(): " + map.entrySet());
 
         //create list from elements in HashMap
-        List<Map.Entry<String, Integer> > list = new ArrayList<Map.Entry<String, Integer> > (map.entrySet());
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(map.entrySet());
         //sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >(){
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             //("boba", 3), ("milk", 2), ("coffee", 1)
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return ((Comparable) ((Map.Entry) (o2)).getValue()) .compareTo(((Map.Entry) (o1)).getValue());
+                return ((Comparable) ((Map.Entry) (o2)).getValue()).compareTo(((Map.Entry) (o1)).getValue());
             }
         });
 
@@ -207,10 +230,10 @@ public class Frag3_orderchartMerch extends Fragment {
         int count = 4;
         //set all views to non visible
 
-        if(map.size() < 4) {
+        if (map.size() < 4) {
             count = map.size();
         }
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             System.out.println("map size: " + map.size());
             System.out.println("int i: " + i);
             System.out.println("strings for TV: " + stringsforTV);
@@ -221,18 +244,18 @@ public class Frag3_orderchartMerch extends Fragment {
             System.out.println(list.get(i).getValue());
 
         }
-        System.out.println("stringsforTV "+ stringsforTV);
+        System.out.println("stringsforTV " + stringsforTV);
 
 
         //add to textview
         int count1 = 4;
-        if(map.size() < 4) {
+        if (map.size() < 4) {
             count1 = map.size();
         }
         for (int i = 0; i < count1; i++) {
-            System.out.println("stringsforTV.get(i) "+ stringsforTV.get(i));
+            System.out.println("stringsforTV.get(i) " + stringsforTV.get(i));
 
-            if(i==0){
+            if (i == 0) {
                 firstTV.setText(Integer.toString(occurencesforTV.get(i)));
                 first_label.setText(stringsforTV.get(i));
                 firstTV1.setText(stringsforTV.get(i));
@@ -242,7 +265,7 @@ public class Frag3_orderchartMerch extends Fragment {
                                 Integer.parseInt(firstTV.getText().toString()),
                                 Color.parseColor("#111111")));
             }
-            if(i==1){
+            if (i == 1) {
                 secondTV.setText(Integer.toString(occurencesforTV.get(i)));
                 second_label.setText(stringsforTV.get(i));
                 secondTV1.setText(stringsforTV.get(i));
@@ -252,7 +275,7 @@ public class Frag3_orderchartMerch extends Fragment {
                                 Integer.parseInt(secondTV.getText().toString()),
                                 Color.parseColor("#66BB6A")));
             }
-            if(i==2){
+            if (i == 2) {
                 thirdTV.setText(Integer.toString(occurencesforTV.get(i)));
                 third_label.setText(stringsforTV.get(i));
                 thirdTV1.setText(stringsforTV.get(i));
@@ -262,7 +285,7 @@ public class Frag3_orderchartMerch extends Fragment {
                                 Integer.parseInt(thirdTV.getText().toString()),
                                 Color.parseColor("#EF5350")));
             }
-            if(i==3){
+            if (i == 3) {
                 fourthTV.setText(Integer.toString(occurencesforTV.get(i)));
                 fourth_label.setText(stringsforTV.get(i).toString());
                 fourthTV1.setText(stringsforTV.get(i));
@@ -275,16 +298,15 @@ public class Frag3_orderchartMerch extends Fragment {
 
             pieChart.startAnimation();
 
-        }
-
-        //find the top 4 max occurences in hash map
-        for (Map.Entry<String, Integer> set : map.entrySet()) {
-            if (set.getValue() > max) {
-                max = set.getValue();
-                recommendation = set.getKey();
+            //find the top 4 max occurences in hash map
+            for (Map.Entry<String, Integer> set : map.entrySet()) {
+                if (set.getValue() > max) {
+                    max = set.getValue();
+                    recommendation = set.getKey();
+                }
             }
         }
-        return recommendation;
-
+            return recommendation;
     }
 }
+
