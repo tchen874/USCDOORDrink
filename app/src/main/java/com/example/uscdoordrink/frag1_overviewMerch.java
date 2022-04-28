@@ -155,16 +155,16 @@ public class frag1_overviewMerch extends Fragment {
                             int roomTemp = 72;
                             int highTemp = 89;
                             if (fahrenheit <= lowTemp) {
-                                weather += " we recommend you drink a hot beverage today since it is cold outside! Warm up soon ";
+                                weather += " we recommend you sell hot beverages today since it is cold outside! Warm up your customers ";
                             }
                             if ((fahrenheit > lowTemp) &&  (fahrenheit < roomTemp)) {
-                                weather += " we recommend you drink a warm beverage today since it is slightly below room temperature outside! ";
+                                weather += " we recommend you sell warm beverages today since it is slightly below room temperature outside! ";
                             }
                             if ((fahrenheit >= roomTemp) &&  (fahrenheit < highTemp)) {
-                                weather += " we recommend you drink a cold beverage today since it is above room temperature outside! ";
+                                weather += " we recommend you sell cold beverages today since it is above room temperature outside! ";
                             }
                             if ((fahrenheit >= highTemp) ) {
-                                weather += " we recommend you drink a cold beverage IMMEDIATELY today since it is very hot outside! ";
+                                weather += " we recommend you sell cold beverages IMMEDIATELY today since it is very hot outside! ";
                             }
                             textView.setText(weather);
                         } catch (JSONException e) {

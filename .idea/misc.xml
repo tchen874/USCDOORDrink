@@ -57,8 +57,8 @@
         <entry key="app/src/main/res/layout/fragment_frag1_overview_merch.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_frag2_orderlist.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_frag2_orderlist_merch.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_frag3_orderchart.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_frag3_orderchart_merch.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_frag3_orderchart.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_frag3_orderchart_merch.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_history_merchant.xml" value="0.11322188449848024" />
         <entry key="app/src/main/res/layout/fragment_menu_merchant.xml" value="0.22708333333333333" />
         <entry key="app/src/main/res/layout/fragment_merchant_menu.xml" value="0.1" />
