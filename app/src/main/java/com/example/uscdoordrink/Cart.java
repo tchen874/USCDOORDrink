@@ -141,8 +141,6 @@ public class Cart extends AppCompatActivity implements View.OnClickListener, jav
 //            order= (Order) savedInstanceState.getSerializable("CART");
         }
         //wanted to see if current store ID is being passed to cart class
-        System.out.println("stroe ifssss====");
-        System.out.println("stroe if====" + currentStoreid + cart.get(0).getPrice());
         loadView();
     }
 
